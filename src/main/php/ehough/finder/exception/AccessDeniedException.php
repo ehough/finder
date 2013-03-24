@@ -14,6 +14,6 @@
 /**
  * @author Jean-François Simon <jeanfrancois.simon@sensiolabs.com>
  */
-class AccessDeniedException extends \UnexpectedValueException
+class ehough_finder_exception_AccessDeniedException extends UnexpectedValueException
 {
 }

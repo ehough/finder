@@ -11,14 +11,14 @@
 
 //namespace Symfony\Component\Finder\Iterator;
 
-////use Symfony\Component\Finder\Expression\Expression;
+//use Symfony\Component\Finder\Expression\Expression;
 
 /**
- * MultiplePcreFilterIterator filters files using patterns (regexps, globs or strings).
+ * ehough_finder_iterator_MultiplePcreFilterIterator filters files using patterns (regexps, globs or strings).
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class MultiplePcreFilterIterator extends ehough_finder_iterator_FilterIterator
+abstract class ehough_finder_iterator_MultiplePcreFilterIterator extends ehough_finder_iterator_FilterIterator
 {
     protected $matchRegexps;
     protected $noMatchRegexps;
@@ -26,11 +26,11 @@ abstract class MultiplePcreFilterIterator extends ehough_finder_iterator_FilterI
     /**
      * Constructor.
      *
-     * @param \Iterator $iterator        The Iterator to filter
+     * @param Iterator $iterator        The Iterator to filter
      * @param array     $matchPatterns   An array of patterns that need to match
      * @param array     $noMatchPatterns An array of patterns that need to not match
      */
-    public function __construct(\Iterator $iterator, array $matchPatterns, array $noMatchPatterns)
+    public function __construct(Iterator $iterator, array $matchPatterns, array $noMatchPatterns)
     {
         $this->matchRegexps = array();
         foreach ($matchPatterns as $pattern) {
@@ -54,7 +54,7 @@ abstract class MultiplePcreFilterIterator extends ehough_finder_iterator_FilterI
      */
     protected function isRegex($str)
     {
-        return Expression::create($str)->isRegex();
+        return ehough_finder_expression_Expression::create($str)->isRegex();
     }
 
     /**

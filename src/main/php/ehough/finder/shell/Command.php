@@ -14,10 +14,10 @@
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class Command
+class ehough_finder_shell_Command
 {
     /**
-     * @var Command|null
+     * @var ehough_finder_shell_Command|null
      */
     private $parent;
 
@@ -39,9 +39,9 @@ class Command
     /**
      * Constructor.
      *
-     * @param Command $parent Parent command
+     * @param ehough_finder_shell_Command $parent Parent command
      */
-    public function __construct(Command $parent = null)
+    public function __construct(ehough_finder_shell_Command $parent = null)
     {
         $this->parent = $parent;
         $this->bits   = array();
@@ -59,13 +59,13 @@ class Command
     }
 
     /**
-     * Creates a new Command instance.
+     * Creates a new ehough_finder_shell_Command instance.
      *
-     * @param Command $parent Parent command
+     * @param ehough_finder_shell_Command $parent Parent command
      *
-     * @return Command New Command instance
+     * @return ehough_finder_shell_Command New ehough_finder_shell_Command instance
      */
-    public static function create(Command $parent = null)
+    public static function create(ehough_finder_shell_Command $parent = null)
     {
         return new self($parent);
     }
@@ -95,11 +95,11 @@ class Command
     }
 
     /**
-     * Appends a string or a Command instance.
+     * Appends a string or a ehough_finder_shell_Command instance.
      *
-     * @param string|Command $bit
+     * @param string|ehough_finder_shell_Command $bit
      *
-     * @return Command The current Command instance
+     * @return ehough_finder_shell_Command The current ehough_finder_shell_Command instance
      */
     public function add($bit)
     {
@@ -111,9 +111,9 @@ class Command
     /**
      * Prepends a string or a command instance.
      *
-     * @param string|Command $bit
+     * @param string|ehough_finder_shell_Command $bit
      *
-     * @return Command The current Command instance
+     * @return ehough_finder_shell_Command The current ehough_finder_shell_Command instance
      */
     public function top($bit)
     {
@@ -131,7 +131,7 @@ class Command
      *
      * @param string $arg
      *
-     * @return Command The current Command instance
+     * @return ehough_finder_shell_Command The current ehough_finder_shell_Command instance
      */
     public function arg($arg)
     {
@@ -145,7 +145,7 @@ class Command
      *
      * @param string $esc
      *
-     * @return Command The current Command instance
+     * @return ehough_finder_shell_Command The current ehough_finder_shell_Command instance
      */
     public function cmd($esc)
     {
@@ -159,7 +159,7 @@ class Command
      *
      * @param string $label The unique label
      *
-     * @return Command The current Command instance
+     * @return ehough_finder_shell_Command The current ehough_finder_shell_Command instance
      *
      * @throws \RuntimeException If label already exists
      */
@@ -180,7 +180,7 @@ class Command
      *
      * @param string $label
      *
-     * @return Command The labeled command
+     * @return ehough_finder_shell_Command The labeled command
      *
      * @throws \RuntimeException
      */
@@ -196,7 +196,7 @@ class Command
     /**
      * Returns parent command (if any).
      *
-     * @return Command Parent command
+     * @return ehough_finder_shell_Command Parent command
      *
      * @throws \RuntimeException If command has no parent
      */
@@ -222,7 +222,7 @@ class Command
     /**
      * @param \Closure $errorHandler
      *
-     * @return Command
+     * @return ehough_finder_shell_Command
      */
     public function setErrorHandler(\Closure $errorHandler)
     {
@@ -273,19 +273,19 @@ class Command
     {
         return implode(' ', array_filter(
             array_map(function($bit) {
-                return $bit instanceof Command ? $bit->join() : ($bit ?: null);
+                return $bit instanceof ehough_finder_shell_Command ? $bit->join() : ($bit ?: null);
             }, $this->bits),
             function($bit) { return null !== $bit; }
         ));
     }
 
     /**
-     * Insert a string or a Command instance before the bit at given position $index (index starts from 0).
+     * Insert a string or a ehough_finder_shell_Command instance before the bit at given position $index (index starts from 0).
      *
-     * @param string|Command $bit
+     * @param string|ehough_finder_shell_Command $bit
      * @param integer        $index
      *
-     * @return Command The current Command instance
+     * @return ehough_finder_shell_Command The current ehough_finder_shell_Command instance
      */
     public function addAtIndex($bit, $index)
     {

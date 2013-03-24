@@ -11,32 +11,32 @@
 
 //namespace Symfony\Component\Finder\Exception;
 
-////use Symfony\Component\Finder\Adapter\AdapterInterface;
-////use Symfony\Component\Finder\Shell\Command;
+//use Symfony\Component\Finder\Adapter\AdapterInterface;
+//use Symfony\Component\Finder\Shell\Command;
 
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class ShellCommandFailureException extends AdapterFailureException
+class ShellCommandFailureException extends ehough_finder_exception_AdapterFailureException
 {
     /**
-     * @var Command
+     * @var ehough_finder_shell_Command
      */
     private $command;
 
     /**
-     * @param AdapterInterface $adapter
-     * @param Command          $command
+     * @param ehough_finder_adapter_AdapterInterface $adapter
+     * @param ehough_finder_shell_Command          $command
      * @param \Exception|null  $previous
      */
-    public function __construct(AdapterInterface $adapter, Command $command, \Exception $previous = null)
+    public function __construct(ehough_finder_adapter_AdapterInterface $adapter, ehough_finder_shell_Command $command, \Exception $previous = null)
     {
         $this->command = $command;
         parent::__construct($adapter, 'Shell command failed: "'.$command->join().'".', $previous);
     }
 
     /**
-     * @return Command
+     * @return ehough_finder_shell_Command
      */
     public function getCommand()
     {

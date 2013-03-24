@@ -16,7 +16,7 @@
  *
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-abstract class AbstractAdapter implements AdapterInterface
+abstract class ehough_finder_adapter_AbstractAdapter implements ehough_finder_adapter_AdapterInterface
 {
     protected $followLinks = false;
     protected $mode        = 0;

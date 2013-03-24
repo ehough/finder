@@ -11,17 +11,17 @@
 
 ////namespace Symfony\Component\Finder\Adapter;
 
-////use Symfony\Component\Finder\Shell\Shell;
-////use Symfony\Component\Finder\Shell\Command;
-////use Symfony\Component\Finder\Iterator\SortableIterator;
-////use Symfony\Component\Finder\Expression\Expression;
+//use Symfony\Component\Finder\Shell\Shell;
+//use Symfony\Component\Finder\Shell\Command;
+//use Symfony\Component\Finder\Iterator\SortableIterator;
+//use Symfony\Component\Finder\Expression\Expression;
 
 /**
  * Shell engine implementation using GNU find command.
  *
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class GnuFindAdapter extends AbstractFindAdapter
+class ehough_finder_adapter_GnuFindAdapter extends ehough_finder_adapter_AbstractFindAdapter
 {
     /**
      * {@inheritdoc}
@@ -34,27 +34,27 @@ class GnuFindAdapter extends AbstractFindAdapter
     /**
      * {@inheritdoc}
      */
-    protected function buildFormatSorting(Command $command, $sort)
+    protected function buildFormatSorting(ehough_finder_shell_Command $command, $sort)
     {
         switch ($sort) {
-            case SortableIterator::SORT_BY_NAME:
+            case ehough_finder_iterator_SortableIterator::SORT_BY_NAME:
                 $command->ins('sort')->add('| sort');
 
                 return;
-            case SortableIterator::SORT_BY_TYPE:
+            case ehough_finder_iterator_SortableIterator::SORT_BY_TYPE:
                 $format = '%y';
                 break;
-            case SortableIterator::SORT_BY_ACCESSED_TIME:
+            case ehough_finder_iterator_SortableIterator::SORT_BY_ACCESSED_TIME:
                 $format = '%A@';
                 break;
-            case SortableIterator::SORT_BY_CHANGED_TIME:
+            case ehough_finder_iterator_SortableIterator::SORT_BY_CHANGED_TIME:
                 $format = '%C@';
                 break;
-            case SortableIterator::SORT_BY_MODIFIED_TIME:
+            case ehough_finder_iterator_SortableIterator::SORT_BY_MODIFIED_TIME:
                 $format = '%T@';
                 break;
             default:
-                throw new \InvalidArgumentException('Unknown sort options: '.$sort.'.');
+                throw new InvalidArgumentException('Unknown sort options: '.$sort.'.');
         }
 
         $command
@@ -72,13 +72,13 @@ class GnuFindAdapter extends AbstractFindAdapter
      */
     protected function canBeUsed()
     {
-        return $this->shell->getType() === Shell::TYPE_UNIX && parent::canBeUsed();
+        return $this->shell->getType() === ehough_finder_shell_Shell::TYPE_UNIX && parent::canBeUsed();
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function buildFindCommand(Command $command, $dir)
+    protected function buildFindCommand(ehough_finder_shell_Command $command, $dir)
     {
       return parent::buildFindCommand($command, $dir)->add('-regextype posix-extended');
     }
@@ -86,10 +86,10 @@ class GnuFindAdapter extends AbstractFindAdapter
     /**
      * {@inheritdoc}
      */
-    protected function buildContentFiltering(Command $command, array $contains, $not = false)
+    protected function buildContentFiltering(ehough_finder_shell_Command $command, array $contains, $not = false)
     {
         foreach ($contains as $contain) {
-            $expr = Expression::create($contain);
+            $expr = ehough_finder_expression_Expression::create($contain);
 
             // todo: avoid forking process for each $pattern by using multiple -e options
             $command

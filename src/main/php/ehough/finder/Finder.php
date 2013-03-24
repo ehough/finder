@@ -11,11 +11,11 @@
 
 ////namespace Symfony\Component\Finder;
 
-////use Symfony\Component\Finder\Adapter\AdapterInterface;
-////use Symfony\Component\Finder\Adapter\GnuFindAdapter;
-////use Symfony\Component\Finder\Adapter\BsdFindAdapter;
-////use Symfony\Component\Finder\Adapter\PhpAdapter;
-////use Symfony\Component\Finder\Exception\ExceptionInterface;
+//use Symfony\Component\Finder\Adapter\AdapterInterface;
+//use Symfony\Component\Finder\Adapter\GnuFindAdapter;
+//use Symfony\Component\Finder\Adapter\BsdFindAdapter;
+//use Symfony\Component\Finder\Adapter\PhpAdapter;
+//use Symfony\Component\Finder\Exception\ExceptionInterface;
 
 /**
  * ehough_finder_Finder allows to build rules to find files and directories.
@@ -66,9 +66,9 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
         $this->ignore = static::IGNORE_VCS_FILES | static::IGNORE_DOT_FILES;
 
         $this
-            ->addAdapter(new GnuFindAdapter())
-            ->addAdapter(new BsdFindAdapter())
-            ->addAdapter(new PhpAdapter(), -50)
+            ->addAdapter(new ehough_finder_adapter_GnuFindAdapter())
+            ->addAdapter(new ehough_finder_adapter_BsdFindAdapter())
+            ->addAdapter(new ehough_finder_adapter_PhpAdapter(), -50)
             ->setAdapter('php')
         ;
     }
@@ -93,7 +93,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      *
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      */
-    public function addAdapter(Adapter\AdapterInterface $adapter, $priority = 0)
+    public function addAdapter(ehough_finder_adapter_AdapterInterface $adapter, $priority = 0)
     {
         $this->adapters[$adapter->getName()] = array(
             'adapter'  => $adapter,
@@ -170,7 +170,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      */
     public function directories()
     {
-        $this->mode = Iterator\FileTypeFilterIterator::ONLY_DIRECTORIES;
+        $this->mode = ehough_finder_iterator_FileTypeFilterIterator::ONLY_DIRECTORIES;
 
         return $this;
     }
@@ -184,7 +184,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      */
     public function files()
     {
-        $this->mode = Iterator\FileTypeFilterIterator::ONLY_FILES;
+        $this->mode = ehough_finder_iterator_FileTypeFilterIterator::ONLY_FILES;
 
         return $this;
     }
@@ -208,7 +208,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      */
     public function depth($level)
     {
-        $this->depths[] = new Comparator\NumberComparator($level);
+        $this->depths[] = new ehough_finder_comparator_NumberComparator($level);
 
         return $this;
     }
@@ -235,7 +235,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      */
     public function date($date)
     {
-        $this->dates[] = new Comparator\DateComparator($date);
+        $this->dates[] = new ehough_finder_comparator_DateComparator($date);
 
         return $this;
     }
@@ -388,7 +388,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      */
     public function size($size)
     {
-        $this->sizes[] = new Comparator\NumberComparator($size);
+        $this->sizes[] = new ehough_finder_comparator_NumberComparator($size);
 
         return $this;
     }
@@ -506,7 +506,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      */
     public function sortByName()
     {
-        $this->sort = Iterator\SortableIterator::SORT_BY_NAME;
+        $this->sort = ehough_finder_iterator_SortableIterator::SORT_BY_NAME;
 
         return $this;
     }
@@ -524,7 +524,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      */
     public function sortByType()
     {
-        $this->sort = Iterator\SortableIterator::SORT_BY_TYPE;
+        $this->sort = ehough_finder_iterator_SortableIterator::SORT_BY_TYPE;
 
         return $this;
     }
@@ -544,7 +544,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      */
     public function sortByAccessedTime()
     {
-        $this->sort = Iterator\SortableIterator::SORT_BY_ACCESSED_TIME;
+        $this->sort = ehough_finder_iterator_SortableIterator::SORT_BY_ACCESSED_TIME;
 
         return $this;
     }
@@ -566,7 +566,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      */
     public function sortByChangedTime()
     {
-        $this->sort = Iterator\SortableIterator::SORT_BY_CHANGED_TIME;
+        $this->sort = ehough_finder_iterator_SortableIterator::SORT_BY_CHANGED_TIME;
 
         return $this;
     }
@@ -586,7 +586,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      */
     public function sortByModifiedTime()
     {
-        $this->sort = Iterator\SortableIterator::SORT_BY_MODIFIED_TIME;
+        $this->sort = ehough_finder_iterator_SortableIterator::SORT_BY_MODIFIED_TIME;
 
         return $this;
     }
@@ -766,7 +766,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
                     return $this
                         ->buildAdapter($adapter['adapter'])
                         ->searchInDirectory($dir);
-                } catch (ExceptionInterface $e) {}
+                } catch (ehough_finder_exception_ExceptionInterface $e) {}
             }
         }
 

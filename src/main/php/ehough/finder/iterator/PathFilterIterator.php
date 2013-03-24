@@ -12,12 +12,12 @@
 //namespace Symfony\Component\Finder\Iterator;
 
 /**
- * PathFilterIterator filters files by path patterns (e.g. some/special/dir).
+ * ehough_finder_iterator_PathFilterIterator filters files by path patterns (e.g. some/special/dir).
  *
  * @author Fabien Potencier  <fabien@symfony.com>
  * @author Włodzimierz Gajda <gajdaw@gajdaw.pl>
  */
-class PathFilterIterator extends MultiplePcreFilterIterator
+class ehough_finder_iterator_PathFilterIterator extends ehough_finder_iterator_MultiplePcreFilterIterator
 {
 
     /**

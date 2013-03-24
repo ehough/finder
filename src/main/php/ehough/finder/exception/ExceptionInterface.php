@@ -5,10 +5,10 @@
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-interface ExceptionInterface
+interface ehough_finder_exception_ExceptionInterface
 {
     /**
-     * @return \Symfony\Component\Finder\Adapter\AdapterInterface
+     * @return ehough_finder_adapter_AdapterInterface
      */
     public function getAdapter();
 }

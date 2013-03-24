@@ -11,24 +11,24 @@
 
 //namespace Symfony\Component\Finder\Iterator;
 
-////use Symfony\Component\Finder\Comparator\NumberComparator;
+//use Symfony\Component\Finder\Comparator\NumberComparator;
 
 /**
- * SizeRangeFilterIterator filters out files that are not in the given size range.
+ * ehough_finder_iterator_SizeRangeFilterIterator filters out files that are not in the given size range.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class SizeRangeFilterIterator extends ehough_finder_iterator_FilterIterator
+class ehough_finder_iterator_SizeRangeFilterIterator extends ehough_finder_iterator_FilterIterator
 {
     private $comparators = array();
 
     /**
      * Constructor.
      *
-     * @param \Iterator          $iterator    The Iterator to filter
-     * @param NumberComparator[] $comparators An array of NumberComparator instances
+     * @param Iterator          $iterator    The Iterator to filter
+     * @param ehough_finder_comparator_NumberComparator[] $comparators An array of ehough_finder_comparator_NumberComparator instances
      */
-    public function __construct(\Iterator $iterator, array $comparators)
+    public function __construct(Iterator $iterator, array $comparators)
     {
         $this->comparators = $comparators;
 

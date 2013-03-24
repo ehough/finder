@@ -14,7 +14,7 @@
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class Glob implements ValueInterface
+class ehough_finder_expression_Glob implements ehough_finder_expression_ValueInterface
 {
     /**
      * @var string
@@ -50,7 +50,7 @@ class Glob implements ValueInterface
      */
     public function getType()
     {
-        return Expression::TYPE_GLOB;
+        return ehough_finder_expression_Expression::TYPE_GLOB;
     }
 
     /**
@@ -96,7 +96,7 @@ class Glob implements ValueInterface
      * @param bool $strictLeadingDot
      * @param bool $strictWildcardSlash
      *
-     * @return Regex
+     * @return ehough_finder_expression_Regex
      */
     public function toRegex($strictLeadingDot = true, $strictWildcardSlash = true)
     {
@@ -152,6 +152,6 @@ class Glob implements ValueInterface
             $escaping = false;
         }
 
-        return new Regex('^'.$regex.'$');
+        return new ehough_finder_expression_Regex('^'.$regex.'$');
     }
 }

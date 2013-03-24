@@ -14,20 +14,20 @@
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class Expression implements ValueInterface
+class ehough_finder_expression_Expression implements ehough_finder_expression_ValueInterface
 {
     const TYPE_REGEX = 1;
     const TYPE_GLOB  = 2;
 
     /**
-     * @var ValueInterface
+     * @var ehough_finder_expression_ValueInterface
      */
     private $value;
 
     /**
      * @param string $expr
      *
-     * @return Expression
+     * @return ehough_finder_expression_Expression
      */
     public static function create($expr)
     {
@@ -40,9 +40,9 @@ class Expression implements ValueInterface
     public function __construct($expr)
     {
         try {
-            $this->value = Regex::create($expr);
+            $this->value = ehough_finder_expression_Regex::create($expr);
         } catch (\InvalidArgumentException $e) {
-            $this->value = new Glob($expr);
+            $this->value = new ehough_finder_expression_Glob($expr);
         }
     }
 
@@ -125,7 +125,7 @@ class Expression implements ValueInterface
     /**
      * @throws \LogicException
      *
-     * @return Glob
+     * @return ehough_finder_expression_Glob
      */
     public function getGlob()
     {
@@ -137,7 +137,7 @@ class Expression implements ValueInterface
     }
 
     /**
-     * @return Regex
+     * @return ehough_finder_expression_Regex
      */
     public function getRegex()
     {

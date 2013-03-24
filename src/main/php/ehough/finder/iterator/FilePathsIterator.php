@@ -11,14 +11,14 @@
 
 //namespace Symfony\Component\Finder\Iterator;
 
-////use Symfony\Component\Finder\SplFileInfo;
+//use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * Iterate over shell command result.
  *
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class FilePathsIterator extends \ArrayIterator
+class ehough_finder_iterator_FilePathsIterator extends ArrayIterator
 {
     /**
      * @var string
@@ -126,6 +126,6 @@ class FilePathsIterator extends \ArrayIterator
             $this->subPath = $this->subPathname = '';
         }
 
-        $this->current = new SplFileInfo(parent::current(), $this->subPath, $this->subPathname);
+        $this->current = new ehough_finder_SplFileInfo(parent::current(), $this->subPath, $this->subPathname);
     }
 }

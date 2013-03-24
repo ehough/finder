@@ -11,14 +11,14 @@
 
 //namespace Symfony\Component\Finder\Iterator;
 
-////use Symfony\Component\Finder\Expression\Expression;
+//use Symfony\Component\Finder\Expression\Expression;
 
 /**
- * FilenameFilterIterator filters files by patterns (a regexp, a glob, or a string).
+ * ehough_finder_iterator_FilenameFilterIterator filters files by patterns (a regexp, a glob, or a string).
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class FilenameFilterIterator extends MultiplePcreFilterIterator
+class ehough_finder_iterator_FilenameFilterIterator extends ehough_finder_iterator_MultiplePcreFilterIterator
 {
 
     /**
@@ -55,7 +55,7 @@ class FilenameFilterIterator extends MultiplePcreFilterIterator
      * Converts glob to regexp.
      *
      * PCRE patterns are left unchanged.
-     * Glob strings are transformed with Glob::toRegex().
+     * ehough_finder_expression_Glob strings are transformed with ehough_finder_expression_Glob::toRegex().
      *
      * @param string $str Pattern: glob or regexp
      *
@@ -63,6 +63,6 @@ class FilenameFilterIterator extends MultiplePcreFilterIterator
      */
     protected function toRegex($str)
     {
-        return Expression::create($str)->getRegex()->render();
+        return ehough_finder_expression_Expression::create($str)->getRegex()->render();
     }
 }

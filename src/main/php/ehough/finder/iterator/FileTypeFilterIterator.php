@@ -12,11 +12,11 @@
 //namespace Symfony\Component\Finder\Iterator;
 
 /**
- * FileTypeFilterIterator only keeps files, directories, or both.
+ * ehough_finder_iterator_FileTypeFilterIterator only keeps files, directories, or both.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class FileTypeFilterIterator extends ehough_finder_iterator_FilterIterator
+class ehough_finder_iterator_FileTypeFilterIterator extends ehough_finder_iterator_FilterIterator
 {
     const ONLY_FILES       = 1;
     const ONLY_DIRECTORIES = 2;
@@ -29,7 +29,7 @@ class FileTypeFilterIterator extends ehough_finder_iterator_FilterIterator
      * @param \Iterator $iterator The Iterator to filter
      * @param integer   $mode     The mode (self::ONLY_FILES or self::ONLY_DIRECTORIES)
      */
-    public function __construct(\Iterator $iterator, $mode)
+    public function __construct(Iterator $iterator, $mode)
     {
         $this->mode = $mode;
 

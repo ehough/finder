@@ -11,26 +11,26 @@
 
 //namespace Symfony\Component\Finder\Exception;
 
-////use Symfony\Component\Finder\Adapter\AdapterInterface;
+//use Symfony\Component\Finder\Adapter\AdapterInterface;
 
 /**
  * Base exception for all adapter failures.
  *
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class AdapterFailureException extends \RuntimeException implements ExceptionInterface
+class ehough_finder_exception_AdapterFailureException extends RuntimeException implements ehough_finder_exception_ExceptionInterface
 {
     /**
-     * @var \Symfony\Component\Finder\Adapter\AdapterInterface
+     * @var ehough_finder_adapter_AdapterInterface
      */
     private $adapter;
 
     /**
-     * @param AdapterInterface $adapter
+     * @param ehough_finder_adapter_AdapterInterface $adapter
      * @param string|null      $message
      * @param \Exception|null  $previous
      */
-    public function __construct(AdapterInterface $adapter, $message = null, \Exception $previous = null)
+    public function __construct(ehough_finder_adapter_AdapterInterface $adapter, $message = null, \Exception $previous = null)
     {
         $this->adapter = $adapter;
         parent::__construct($message ?: 'Search failed with "'.$adapter->getName().'" adapter.', $previous);

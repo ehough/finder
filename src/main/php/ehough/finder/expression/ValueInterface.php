@@ -14,7 +14,7 @@
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-interface ValueInterface
+interface ehough_finder_expression_ValueInterface
 {
     /**
      * Renders string representation of expression.
@@ -47,14 +47,14 @@ interface ValueInterface
     /**
      * @param string $expr
      *
-     * @return ValueInterface
+     * @return ehough_finder_expression_ValueInterface
      */
     public function prepend($expr);
 
     /**
      * @param string $expr
      *
-     * @return ValueInterface
+     * @return ehough_finder_expression_ValueInterface
      */
     public function append($expr);
 }

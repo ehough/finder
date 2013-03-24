@@ -23,7 +23,7 @@
  *   if (/$regex/) echo "matched: $car\n";
  * }
  *
- * Glob implements glob(3) style matching that can be used to match
+ * ehough_finder_expression_Glob implements glob(3) style matching that can be used to match
  * against text, rather than fetching names from a filesystem.
  *
  * Based on the Perl Text::Glob module.
@@ -33,7 +33,7 @@
  * @copyright  2004-2005 Fabien Potencier <fabien@symfony.com>
  * @copyright  2002 Richard Clamp <richardc@unixbeard.net>
  */
-class Glob
+class ehough_finder_expression_Glob
 {
     /**
      * Returns a regexp which is the equivalent of the glob pattern.

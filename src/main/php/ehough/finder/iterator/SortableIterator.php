@@ -12,11 +12,11 @@
 //namespace Symfony\Component\Finder\Iterator;
 
 /**
- * SortableIterator applies a sort on a given Iterator.
+ * ehough_finder_iterator_SortableIterator applies a sort on a given Iterator.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class SortableIterator implements \IteratorAggregate
+class ehough_finder_iterator_SortableIterator implements IteratorAggregate
 {
     const SORT_BY_NAME = 1;
     const SORT_BY_TYPE = 2;
@@ -30,12 +30,12 @@ class SortableIterator implements \IteratorAggregate
     /**
      * Constructor.
      *
-     * @param \Traversable     $iterator The Iterator to filter
+     * @param Traversable     $iterator The Iterator to filter
      * @param integer|callback $sort     The sort type (SORT_BY_NAME, SORT_BY_TYPE, or a PHP callback)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function __construct(\Traversable $iterator, $sort)
+    public function __construct(Traversable $iterator, $sort)
     {
         $this->iterator = $iterator;
 
@@ -68,7 +68,7 @@ class SortableIterator implements \IteratorAggregate
         } elseif (is_callable($sort)) {
             $this->sort = $sort;
         } else {
-            throw new \InvalidArgumentException('The SortableIterator takes a PHP callback or a valid built-in sort algorithm as an argument.');
+            throw new InvalidArgumentException('The ehough_finder_iterator_SortableIterator takes a PHP callback or a valid built-in sort algorithm as an argument.');
         }
     }
 
@@ -77,6 +77,6 @@ class SortableIterator implements \IteratorAggregate
         $array = iterator_to_array($this->iterator, true);
         uasort($array, $this->sort);
 
-        return new \ArrayIterator($array);
+        return new ArrayIterator($array);
     }
 }

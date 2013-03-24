@@ -12,21 +12,21 @@
 //namespace Symfony\Component\Finder\Iterator;
 
 /**
- * ExcludeDirectoryFilterIterator filters out directories.
+ * ehough_finder_iterator_ExcludeDirectoryFilterIterator filters out directories.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ExcludeDirectoryFilterIterator extends ehough_finder_iterator_FilterIterator
+class ehough_finder_iterator_ExcludeDirectoryFilterIterator extends ehough_finder_iterator_FilterIterator
 {
     private $patterns;
 
     /**
      * Constructor.
      *
-     * @param \Iterator $iterator    The Iterator to filter
+     * @param Iterator $iterator    The Iterator to filter
      * @param array     $directories An array of directories to exclude
      */
-    public function __construct(\Iterator $iterator, array $directories)
+    public function __construct(Iterator $iterator, array $directories)
     {
         $this->patterns = array();
         foreach ($directories as $directory) {

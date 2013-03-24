@@ -12,11 +12,11 @@
 //namespace Symfony\Component\Finder\Comparator;
 
 /**
- * Comparator.
+ * ehough_finder_comparator_Comparator.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Comparator
+class ehough_finder_comparator_Comparator
 {
     private $target;
     private $operator = '==';
@@ -56,7 +56,7 @@ class Comparator
      *
      * @param string $operator A valid operator
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function setOperator($operator)
     {
@@ -65,7 +65,7 @@ class Comparator
         }
 
         if (!in_array($operator, array('>', '<', '>=', '<=', '==', '!='))) {
-            throw new \InvalidArgumentException(sprintf('Invalid operator "%s".', $operator));
+            throw new InvalidArgumentException(sprintf('Invalid operator "%s".', $operator));
         }
 
         $this->operator = $operator;

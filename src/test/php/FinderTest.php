@@ -15,12 +15,18 @@
 //use Symfony\Component\Finder\Adapter;
 //use Symfony\Component\Finder\Tests\FakeAdapter;
 
-class ehough_finder_FinderTest extends Iterator\RealIteratorTestCase
+require_once dirname(__FILE__) . '/iterator/RealIteratorTestCase.php';
+require_once 'fakeadapter/DummyAdapter.php';
+require_once 'fakeadapter/FailingAdapter.php';
+require_once 'fakeadapter/NamedAdapter.php';
+require_once 'fakeadapter/UnsupportedAdapter.php';
+
+class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCase
 {
 
     public function testCreate()
     {
-        $this->assertInstanceOf('Symfony\Component\Finder\Finder', ehough_finder_Finder::create());
+        $this->assertInstanceOf('ehough_finder_Finder', ehough_finder_Finder::create());
     }
 
     /**
@@ -446,7 +452,7 @@ class ehough_finder_FinderTest extends Iterator\RealIteratorTestCase
      */
     public function testAppendReturnsAFinder($adapter)
     {
-        $this->assertInstanceOf('Symfony\\Component\\Finder\\Finder', $this->buildFinder($adapter)->append(array()));
+        $this->assertInstanceOf('ehough_finder_Finder', $this->buildFinder($adapter)->append(array()));
     }
 
     /**
@@ -513,7 +519,7 @@ class ehough_finder_FinderTest extends Iterator\RealIteratorTestCase
     /**
      * @dataProvider getAdaptersTestData
      */
-    public function testContainsOnDirectory(Adapter\AdapterInterface $adapter)
+    public function testContainsOnDirectory(ehough_finder_adapter_AdapterInterface $adapter)
     {
         $finder = $this->buildFinder($adapter);
         $finder->in(__DIR__)
@@ -526,7 +532,7 @@ class ehough_finder_FinderTest extends Iterator\RealIteratorTestCase
     /**
      * @dataProvider getAdaptersTestData
      */
-    public function testNotContainsOnDirectory(Adapter\AdapterInterface $adapter)
+    public function testNotContainsOnDirectory(ehough_finder_adapter_AdapterInterface $adapter)
     {
         $finder = $this->buildFinder($adapter);
         $finder->in(__DIR__)
@@ -544,7 +550,7 @@ class ehough_finder_FinderTest extends Iterator\RealIteratorTestCase
      *
      * @dataProvider getAdaptersTestData
      */
-    public function testMultipleLocations(Adapter\AdapterInterface $adapter)
+    public function testMultipleLocations(ehough_finder_adapter_AdapterInterface $adapter)
     {
         $locations = array(
             self::$tmpDir.'/',
@@ -563,7 +569,7 @@ class ehough_finder_FinderTest extends Iterator\RealIteratorTestCase
      *
      * @dataProvider getAdaptersTestData
      */
-    public function testIteratorKeys(Adapter\AdapterInterface $adapter)
+    public function testIteratorKeys(ehough_finder_adapter_AdapterInterface $adapter)
     {
         $finder = $this->buildFinder($adapter)->in(self::$tmpDir);
         foreach ($finder as $key => $file) {
@@ -575,15 +581,15 @@ class ehough_finder_FinderTest extends Iterator\RealIteratorTestCase
     {
         $finder = ehough_finder_Finder::create()
             ->removeAdapters()
-            ->addAdapter(new FakeAdapter\NamedAdapter('a'), 0)
-            ->addAdapter(new FakeAdapter\NamedAdapter('b'), -50)
-            ->addAdapter(new FakeAdapter\NamedAdapter('c'), 50)
-            ->addAdapter(new FakeAdapter\NamedAdapter('d'), -25)
-            ->addAdapter(new FakeAdapter\NamedAdapter('e'), 25);
+            ->addAdapter(new ehough_finder_fakeadapter_NamedAdapter('a'), 0)
+            ->addAdapter(new ehough_finder_fakeadapter_NamedAdapter('b'), -50)
+            ->addAdapter(new ehough_finder_fakeadapter_NamedAdapter('c'), 50)
+            ->addAdapter(new ehough_finder_fakeadapter_NamedAdapter('d'), -25)
+            ->addAdapter(new ehough_finder_fakeadapter_NamedAdapter('e'), 25);
 
         $this->assertEquals(
             array('c', 'e', 'a', 'd', 'b'),
-            array_map(function(Adapter\AdapterInterface $adapter) {
+            array_map(function(ehough_finder_adapter_AdapterInterface $adapter) {
                 return $adapter->getName();
             }, $finder->getAdapters())
         );
@@ -594,14 +600,14 @@ class ehough_finder_FinderTest extends Iterator\RealIteratorTestCase
         $iterator  = new \ArrayIterator(array());
         $filenames = $this->toAbsolute(array('foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto'));
         foreach ($filenames as $file) {
-            $iterator->append(new \Symfony\Component\Finder\SplFileInfo($file, null, null));
+            $iterator->append(new ehough_finder_SplFileInfo($file, null, null));
         }
 
         $finder = ehough_finder_Finder::create()
             ->removeAdapters()
-            ->addAdapter(new FakeAdapter\UnsupportedAdapter(), 3)
-            ->addAdapter(new FakeAdapter\FailingAdapter(), 2)
-            ->addAdapter(new FakeAdapter\DummyAdapter($iterator), 1);
+            ->addAdapter(new ehough_finder_fakeadapter_UnsupportedAdapter(), 3)
+            ->addAdapter(new ehough_finder_fakeadapter_FailingAdapter(), 2)
+            ->addAdapter(new ehough_finder_fakeadapter_DummyAdapter($iterator), 1);
 
         $this->assertIterator($filenames, $finder->in(sys_get_temp_dir())->getIterator());
     }
@@ -645,7 +651,7 @@ class ehough_finder_FinderTest extends Iterator\RealIteratorTestCase
     /**
      * @dataProvider getTestPathData
      */
-    public function testPath(Adapter\AdapterInterface $adapter, $matchPatterns, $noMatchPatterns, array $expected)
+    public function testPath(ehough_finder_adapter_AdapterInterface $adapter, $matchPatterns, $noMatchPatterns, array $expected)
     {
         $finder = $this->buildFinder($adapter);
         $finder->in(__DIR__.DIRECTORY_SEPARATOR.'Fixtures')
@@ -657,17 +663,17 @@ class ehough_finder_FinderTest extends Iterator\RealIteratorTestCase
 
     public function testAdapterSelection()
     {
-        // test that by default, PhpAdapter is selected
+        // test that by default, ehough_finder_adapter_PhpAdapter is selected
         $adapters = ehough_finder_Finder::create()->getAdapters();
-        $this->assertTrue($adapters[0] instanceof Adapter\PhpAdapter);
+        $this->assertTrue($adapters[0] instanceof ehough_finder_adapter_PhpAdapter);
 
         // test another adapter selection
         $adapters = ehough_finder_Finder::create()->setAdapter('gnu_find')->getAdapters();
-        $this->assertTrue($adapters[0] instanceof Adapter\GnuFindAdapter);
+        $this->assertTrue($adapters[0] instanceof ehough_finder_adapter_GnuFindAdapter);
 
         // test that useBestAdapter method removes selection
         $adapters = ehough_finder_Finder::create()->useBestAdapter()->getAdapters();
-        $this->assertFalse($adapters[0] instanceof Adapter\PhpAdapter);
+        $this->assertFalse($adapters[0] instanceof ehough_finder_adapter_PhpAdapter);
     }
 
     public function getTestPathData()
@@ -720,7 +726,7 @@ class ehough_finder_FinderTest extends Iterator\RealIteratorTestCase
     /**
      * @dataProvider getAdaptersTestData
      */
-    public function testAccessDeniedException(Adapter\AdapterInterface $adapter)
+    public function testAccessDeniedException(ehough_finder_adapter_AdapterInterface $adapter)
     {
         $finder = $this->buildFinder($adapter);
         $finder->files()->in(self::$tmpDir);
@@ -732,7 +738,7 @@ class ehough_finder_FinderTest extends Iterator\RealIteratorTestCase
             $this->assertIterator($this->toAbsolute(array('test.php', 'test.py')), $finder->getIterator());
             $this->fail('Finder should throw an exception when opening a non-readable directory.');
         } catch (\Exception $e) {
-            $this->assertEquals('Symfony\\Component\\Finder\\Exception\\AccessDeniedException', get_class($e));
+            $this->assertEquals('ehough_finder_exception_AccessDeniedException', get_class($e));
         }
 
         chmod(self::$tmpDir.DIRECTORY_SEPARATOR.'foo', 0777);
@@ -750,7 +756,7 @@ class ehough_finder_FinderTest extends Iterator\RealIteratorTestCase
         return $data;
     }
 
-    private function buildFinder(Adapter\AdapterInterface $adapter)
+    private function buildFinder(ehough_finder_adapter_AdapterInterface $adapter)
     {
         return ehough_finder_Finder::create()
             ->removeAdapters()
@@ -761,11 +767,11 @@ class ehough_finder_FinderTest extends Iterator\RealIteratorTestCase
     {
         return array_filter(
             array(
-                new Adapter\BsdFindAdapter(),
-                new Adapter\GnuFindAdapter(),
-                new Adapter\PhpAdapter()
+                new ehough_finder_adapter_BsdFindAdapter(),
+                new ehough_finder_adapter_GnuFindAdapter(),
+                new ehough_finder_adapter_PhpAdapter()
             ),
-            function (Adapter\AdapterInterface $adapter)  {
+            function (ehough_finder_adapter_AdapterInterface $adapter)  {
                 return $adapter->isSupported();
             }
         );

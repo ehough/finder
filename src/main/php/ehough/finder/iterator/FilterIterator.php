@@ -29,7 +29,7 @@ abstract class ehough_finder_iterator_FilterIterator extends FilterIterator
     public function rewind()
     {
         $iterator = $this;
-        while ($iterator instanceof \OuterIterator) {
+        while ($iterator instanceof OuterIterator) {
             if ($iterator->getInnerIterator() instanceof \FilesystemIterator) {
                 $iterator->getInnerIterator()->next();
                 $iterator->getInnerIterator()->rewind();

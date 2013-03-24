@@ -12,7 +12,7 @@
 //namespace Symfony\Component\Finder\Comparator;
 
 /**
- * NumberComparator compiles a simple comparison to an anonymous
+ * ehough_finder_comparator_NumberComparator compiles a simple comparison to an anonymous
  * subroutine, which you can call with a value to be tested again.
  *
  * Now this would be very pointless, if NumberCompare didn't understand
@@ -33,7 +33,7 @@
  *
  * @see       http://physics.nist.gov/cuu/Units/binary.html
  */
-class NumberComparator extends Comparator
+class ehough_finder_comparator_NumberComparator extends ehough_finder_comparator_Comparator
 {
     /**
      * Constructor.
@@ -45,12 +45,12 @@ class NumberComparator extends Comparator
     public function __construct($test)
     {
         if (!preg_match('#^\s*(==|!=|[<>]=?)?\s*([0-9\.]+)\s*([kmg]i?)?\s*$#i', $test, $matches)) {
-            throw new \InvalidArgumentException(sprintf('Don\'t understand "%s" as a number test.', $test));
+            throw new InvalidArgumentException(sprintf('Don\'t understand "%s" as a number test.', $test));
         }
 
         $target = $matches[2];
         if (!is_numeric($target)) {
-            throw new \InvalidArgumentException(sprintf('Invalid number "%s".', $target));
+            throw new InvalidArgumentException(sprintf('Invalid number "%s".', $target));
         }
         if (isset($matches[3])) {
             // magnitude

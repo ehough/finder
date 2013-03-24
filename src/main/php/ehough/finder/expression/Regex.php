@@ -14,7 +14,7 @@
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class Regex implements ValueInterface
+class ehough_finder_expression_Regex implements ehough_finder_expression_ValueInterface
 {
     const START_FLAG = '^';
     const END_FLAG   = '$';
@@ -55,7 +55,7 @@ class Regex implements ValueInterface
     /**
      * @param string $expr
      *
-     * @return Regex
+     * @return ehough_finder_expression_Regex
      *
      * @throws \InvalidArgumentException
      */
@@ -133,7 +133,7 @@ class Regex implements ValueInterface
      */
     public function getType()
     {
-        return Expression::TYPE_REGEX;
+        return ehough_finder_expression_Expression::TYPE_REGEX;
     }
 
     /**
@@ -169,7 +169,7 @@ class Regex implements ValueInterface
     /**
      * @param string $option
      *
-     * @return Regex
+     * @return ehough_finder_expression_Regex
      */
     public function addOption($option)
     {
@@ -183,7 +183,7 @@ class Regex implements ValueInterface
     /**
      * @param string $option
      *
-     * @return Regex
+     * @return ehough_finder_expression_Regex
      */
     public function removeOption($option)
     {
@@ -195,7 +195,7 @@ class Regex implements ValueInterface
     /**
      * @param bool $startFlag
      *
-     * @return Regex
+     * @return ehough_finder_expression_Regex
      */
     public function setStartFlag($startFlag)
     {
@@ -215,7 +215,7 @@ class Regex implements ValueInterface
     /**
      * @param bool $endFlag
      *
-     * @return Regex
+     * @return ehough_finder_expression_Regex
      */
     public function setEndFlag($endFlag)
     {
@@ -235,7 +235,7 @@ class Regex implements ValueInterface
     /**
      * @param bool $startJoker
      *
-     * @return Regex
+     * @return ehough_finder_expression_Regex
      */
     public function setStartJoker($startJoker)
     {
@@ -255,7 +255,7 @@ class Regex implements ValueInterface
     /**
      * @param bool $endJoker
      *
-     * @return Regex
+     * @return ehough_finder_expression_Regex
      */
     public function setEndJoker($endJoker)
     {
@@ -275,7 +275,7 @@ class Regex implements ValueInterface
     /**
      * @param array $replacement
      *
-     * @return Regex
+     * @return ehough_finder_expression_Regex
      */
     public function replaceJokers($replacement)
     {

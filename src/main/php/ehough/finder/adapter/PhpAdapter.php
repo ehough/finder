@@ -11,70 +11,70 @@
 
 ////namespace Symfony\Component\Finder\Adapter;
 
-////use Symfony\Component\Finder\Iterator;
+//use Symfony\Component\Finder\Iterator;
 
 /**
  * PHP finder engine implementation.
  *
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class PhpAdapter extends AbstractAdapter
+class ehough_finder_adapter_PhpAdapter extends ehough_finder_adapter_AbstractAdapter
 {
     /**
      * {@inheritdoc}
      */
     public function searchInDirectory($dir)
     {
-        $flags = \RecursiveDirectoryIterator::SKIP_DOTS;
+        $flags = RecursiveDirectoryIterator::SKIP_DOTS;
 
         if ($this->followLinks) {
-            $flags |= \RecursiveDirectoryIterator::FOLLOW_SYMLINKS;
+            $flags |= RecursiveDirectoryIterator::FOLLOW_SYMLINKS;
         }
 
-        $iterator = new \RecursiveIteratorIterator(
-            new Iterator\RecursiveDirectoryIterator($dir, $flags),
-            \RecursiveIteratorIterator::SELF_FIRST
+        $iterator = new RecursiveIteratorIterator(
+            new ehough_finder_iterator_RecursiveDirectoryIterator($dir, $flags),
+            RecursiveIteratorIterator::SELF_FIRST
         );
 
         if ($this->minDepth > 0 || $this->maxDepth < PHP_INT_MAX) {
-            $iterator = new Iterator\DepthRangeFilterIterator($iterator, $this->minDepth, $this->maxDepth);
+            $iterator = new ehough_finder_iterator_DepthRangeFilterIterator($iterator, $this->minDepth, $this->maxDepth);
         }
 
         if ($this->mode) {
-            $iterator = new Iterator\FileTypeFilterIterator($iterator, $this->mode);
+            $iterator = new ehough_finder_iterator_FileTypeFilterIterator($iterator, $this->mode);
         }
 
         if ($this->exclude) {
-            $iterator = new Iterator\ExcludeDirectoryFilterIterator($iterator, $this->exclude);
+            $iterator = new ehough_finder_iterator_ExcludeDirectoryFilterIterator($iterator, $this->exclude);
         }
 
         if ($this->names || $this->notNames) {
-            $iterator = new Iterator\FilenameFilterIterator($iterator, $this->names, $this->notNames);
+            $iterator = new ehough_finder_iterator_FilenameFilterIterator($iterator, $this->names, $this->notNames);
         }
 
         if ($this->contains || $this->notContains) {
-            $iterator = new Iterator\FilecontentFilterIterator($iterator, $this->contains, $this->notContains);
+            $iterator = new ehough_finder_iterator_FilecontentFilterIterator($iterator, $this->contains, $this->notContains);
         }
 
         if ($this->sizes) {
-            $iterator = new Iterator\SizeRangeFilterIterator($iterator, $this->sizes);
+            $iterator = new ehough_finder_iterator_SizeRangeFilterIterator($iterator, $this->sizes);
         }
 
         if ($this->dates) {
-            $iterator = new Iterator\DateRangeFilterIterator($iterator, $this->dates);
+            $iterator = new ehough_finder_iterator_DateRangeFilterIterator($iterator, $this->dates);
         }
 
         if ($this->filters) {
-            $iterator = new Iterator\CustomFilterIterator($iterator, $this->filters);
+            $iterator = new ehough_finder_iterator_CustomFilterIterator($iterator, $this->filters);
         }
 
         if ($this->sort) {
-            $iteratorAggregate = new Iterator\SortableIterator($iterator, $this->sort);
+            $iteratorAggregate = new ehough_finder_iterator_SortableIterator($iterator, $this->sort);
             $iterator = $iteratorAggregate->getIterator();
         }
 
         if ($this->paths || $this->notPaths) {
-            $iterator = new Iterator\PathFilterIterator($iterator, $this->paths, $this->notPaths);
+            $iterator = new ehough_finder_iterator_PathFilterIterator($iterator, $this->paths, $this->notPaths);
         }
 
         return $iterator;

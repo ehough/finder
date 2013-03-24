@@ -11,7 +11,7 @@
 
 //namespace Symfony\Component\Finder\Iterator;
 
-////use Symfony\Component\Finder\Comparator\DateComparator;
+//use Symfony\Component\Finder\Comparator\DateComparator;
 
 /**
  * ehough_finder_iterator_DateRangeFilterIterator filters out files that are not in the given date range (last modified dates).
@@ -26,7 +26,7 @@ class ehough_finder_iterator_DateRangeFilterIterator extends ehough_finder_itera
      * Constructor.
      *
      * @param Iterator        $iterator    The Iterator to filter
-     * @param DateComparator[] $comparators An array of DateComparator instances
+     * @param ehough_finder_comparator_DateComparator[] $comparators An array of ehough_finder_comparator_DateComparator instances
      */
     public function __construct(Iterator $iterator, array $comparators)
     {

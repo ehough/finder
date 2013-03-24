@@ -12,12 +12,12 @@
 //namespace Symfony\Component\Finder\Iterator;
 
 /**
- * FilecontentFilterIterator filters files by their contents using patterns (regexps or strings).
+ * ehough_finder_iterator_FilecontentFilterIterator filters files by their contents using patterns (regexps or strings).
  *
  * @author Fabien Potencier  <fabien@symfony.com>
  * @author Włodzimierz Gajda <gajdaw@gajdaw.pl>
  */
-class FilecontentFilterIterator extends MultiplePcreFilterIterator
+class ehough_finder_iterator_FilecontentFilterIterator extends ehough_finder_iterator_MultiplePcreFilterIterator
 {
     /**
      * Filters the iterator values.

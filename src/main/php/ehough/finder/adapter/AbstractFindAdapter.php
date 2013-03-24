@@ -11,24 +11,24 @@
 
 ////namespace Symfony\Component\Finder\Adapter;
 
-////use Symfony\Component\Finder\Exception\AccessDeniedException;
-////use Symfony\Component\Finder\Iterator;
-////use Symfony\Component\Finder\Shell\Shell;
-////use Symfony\Component\Finder\Expression\Expression;
-////use Symfony\Component\Finder\Shell\Command;
-////use Symfony\Component\Finder\Iterator\SortableIterator;
-////use Symfony\Component\Finder\Comparator\NumberComparator;
-////use Symfony\Component\Finder\Comparator\DateComparator;
+//use Symfony\Component\Finder\Exception\AccessDeniedException;
+//use Symfony\Component\Finder\Iterator;
+//use Symfony\Component\Finder\Shell\Shell;
+//use Symfony\Component\Finder\Expression\Expression;
+//use Symfony\Component\Finder\Shell\Command;
+//use Symfony\Component\Finder\Iterator\SortableIterator;
+//use Symfony\Component\Finder\Comparator\NumberComparator;
+//use Symfony\Component\Finder\Comparator\DateComparator;
 
 /**
  * Shell engine implementation using GNU find command.
  *
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-abstract class AbstractFindAdapter extends AbstractAdapter
+abstract class ehough_finder_adapter_AbstractFindAdapter extends ehough_finder_adapter_AbstractAdapter
 {
     /**
-     * @var Shell
+     * @var ehough_finder_shell_Shell
      */
     protected $shell;
 
@@ -37,7 +37,7 @@ abstract class AbstractFindAdapter extends AbstractAdapter
      */
     public function __construct()
     {
-        $this->shell = new Shell();
+        $this->shell = new ehough_finder_shell_Shell();
     }
 
     /**
@@ -49,11 +49,11 @@ abstract class AbstractFindAdapter extends AbstractAdapter
         $dir = realpath($dir);
 
         // searching directories containing or not containing strings leads to no result
-        if (Iterator\FileTypeFilterIterator::ONLY_DIRECTORIES === $this->mode && ($this->contains || $this->notContains)) {
-            return new Iterator\FilePathsIterator(array(), $dir);
+        if (ehough_finder_iterator_FileTypeFilterIterator::ONLY_DIRECTORIES === $this->mode && ($this->contains || $this->notContains)) {
+            return new ehough_finder_iterator_FilePathsIterator(array(), $dir);
         }
 
-        $command = Command::create();
+        $command = ehough_finder_shell_Command::create();
         $find = $this->buildFindCommand($command, $dir);
 
         if ($this->followLinks) {
@@ -66,9 +66,9 @@ abstract class AbstractFindAdapter extends AbstractAdapter
             $find->add('-maxdepth')->add($this->maxDepth + 1);
         }
 
-        if (Iterator\FileTypeFilterIterator::ONLY_DIRECTORIES === $this->mode) {
+        if (ehough_finder_iterator_FileTypeFilterIterator::ONLY_DIRECTORIES === $this->mode) {
             $find->add('-type d');
-        } elseif (Iterator\FileTypeFilterIterator::ONLY_FILES === $this->mode) {
+        } elseif (ehough_finder_iterator_FileTypeFilterIterator::ONLY_FILES === $this->mode) {
             $find->add('-type f');
         }
 
@@ -93,26 +93,26 @@ abstract class AbstractFindAdapter extends AbstractAdapter
         }
 
         $command->setErrorHandler(function ($stderr) {
-            throw new AccessDeniedException($stderr);
+            throw new ehough_finder_exception_AccessDeniedException($stderr);
         });
 
         $paths = $this->shell->testCommand('uniq') ? $command->add('| uniq')->execute() : array_unique($command->execute());
-        $iterator = new Iterator\FilePathsIterator($paths, $dir);
+        $iterator = new ehough_finder_iterator_FilePathsIterator($paths, $dir);
 
         if ($this->exclude) {
-            $iterator = new Iterator\ExcludeDirectoryFilterIterator($iterator, $this->exclude);
+            $iterator = new ehough_finder_iterator_ExcludeDirectoryFilterIterator($iterator, $this->exclude);
         }
 
         if (!$useGrep && ($this->contains || $this->notContains)) {
-            $iterator = new Iterator\FilecontentFilterIterator($iterator, $this->contains, $this->notContains);
+            $iterator = new ehough_finder_iterator_FilecontentFilterIterator($iterator, $this->contains, $this->notContains);
         }
 
         if ($this->filters) {
-            $iterator = new Iterator\CustomFilterIterator($iterator, $this->filters);
+            $iterator = new ehough_finder_iterator_CustomFilterIterator($iterator, $this->filters);
         }
 
         if (!$useSort && $this->sort) {
-            $iteratorAggregate = new Iterator\SortableIterator($iterator, $this->sort);
+            $iteratorAggregate = new ehough_finder_iterator_SortableIterator($iterator, $this->sort);
             $iterator = $iteratorAggregate->getIterator();
         }
 
@@ -128,12 +128,12 @@ abstract class AbstractFindAdapter extends AbstractAdapter
     }
 
     /**
-     * @param Command $command
+     * @param ehough_finder_shell_Command $command
      * @param string  $dir
      *
-     * @return Command
+     * @return ehough_finder_shell_Command
      */
-    protected function buildFindCommand(Command $command, $dir)
+    protected function buildFindCommand(ehough_finder_shell_Command $command, $dir)
     {
         return $command
             ->ins('find')
@@ -143,11 +143,11 @@ abstract class AbstractFindAdapter extends AbstractAdapter
     }
 
     /**
-     * @param Command  $command
+     * @param ehough_finder_shell_Command  $command
      * @param string[] $names
      * @param Boolean  $not
      */
-    private function buildNamesFiltering(Command $command, array $names, $not = false)
+    private function buildNamesFiltering(ehough_finder_shell_Command $command, array $names, $not = false)
     {
         if (0 === count($names)) {
             return;
@@ -156,11 +156,11 @@ abstract class AbstractFindAdapter extends AbstractAdapter
         $command->add($not ? '-not' : null)->cmd('(');
 
         foreach ($names as $i => $name) {
-            $expr = Expression::create($name);
+            $expr = ehough_finder_expression_Expression::create($name);
 
             // Find does not support expandable globs ("*.{a,b}" syntax).
             if ($expr->isGlob() && $expr->getGlob()->isExpandable()) {
-                $expr = Expression::create($expr->getGlob()->toRegex(false));
+                $expr = ehough_finder_expression_Expression::create($expr->getGlob()->toRegex(false));
             }
 
             // Fixes 'not search' and 'full path matching' regex problems.
@@ -190,12 +190,12 @@ abstract class AbstractFindAdapter extends AbstractAdapter
     }
 
     /**
-     * @param Command  $command
+     * @param ehough_finder_shell_Command  $command
      * @param string   $dir
      * @param string[] $paths
      * @param Boolean  $not
      */
-    private function buildPathsFiltering(Command $command, $dir, array $paths, $not = false)
+    private function buildPathsFiltering(ehough_finder_shell_Command $command, $dir, array $paths, $not = false)
     {
         if (0 === count($paths)) {
             return;
@@ -204,11 +204,11 @@ abstract class AbstractFindAdapter extends AbstractAdapter
         $command->add($not ? '-not' : null)->cmd('(');
 
         foreach ($paths as $i => $path) {
-            $expr = Expression::create($path);
+            $expr = ehough_finder_expression_Expression::create($path);
 
             // Find does not support expandable globs ("*.{a,b}" syntax).
             if ($expr->isGlob() && $expr->getGlob()->isExpandable()) {
-                $expr = Expression::create($expr->getGlob()->toRegex(false));
+                $expr = ehough_finder_expression_Expression::create($expr->getGlob()->toRegex(false));
             }
 
             // Fixes 'not search' regex problems.
@@ -232,10 +232,10 @@ abstract class AbstractFindAdapter extends AbstractAdapter
     }
 
     /**
-     * @param Command            $command
-     * @param NumberComparator[] $sizes
+     * @param ehough_finder_shell_Command            $command
+     * @param ehough_finder_comparator_NumberComparator[] $sizes
      */
-    private function buildSizesFiltering(Command $command, array $sizes)
+    private function buildSizesFiltering(ehough_finder_shell_Command $command, array $sizes)
     {
         foreach ($sizes as $i => $size) {
             $command->add($i > 0 ? '-and' : null);
@@ -261,10 +261,10 @@ abstract class AbstractFindAdapter extends AbstractAdapter
     }
 
     /**
-     * @param Command          $command
-     * @param DateComparator[] $dates
+     * @param ehough_finder_shell_Command          $command
+     * @param ehough_finder_comparator_DateComparator[] $dates
      */
-    private function buildDatesFiltering(Command $command, array $dates)
+    private function buildDatesFiltering(ehough_finder_shell_Command $command, array $dates)
     {
         foreach ($dates as $i => $date) {
             $command->add($i > 0 ? '-and' : null);
@@ -299,26 +299,26 @@ abstract class AbstractFindAdapter extends AbstractAdapter
     }
 
     /**
-     * @param Command $command
+     * @param ehough_finder_shell_Command $command
      * @param string  $sort
      *
      * @throws \InvalidArgumentException
      */
-    private function buildSorting(Command $command, $sort)
+    private function buildSorting(ehough_finder_shell_Command $command, $sort)
     {
         $this->buildFormatSorting($command, $sort);
     }
 
     /**
-     * @param Command $command
+     * @param ehough_finder_shell_Command $command
      * @param string  $sort
      */
-    abstract protected function buildFormatSorting(Command $command, $sort);
+    abstract protected function buildFormatSorting(ehough_finder_shell_Command $command, $sort);
 
     /**
-     * @param Command $command
+     * @param ehough_finder_shell_Command $command
      * @param array   $contains
      * @param Boolean $not
      */
-    abstract protected function buildContentFiltering(Command $command, array $contains, $not = false);
+    abstract protected function buildContentFiltering(ehough_finder_shell_Command $command, array $contains, $not = false);
 }

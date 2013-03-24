@@ -11,20 +11,20 @@
 
 //namespace Symfony\Component\Finder\Iterator;
 
-////use Symfony\Component\Finder\Exception\AccessDeniedException;
-////use Symfony\Component\Finder\SplFileInfo;
+//use Symfony\Component\Finder\Exception\AccessDeniedException;
+//use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * Extends the \RecursiveDirectoryIterator to support relative paths
  *
  * @author Victor Berchet <victor@suumit.com>
  */
-class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
+class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirectoryIterator
 {
     public function __construct($path, $flags)
     {
         if ($flags & (self::CURRENT_AS_PATHNAME | self::CURRENT_AS_SELF)) {
-            throw new \RuntimeException('This iterator only support returning current as fileinfo.');
+            throw new RuntimeException('This iterator only support returning current as fileinfo.');
         }
 
         parent::__construct($path, $flags);
@@ -37,20 +37,20 @@ class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
      */
     public function current()
     {
-        return new SplFileInfo(parent::current()->getPathname(), $this->getSubPath(), $this->getSubPathname());
+        return new ehough_finder_SplFileInfo(parent::current()->getPathname(), $this->getSubPath(), $this->getSubPathname());
     }
 
     /**
      * @return mixed object
      *
-     * @throws AccessDeniedException
+     * @throws (ehough_finder_exception_AccessDeniedException
      */
     public function getChildren()
     {
         try {
             return parent::getChildren();
-        } catch (\UnexpectedValueException $e) {
-            throw new AccessDeniedException($e->getMessage(), $e->getCode(), $e);
+        } catch (UnexpectedValueException $e) {
+            throw new ehough_finder_exception_AccessDeniedException($e->getMessage(), $e->getCode(), $e);
         }
     }
 }

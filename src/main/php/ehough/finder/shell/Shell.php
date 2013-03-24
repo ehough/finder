@@ -14,7 +14,7 @@
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class Shell
+class ehough_finder_shell_Shell
 {
     const TYPE_UNIX    = 1;
     const TYPE_DARWIN  = 2;
