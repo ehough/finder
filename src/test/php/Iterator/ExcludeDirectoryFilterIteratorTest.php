@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder\Tests\Iterator;
+//namespace Symfony\Component\Finder\Tests\Iterator;
 
-use Symfony\Component\Finder\Iterator\ExcludeDirectoryFilterIterator;
-use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
+//use Symfony\Component\Finder\Iterator\ExcludeDirectoryFilterIterator;
+//use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
 
 class ExcludeDirectoryFilterIteratorTest extends RealIteratorTestCase
 {

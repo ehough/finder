@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder;
+//namespace Symfony\Component\Finder;
 
 /**
  * Extends \SplFileInfo to support relative paths

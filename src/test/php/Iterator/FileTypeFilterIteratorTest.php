@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder\Tests\Iterator;
+//namespace Symfony\Component\Finder\Tests\Iterator;
 
-use Symfony\Component\Finder\Iterator\FileTypeFilterIterator;
+//use Symfony\Component\Finder\Iterator\FileTypeFilterIterator;
 
 class FileTypeFilterIteratorTest extends RealIteratorTestCase
 {

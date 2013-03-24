@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder\Tests\FakeAdapter;
+//namespace Symfony\Component\Finder\Tests\FakeAdapter;
 
-use Symfony\Component\Finder\Adapter\AbstractAdapter;
+//use Symfony\Component\Finder\Adapter\AbstractAdapter;
 
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class UnsupportedAdapter extends AbstractAdapter
+class UnsupportedAdapter extends ehough_finder_adapter_AbstractAdapter
 {
     /**
      * {@inheritdoc}

@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder\Tests\Comparator;
+//namespace Symfony\Component\Finder\Tests\Comparator;
 
-use Symfony\Component\Finder\Comparator\DateComparator;
+////use Symfony\Component\Finder\Comparator\DateComparator;
 
 class DateComparatorTest extends \PHPUnit_Framework_TestCase
 {

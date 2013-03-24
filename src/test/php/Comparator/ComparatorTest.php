@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder\Tests\Comparator;
+//namespace Symfony\Component\Finder\Tests\Comparator;
 
-use Symfony\Component\Finder\Comparator\Comparator;
+////use Symfony\Component\Finder\Comparator\Comparator;
 
 class ComparatorTest extends \PHPUnit_Framework_TestCase
 {

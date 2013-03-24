@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder\Tests\Iterator;
+//namespace Symfony\Component\Finder\Tests\Iterator;
 
-use Symfony\Component\Finder\Iterator\PathFilterIterator;
+//use Symfony\Component\Finder\Iterator\PathFilterIterator;
 
 class PathFilterIteratorTest extends IteratorTestCase
 {

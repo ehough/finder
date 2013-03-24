@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder\Tests\Iterator;
+//namespace Symfony\Component\Finder\Tests\Iterator;
 
-use Symfony\Component\Finder\Iterator\DepthRangeFilterIterator;
+//use Symfony\Component\Finder\Iterator\DepthRangeFilterIterator;
 
-class DepthRangeFilterIteratorTest extends RealIteratorTestCase
+class ehough_finder_iterator_DepthRangeFilterIteratorTest extends RealIteratorTestCase
 {
     /**
      * @dataProvider getAcceptData
@@ -22,7 +22,7 @@ class DepthRangeFilterIteratorTest extends RealIteratorTestCase
     {
         $inner = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->toAbsolute(), \FilesystemIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST);
 
-        $iterator = new DepthRangeFilterIterator($inner, $minDepth, $maxDepth);
+        $iterator = new ehough_finder_iterator_DepthRangeFilterIterator($inner, $minDepth, $maxDepth);
 
         $actual = array_keys(iterator_to_array($iterator));
         sort($expected);

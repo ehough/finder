@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder\Tests;
+//namespace Symfony\Component\Finder\Tests;
 
-use Symfony\Component\Finder\Expression\Expression;
+////use Symfony\Component\Finder\Expression\Expression;
 
 class ExpressionTest extends \PHPUnit_Framework_TestCase
 {

@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder\Tests;
+//namespace Symfony\Component\Finder\Tests;
 
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\Adapter;
-use Symfony\Component\Finder\Tests\FakeAdapter;
+//use Symfony\Component\Finder\Finder;
+//use Symfony\Component\Finder\Adapter;
+//use Symfony\Component\Finder\Tests\FakeAdapter;
 
-class FinderTest extends Iterator\RealIteratorTestCase
+class ehough_finder_FinderTest extends Iterator\RealIteratorTestCase
 {
 
     public function testCreate()
     {
-        $this->assertInstanceOf('Symfony\Component\Finder\Finder', Finder::create());
+        $this->assertInstanceOf('Symfony\Component\Finder\Finder', ehough_finder_Finder::create());
     }
 
     /**
@@ -457,14 +457,14 @@ class FinderTest extends Iterator\RealIteratorTestCase
         $finder = $this->buildFinder($adapter);
         $finder->in(self::$tmpDir.DIRECTORY_SEPARATOR.'foo');
 
-        $finder1 = Finder::create()->append($finder);
+        $finder1 = ehough_finder_Finder::create()->append($finder);
 
         $this->assertIterator(iterator_to_array($finder->getIterator()), $finder1->getIterator());
     }
 
     public function testCountDirectories()
     {
-        $directory = Finder::create()->directories()->in(self::$tmpDir);
+        $directory = ehough_finder_Finder::create()->directories()->in(self::$tmpDir);
         $i = 0;
 
         foreach ($directory as $dir) {
@@ -476,7 +476,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
 
     public function testCountFiles()
     {
-        $files = Finder::create()->files()->in(__DIR__.DIRECTORY_SEPARATOR.'Fixtures');
+        $files = ehough_finder_Finder::create()->files()->in(__DIR__.DIRECTORY_SEPARATOR.'Fixtures');
         $i = 0;
 
         foreach ($files as $file) {
@@ -491,7 +491,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
      */
     public function testCountWithoutIn()
     {
-        $finder = Finder::create()->files();
+        $finder = ehough_finder_Finder::create()->files();
         count($finder);
     }
 
@@ -537,7 +537,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
     }
 
     /**
-     * Searching in multiple locations involves AppendIterator which does an unnecessary rewind which leaves FilterIterator
+     * Searching in multiple locations involves AppendIterator which does an unnecessary rewind which leaves ehough_finder_iterator_FilterIterator
      * with inner FilesystemIterator in an invalid state.
      *
      * @see https://bugs.php.net/bug.php?id=49104
@@ -573,7 +573,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
 
     public function testAdaptersOrdering()
     {
-        $finder = Finder::create()
+        $finder = ehough_finder_Finder::create()
             ->removeAdapters()
             ->addAdapter(new FakeAdapter\NamedAdapter('a'), 0)
             ->addAdapter(new FakeAdapter\NamedAdapter('b'), -50)
@@ -597,7 +597,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
             $iterator->append(new \Symfony\Component\Finder\SplFileInfo($file, null, null));
         }
 
-        $finder = Finder::create()
+        $finder = ehough_finder_Finder::create()
             ->removeAdapters()
             ->addAdapter(new FakeAdapter\UnsupportedAdapter(), 3)
             ->addAdapter(new FakeAdapter\FailingAdapter(), 2)
@@ -658,15 +658,15 @@ class FinderTest extends Iterator\RealIteratorTestCase
     public function testAdapterSelection()
     {
         // test that by default, PhpAdapter is selected
-        $adapters = Finder::create()->getAdapters();
+        $adapters = ehough_finder_Finder::create()->getAdapters();
         $this->assertTrue($adapters[0] instanceof Adapter\PhpAdapter);
 
         // test another adapter selection
-        $adapters = Finder::create()->setAdapter('gnu_find')->getAdapters();
+        $adapters = ehough_finder_Finder::create()->setAdapter('gnu_find')->getAdapters();
         $this->assertTrue($adapters[0] instanceof Adapter\GnuFindAdapter);
 
         // test that useBestAdapter method removes selection
-        $adapters = Finder::create()->useBestAdapter()->getAdapters();
+        $adapters = ehough_finder_Finder::create()->useBestAdapter()->getAdapters();
         $this->assertFalse($adapters[0] instanceof Adapter\PhpAdapter);
     }
 
@@ -752,7 +752,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
 
     private function buildFinder(Adapter\AdapterInterface $adapter)
     {
-        return Finder::create()
+        return ehough_finder_Finder::create()
             ->removeAdapters()
             ->addAdapter($adapter);
     }

@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder\Tests\Iterator;
+//namespace Symfony\Component\Finder\Tests\Iterator;
 
-use Symfony\Component\Finder\Iterator\FilecontentFilterIterator;
-use Symfony\Component\Finder\Tests\Iterator\MockSplFileInfo;
-use Symfony\Component\Finder\Tests\Iterator\MockFileListIterator;
+//use Symfony\Component\Finder\Iterator\FilecontentFilterIterator;
+//use Symfony\Component\Finder\Tests\Iterator\MockSplFileInfo;
+//use Symfony\Component\Finder\Tests\Iterator\MockFileListIterator;
 
 class FilecontentFilterIteratorTest extends IteratorTestCase
 {

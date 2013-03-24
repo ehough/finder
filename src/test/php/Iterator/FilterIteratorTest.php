@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder\Tests\Iterator;
+//namespace Symfony\Component\Finder\Tests\Iterator;
 
 /**
  * @author Alex Bogomazov
  */
-class FilterIteratorTest extends RealIteratorTestCase
+class ehough_finder_iterator_FilterIteratorTest extends RealIteratorTestCase
 {
     public function testFilterFilesystemIterators()
     {

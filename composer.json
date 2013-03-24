@@ -1,31 +1,20 @@
 {
-    "name": "symfony/finder",
+    "name": "ehough/finder",
     "type": "library",
-    "description": "Symfony Finder Component",
+    "description": "Fork of Symfony's Finder Component compatible with PHP 5.2+",
     "keywords": [],
-    "homepage": "http://symfony.com",
     "license": "MIT",
     "authors": [
         {
-            "name": "Fabien Potencier",
-            "email": "fabien@symfony.com"
-        },
-        {
-            "name": "Symfony Community",
-            "homepage": "http://symfony.com/contributors"
+            "name": "Eric Hough",
+            "email": "eric@ehough.com",
+            "homepage": "http://ehough.com"
         }
     ],
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.2"
     },
     "autoload": {
-        "psr-0": { "Symfony\\Component\\Finder\\": "" }
-    },
-    "target-dir": "Symfony/Component/Finder",
-    "minimum-stability": "dev",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.3-dev"
-        }
+        "psr-0": {"ehough_filesystem": "src/main/php"}
     }
 }

@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder\Tests\Iterator;
+//namespace Symfony\Component\Finder\Tests\Iterator;
 
-use Symfony\Component\Finder\Iterator\CustomFilterIterator;
+//use Symfony\Component\Finder\Iterator\CustomFilterIterator;
 
-class CustomFilterIteratorTest extends IteratorTestCase
+class ehough_finder_iterator_CustomFilterIteratorTest extends IteratorTestCase
 {
     /**
      * @expectedException \InvalidArgumentException
      */
     public function testWithInvalidFilter()
     {
-        new CustomFilterIterator(new Iterator(), array('foo'));
+        new ehough_finder_iterator_CustomFilterIterator(new Iterator(), array('foo'));
     }
 
     /**
@@ -30,7 +30,7 @@ class CustomFilterIteratorTest extends IteratorTestCase
     {
         $inner = new Iterator(array('test.php', 'test.py', 'foo.php'));
 
-        $iterator = new CustomFilterIterator($inner, $filters);
+        $iterator = new ehough_finder_iterator_CustomFilterIterator($inner, $filters);
 
         $this->assertIterator($expected, $iterator);
     }

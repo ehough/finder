@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder\Tests;
+//namespace Symfony\Component\Finder\Tests;
 
-use Symfony\Component\Finder\Expression\Expression;
+//use Symfony\Component\Finder\Expression\Expression;
 
 class RegexTest extends \PHPUnit_Framework_TestCase
 {

@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder\Tests\Iterator;
+//namespace Symfony\Component\Finder\Tests\Iterator;
 
-use Symfony\Component\Finder\Iterator\DateRangeFilterIterator;
-use Symfony\Component\Finder\Comparator\DateComparator;
+//use Symfony\Component\Finder\Iterator\DateRangeFilterIterator;
+//use Symfony\Component\Finder\Comparator\DateComparator;
 
-class DateRangeFilterIteratorTest extends RealIteratorTestCase
+class ehough_finder_iterator_DateRangeFilterIteratorTest extends RealIteratorTestCase
 {
     /**
      * @dataProvider getAcceptData
@@ -23,7 +23,7 @@ class DateRangeFilterIteratorTest extends RealIteratorTestCase
     {
         $inner = new Iterator(self::$files);
 
-        $iterator = new DateRangeFilterIterator($inner, $size);
+        $iterator = new ehough_finder_iterator_DateRangeFilterIterator($inner, $size);
 
         $this->assertIterator($expected, $iterator);
     }
