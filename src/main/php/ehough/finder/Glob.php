@@ -33,7 +33,7 @@
  * @copyright  2004-2005 Fabien Potencier <fabien@symfony.com>
  * @copyright  2002 Richard Clamp <richardc@unixbeard.net>
  */
-class ehough_finder_expression_Glob
+class ehough_finder_Glob
 {
     /**
      * Returns a regexp which is the equivalent of the glob pattern.

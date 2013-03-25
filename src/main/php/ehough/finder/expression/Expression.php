@@ -41,7 +41,7 @@ class ehough_finder_expression_Expression implements ehough_finder_expression_Va
     {
         try {
             $this->value = ehough_finder_expression_Regex::create($expr);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->value = new ehough_finder_expression_Glob($expr);
         }
     }

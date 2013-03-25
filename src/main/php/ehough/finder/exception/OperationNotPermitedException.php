@@ -14,6 +14,6 @@
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class OperationNotPermitedException extends ehough_finder_exception_AdapterFailureException
+class ehough_finder_exception_OperationNotPermitedException extends ehough_finder_exception_AdapterFailureException
 {
 }

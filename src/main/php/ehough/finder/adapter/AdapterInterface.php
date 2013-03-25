@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-////namespace Symfony\Component\Finder\Adapter;
+//namespace Symfony\Component\Finder\Adapter;
 
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
@@ -94,7 +94,7 @@ interface ehough_finder_adapter_AdapterInterface
     public function setFilters(array $filters);
 
     /**
-     * @param \Closure|integer $sort
+     * @param callable|integer $sort
      *
      * @return ehough_finder_adapter_AdapterInterface Current instance
      */

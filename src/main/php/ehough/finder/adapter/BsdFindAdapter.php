@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-////namespace Symfony\Component\Finder\Adapter;
+//namespace Symfony\Component\Finder\Adapter;
 
 //use Symfony\Component\Finder\Shell\Shell;
 //use Symfony\Component\Finder\Shell\Command;
@@ -62,7 +62,7 @@ class ehough_finder_adapter_BsdFindAdapter extends ehough_finder_adapter_Abstrac
                 $format = '%m';
                 break;
             default:
-                throw new \InvalidArgumentException('Unknown sort options: '.$sort.'.');
+                throw new InvalidArgumentException('Unknown sort options: '.$sort.'.');
         }
 
         $command

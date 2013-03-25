@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-////namespace Symfony\Component\Finder\Adapter;
+//namespace Symfony\Component\Finder\Adapter;
 
 //use Symfony\Component\Finder\Shell\Shell;
 //use Symfony\Component\Finder\Shell\Command;

@@ -30,7 +30,7 @@ class ehough_finder_exception_AdapterFailureException extends RuntimeException i
      * @param string|null      $message
      * @param \Exception|null  $previous
      */
-    public function __construct(ehough_finder_adapter_AdapterInterface $adapter, $message = null, \Exception $previous = null)
+    public function __construct(ehough_finder_adapter_AdapterInterface $adapter, $message = null, Exception $previous = null)
     {
         $this->adapter = $adapter;
         parent::__construct($message ?: 'Search failed with "'.$adapter->getName().'" adapter.', $previous);

@@ -52,12 +52,14 @@ class ehough_finder_expression_Regex implements ehough_finder_expression_ValueIn
      */
     private $endJoker;
 
+    private $_replacement;
+
     /**
      * @param string $expr
      *
      * @return ehough_finder_expression_Regex
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public static function create($expr)
     {
@@ -70,7 +72,7 @@ class ehough_finder_expression_Regex implements ehough_finder_expression_ValueIn
             }
         }
 
-        throw new \InvalidArgumentException('Given expression is not a regex.');
+        throw new InvalidArgumentException('Given expression is not a regex.');
     }
 
     /**
@@ -279,16 +281,21 @@ class ehough_finder_expression_Regex implements ehough_finder_expression_ValueIn
      */
     public function replaceJokers($replacement)
     {
-        $replace = function ($subject) use ($replacement) {
-            $subject = $subject[0];
-            $replace = 0 === substr_count($subject, '\\') % 2;
+        $replace = array($this, '_callbackReplace');
 
-            return $replace ? str_replace('.', $replacement, $subject) : $subject;
-        };
+        $this->_replacement = $replacement;
 
         $this->pattern = preg_replace_callback('~[\\\\]*\\.~', $replace, $this->pattern);
 
         return $this;
+    }
+
+    public function _callbackReplace($subject)
+    {
+        $subject = $subject[0];
+        $replace = 0 === substr_count($subject, '\\') % 2;
+
+        return $replace ? str_replace('.', $this->_replacement, $subject) : $subject;
     }
 
     /**

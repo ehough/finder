@@ -17,7 +17,7 @@
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class ShellCommandFailureException extends ehough_finder_exception_AdapterFailureException
+class ehough_finder_exception_ShellCommandFailureException extends ehough_finder_exception_AdapterFailureException
 {
     /**
      * @var ehough_finder_shell_Command
@@ -29,7 +29,7 @@ class ShellCommandFailureException extends ehough_finder_exception_AdapterFailur
      * @param ehough_finder_shell_Command          $command
      * @param \Exception|null  $previous
      */
-    public function __construct(ehough_finder_adapter_AdapterInterface $adapter, ehough_finder_shell_Command $command, \Exception $previous = null)
+    public function __construct(ehough_finder_adapter_AdapterInterface $adapter, ehough_finder_shell_Command $command, Exception $previous = null)
     {
         $this->command = $command;
         parent::__construct($adapter, 'Shell command failed: "'.$command->join().'".', $previous);

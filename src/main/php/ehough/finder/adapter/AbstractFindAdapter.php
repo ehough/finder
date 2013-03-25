@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-////namespace Symfony\Component\Finder\Adapter;
+//namespace Symfony\Component\Finder\Adapter;
 
 //use Symfony\Component\Finder\Exception\AccessDeniedException;
 //use Symfony\Component\Finder\Iterator;
@@ -92,9 +92,7 @@ abstract class ehough_finder_adapter_AbstractFindAdapter extends ehough_finder_a
             $this->buildSorting($command, $this->sort);
         }
 
-        $command->setErrorHandler(function ($stderr) {
-            throw new ehough_finder_exception_AccessDeniedException($stderr);
-        });
+        $command->setErrorHandler(array($this, 'callbackAccessDeniedThrower'));
 
         $paths = $this->shell->testCommand('uniq') ? $command->add('| uniq')->execute() : array_unique($command->execute());
         $iterator = new ehough_finder_iterator_FilePathsIterator($paths, $dir);
@@ -117,6 +115,11 @@ abstract class ehough_finder_adapter_AbstractFindAdapter extends ehough_finder_a
         }
 
         return $iterator;
+    }
+
+    public function callbackAccessDeniedThrower($stderr)
+    {
+        throw new ehough_finder_exception_AccessDeniedException($stderr);
     }
 
     /**
@@ -302,7 +305,7 @@ abstract class ehough_finder_adapter_AbstractFindAdapter extends ehough_finder_a
      * @param ehough_finder_shell_Command $command
      * @param string  $sort
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function buildSorting(ehough_finder_shell_Command $command, $sort)
     {

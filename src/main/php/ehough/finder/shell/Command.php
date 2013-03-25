@@ -32,7 +32,7 @@ class ehough_finder_shell_Command
     private $labels;
 
     /**
-     * @var \Closure|null
+     * @var callable|null
      */
     private $errorHandler;
 
@@ -161,12 +161,12 @@ class ehough_finder_shell_Command
      *
      * @return ehough_finder_shell_Command The current ehough_finder_shell_Command instance
      *
-     * @throws \RuntimeException If label already exists
+     * @throws RuntimeException If label already exists
      */
     public function ins($label)
     {
         if (isset($this->labels[$label])) {
-            throw new \RuntimeException('Label "'.$label.'" already exists.');
+            throw new RuntimeException('Label "'.$label.'" already exists.');
         }
 
         $this->bits[] = self::create($this);
@@ -182,12 +182,12 @@ class ehough_finder_shell_Command
      *
      * @return ehough_finder_shell_Command The labeled command
      *
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function get($label)
     {
         if (!isset($this->labels[$label])) {
-            throw new \RuntimeException('Label "'.$label.'" does not exists.');
+            throw new RuntimeException('Label "'.$label.'" does not exists.');
         }
 
         return $this->bits[$this->labels[$label]];
@@ -198,12 +198,12 @@ class ehough_finder_shell_Command
      *
      * @return ehough_finder_shell_Command Parent command
      *
-     * @throws \RuntimeException If command has no parent
+     * @throws RuntimeException If command has no parent
      */
     public function end()
     {
         if (null === $this->parent) {
-            throw new \RuntimeException('Calling end on root command doesn\'t make sense.');
+            throw new RuntimeException('Calling end on root command doesn\'t make sense.');
         }
 
         return $this->parent;
@@ -220,11 +220,11 @@ class ehough_finder_shell_Command
     }
 
     /**
-     * @param \Closure $errorHandler
+     * @param mixed $errorHandler
      *
      * @return ehough_finder_shell_Command
      */
-    public function setErrorHandler(\Closure $errorHandler)
+    public function setErrorHandler($errorHandler)
     {
         $this->errorHandler = $errorHandler;
 
@@ -244,7 +244,7 @@ class ehough_finder_shell_Command
      *
      * @return array The command result
      *
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function execute()
     {

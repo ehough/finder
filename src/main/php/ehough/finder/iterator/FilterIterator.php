@@ -21,7 +21,7 @@
 abstract class ehough_finder_iterator_FilterIterator extends FilterIterator
 {
     /**
-     * This is a workaround for the problem with \FilterIterator leaving inner \FilesystemIterator in wrong state after
+     * This is a workaround for the problem with FilterIterator leaving inner \FilesystemIterator in wrong state after
      * rewind in some cases.
      *
      * @see FilterIterator::rewind()
@@ -30,7 +30,7 @@ abstract class ehough_finder_iterator_FilterIterator extends FilterIterator
     {
         $iterator = $this;
         while ($iterator instanceof OuterIterator) {
-            if ($iterator->getInnerIterator() instanceof \FilesystemIterator) {
+            if ($iterator->getInnerIterator() instanceof FilesystemIterator) {
                 $iterator->getInnerIterator()->next();
                 $iterator->getInnerIterator()->rewind();
             }
