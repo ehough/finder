@@ -31,10 +31,12 @@ $iterator = $finder
 foreach ($iterator as $file) {
     print $file->getRealpath()."\n";
 }
+```
 
 But you can also use it to find files stored remotely like in this example where
 we are looking for files on Amazon S3:
 
+```php
 $s3 = new \Zend_Service_Amazon_S3($key, $secret);
 $s3->registerStreamWrapper("s3");
 
