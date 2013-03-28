@@ -55,7 +55,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      */
     public function __construct()
     {
-        $this->ignore = static::IGNORE_VCS_FILES | static::IGNORE_DOT_FILES;
+        $this->ignore = self::IGNORE_VCS_FILES | self::IGNORE_DOT_FILES;
 
         $this
             ->addAdapter(new ehough_finder_adapter_GnuFindAdapter())
@@ -420,9 +420,9 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
     public function ignoreDotFiles($ignoreDotFiles)
     {
         if ($ignoreDotFiles) {
-            $this->ignore = $this->ignore | static::IGNORE_DOT_FILES;
+            $this->ignore = $this->ignore | self::IGNORE_DOT_FILES;
         } else {
-            $this->ignore = $this->ignore & ~static::IGNORE_DOT_FILES;
+            $this->ignore = $this->ignore & ~self::IGNORE_DOT_FILES;
         }
 
         return $this;
@@ -442,9 +442,9 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
     public function ignoreVCS($ignoreVCS)
     {
         if ($ignoreVCS) {
-            $this->ignore = $this->ignore | static::IGNORE_VCS_FILES;
+            $this->ignore = $this->ignore | self::IGNORE_VCS_FILES;
         } else {
-            $this->ignore = $this->ignore & ~static::IGNORE_VCS_FILES;
+            $this->ignore = $this->ignore & ~self::IGNORE_VCS_FILES;
         }
 
         return $this;
@@ -750,11 +750,11 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      */
     private function searchInDirectory($dir)
     {
-        if (static::IGNORE_VCS_FILES === (static::IGNORE_VCS_FILES & $this->ignore)) {
+        if (self::IGNORE_VCS_FILES === (self::IGNORE_VCS_FILES & $this->ignore)) {
             $this->exclude = array_merge($this->exclude, self::$vcsPatterns);
         }
 
-        if (static::IGNORE_DOT_FILES === (static::IGNORE_DOT_FILES & $this->ignore)) {
+        if (self::IGNORE_DOT_FILES === (self::IGNORE_DOT_FILES & $this->ignore)) {
             $this->notPaths[] = '#(^|/)\..+(/|$)#';
         }
 
