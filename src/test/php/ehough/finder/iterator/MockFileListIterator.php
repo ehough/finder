@@ -15,7 +15,12 @@ class ehough_finder_iterator_MockFileListIterator extends \ArrayIterator
 {
     public function __construct(array $filesArray = array())
     {
-        $files = array_map(function($file){ return new ehough_finder_iterator_MockSplFileInfo($file); }, $filesArray);
+        $files = array_map(array($this, '_callback'), $filesArray);
         parent::__construct($files);
+    }
+
+    public function _callback($file)
+    {
+        return new ehough_finder_iterator_MockSplFileInfo($file);
     }
 }

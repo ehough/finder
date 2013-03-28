@@ -272,8 +272,13 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     public function testSort($adapter)
     {
         $finder = $this->buildFinder($adapter);
-        $this->assertSame($finder, $finder->sort(function (\SplFileInfo $a, \SplFileInfo $b) { return strcmp($a->getRealpath(), $b->getRealpath()); }));
+        $this->assertSame($finder, $finder->sort(array($this, '_callbackTestSort')));
         $this->assertIterator($this->toAbsolute(array('foo', 'foo bar', 'foo/bar.tmp', 'test.php', 'test.py', 'toto')), $finder->in(self::$tmpDir)->getIterator());
+    }
+
+    public function _callbackTestSort(SplFileInfo $a, SplFileInfo $b)
+    {
+        return strcmp($a->getRealpath(), $b->getRealpath());
     }
 
     /**
@@ -282,8 +287,13 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     public function testFilter($adapter)
     {
         $finder = $this->buildFinder($adapter);
-        $this->assertSame($finder, $finder->filter(function (\SplFileInfo $f) { return preg_match('/test/', $f) > 0; }));
+        $this->assertSame($finder, $finder->filter(array($this, '_callbackTestFilter')));
         $this->assertIterator($this->toAbsolute(array('test.php', 'test.py')), $finder->in(self::$tmpDir)->getIterator());
+    }
+
+    public function _callbackTestFilter(SplFileInfo $f)
+    {
+        return preg_match('/test/', $f) > 0;
     }
 
     /**
@@ -371,9 +381,14 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
 
         $finder = $this->buildFinder($adapter);
         $a = iterator_to_array($finder->directories()->in(self::$tmpDir));
-        $a = array_values(array_map(function ($a) { return (string) $a; }, $a));
+        $a = array_values(array_map(array($this, '_callbackTestGetIterator'), $a));
         sort($a);
         $this->assertEquals($expected, $a, 'implements the \IteratorAggregate interface');
+    }
+
+    public function _callbackTestGetIterator($a)
+    {
+        return (string) $a;
     }
 
     /**
@@ -589,10 +604,13 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
 
         $this->assertEquals(
             array('c', 'e', 'a', 'd', 'b'),
-            array_map(function(ehough_finder_adapter_AdapterInterface $adapter) {
-                return $adapter->getName();
-            }, $finder->getAdapters())
+            array_map(array($this, '_callbackTestAdaptersOrdering'), $finder->getAdapters())
         );
+    }
+
+    public function _callbackTestAdaptersOrdering(ehough_finder_adapter_AdapterInterface $adapter)
+    {
+        return $adapter->getName();
     }
 
     public function testAdaptersChaining()

@@ -85,7 +85,12 @@ class ehough_finder_iterator_SortableIteratorTest extends ehough_finder_iterator
         return array(
             array(ehough_finder_iterator_SortableIterator::SORT_BY_NAME, $this->toAbsolute($sortByName)),
             array(ehough_finder_iterator_SortableIterator::SORT_BY_TYPE, $this->toAbsolute($sortByType)),
-            array(function (\SplFileInfo $a, \SplFileInfo $b) { return strcmp($a->getRealpath(), $b->getRealpath()); }, $this->toAbsolute($customComparison)),
+            array(array($this, '_callbackGetAcceptData'), $this->toAbsolute($customComparison)),
         );
+    }
+
+    public function _callbackGetAcceptData(SplFileInfo $a, SplFileInfo $b)
+    {
+        return strcmp($a->getRealpath(), $b->getRealpath());
     }
 }

@@ -481,7 +481,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      *
      * This can be slow as all the matching files and directories must be retrieved for comparison.
      *
-     * @param \Closure $closure An anonymous function
+     * @param callable $closure An anonymous function
      *
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
@@ -489,7 +489,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      *
      * @api
      */
-    public function sort(\Closure $closure)
+    public function sort($closure)
     {
         $this->sort = $closure;
 
@@ -668,7 +668,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      *
      * @throws \LogicException if the in() method has not been called
      */
-    public function getIterator()
+    public function getIterator()(function
     {
         if (0 === count($this->dirs) && 0 === count($this->iterators)) {
             throw new LogicException('You must call one of in() or append() methods before iterating over a ehough_finder_Finder.');

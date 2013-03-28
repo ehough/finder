@@ -16,17 +16,18 @@
  */
 class ehough_finder_iterator_FilterIteratorTest extends ehough_finder_iterator_RealIteratorTestCase
 {
+    private $_i;
+
     public function testFilterFilesystemIterators()
     {
         $i = new \FilesystemIterator($this->toAbsolute());
 
         // it is expected that there are test.py test.php in the tmpDir
         $i = $this->getMockForAbstractClass('ehough_finder_iterator_FilterIterator', array($i));
+        $this->_i = $i;
         $i->expects($this->any())
             ->method('accept')
-            ->will($this->returnCallback(function () use ($i) {
-                return (bool) preg_match('/\.php/', (string) $i->current());
-            })
+            ->will($this->returnCallback(array($this, '_callback'))
         );
 
         $c = 0;
@@ -46,5 +47,10 @@ class ehough_finder_iterator_FilterIteratorTest extends ehough_finder_iterator_R
         // This would fail with \FilterIterator but works with Symfony\Component\Finder\Iterator\FilterIterator
         // see https://bugs.php.net/bug.php?id=49104
         $this->assertEquals(1, $c);
+    }
+
+    public function _callback()
+    {
+        return (bool) preg_match('/\.php/', (string) $this->_i->current());
     }
 }

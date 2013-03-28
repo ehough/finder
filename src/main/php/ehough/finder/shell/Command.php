@@ -272,11 +272,19 @@ class ehough_finder_shell_Command
     public function join()
     {
         return implode(' ', array_filter(
-            array_map(function($bit) {
-                return $bit instanceof ehough_finder_shell_Command ? $bit->join() : ($bit ?: null);
-            }, $this->bits),
-            function($bit) { return null !== $bit; }
+            array_map(array($this, '_callbackJoinMap'), $this->bits),
+            array($this, '_callbackJoinFilter')
         ));
+    }
+
+    public function _callbackJoinMap($bit)
+    {
+        return $bit instanceof ehough_finder_shell_Command ? $bit->join() : ($bit ?: null);
+    }
+
+    public function _callbackJoinFilter($bit)
+    {
+        return null !== $bit;
     }
 
     /**

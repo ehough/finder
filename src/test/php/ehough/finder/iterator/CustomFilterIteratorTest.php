@@ -40,9 +40,19 @@ class ehough_finder_iterator_CustomFilterIteratorTest extends ehough_finder_iter
     public function getAcceptData()
     {
         return array(
-            array(array(function (\SplFileInfo $fileinfo) { return false; }), array()),
-            array(array(function (\SplFileInfo $fileinfo) { return preg_match('/^test/', $fileinfo) > 0; }), array('test.php', 'test.py')),
+            array(array(array($this, '_callbackGetAcceptData1')), array()),
+            array(array(array($this, '_callbackGetAcceptData2')), array('test.php', 'test.py')),
             array(array('is_dir'), array()),
         );
+    }
+
+    public function _callbackGetAcceptData2(SplFileInfo $fileinfo)
+    {
+        return preg_match('/^test/', $fileinfo) > 0;
+    }
+
+    public function _callbackGetAcceptData1(SplFileInfo $fileinfo)
+    {
+        return false;
     }
 }
