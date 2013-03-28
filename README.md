@@ -4,7 +4,11 @@ Fork of [Symfony's Finder component](https://github.com/symfony/Finder) compatib
 
 ### Motivation
 
-Symfony's Finder component is fantastic, but it's only compatible with PHP 5.3+. While 97% of PHP servers run PHP 5.2 or higher, a whopping **47% of all servers are still running PHP 5.2** ([source](http://w3techs.com/technologies/details/pl-php/5/all)). It would be a shame to exempt this library from nearly half of the world's servers just because of a few version incompatibilities.
+Symfony's Finder component is fantastic, but it's only compatible with PHP 5.3+. While 97% of PHP servers run PHP 5.2 or higher,
+a whopping **47% of all servers are still running PHP 5.2** ([source](http://w3techs.com/technologies/details/pl-php/5/all)).
+It would be a shame to exempt this library from nearly half of the world's servers just because of a few version incompatibilities.
+
+Once PHP 5.3+ adoption levels near closer to 100%, this library will be retired.
 
 ### Differences from [Symfony's Finder component](https://github.com/symfony/Finder)
 
@@ -41,7 +45,7 @@ But you can also use it to find files stored remotely like in this example where
 we are looking for files on Amazon S3:
 
 ```php
-$s3 = new \Zend_Service_Amazon_S3($key, $secret);
+$s3 = new Zend_Service_Amazon_S3($key, $secret);
 $s3->registerStreamWrapper("s3");
 
 $finder = new ehough_finder_Finder();
