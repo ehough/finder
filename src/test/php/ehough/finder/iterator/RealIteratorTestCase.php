@@ -99,7 +99,7 @@ abstract class ehough_finder_iterator_RealIteratorTestCase extends ehough_finder
     {
         $f = array();
         foreach ($files as $file) {
-            $f[] = realpath(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Fixtures'.DIRECTORY_SEPARATOR.$file);
+            $f[] = realpath(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Fixtures'.DIRECTORY_SEPARATOR.$file);
         }
 
         return $f;

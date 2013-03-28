@@ -318,9 +318,9 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         }
 
         $finder = $this->buildFinder($adapter);
-        $iterator = $finder->files()->name('*.php')->depth('< 1')->in(array(self::$tmpDir, __DIR__))->getIterator();
+        $iterator = $finder->files()->name('*.php')->depth('< 1')->in(array(self::$tmpDir, dirname(__FILE__)))->getIterator();
 
-        $this->assertIterator(array(self::$tmpDir.DIRECTORY_SEPARATOR.'test.php', __DIR__.DIRECTORY_SEPARATOR.'FinderTest.php'), $iterator);
+        $this->assertIterator(array(self::$tmpDir.DIRECTORY_SEPARATOR.'test.php', dirname(__FILE__).DIRECTORY_SEPARATOR.'FinderTest.php'), $iterator);
     }
 
     /**
@@ -329,7 +329,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     public function testInWithGlob($adapter)
     {
         $finder = $this->buildFinder($adapter);
-        $finder->in(array(__DIR__.'/Fixtures/*/B/C', __DIR__.'/Fixtures/*/*/B/C'))->getIterator();
+        $finder->in(array(dirname(__FILE__).'/Fixtures/*/B/C', dirname(__FILE__).'/Fixtures/*/*/B/C'))->getIterator();
 
         $this->assertIterator($this->toAbsoluteFixtures(array('A/B/C/abc.dat', 'copy/A/B/C/abc.dat.copy')), $finder);
     }
@@ -341,7 +341,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     public function testInWithNonDirectoryGlob($adapter)
     {
         $finder = $this->buildFinder($adapter);
-        $finder->in(__DIR__.'/Fixtures/A/a*');
+        $finder->in(dirname(__FILE__).'/Fixtures/A/a*');
     }
 
     /**
@@ -491,7 +491,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
 
     public function testCountFiles()
     {
-        $files = ehough_finder_Finder::create()->files()->in(__DIR__.DIRECTORY_SEPARATOR.'Fixtures');
+        $files = ehough_finder_Finder::create()->files()->in(dirname(__FILE__).DIRECTORY_SEPARATOR.'Fixtures');
         $i = 0;
 
         foreach ($files as $file) {
@@ -517,7 +517,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     public function testContains($adapter, $matchPatterns, $noMatchPatterns, $expected)
     {
         $finder = $this->buildFinder($adapter);
-        $finder->in(__DIR__.DIRECTORY_SEPARATOR.'Fixtures')
+        $finder->in(dirname(__FILE__).DIRECTORY_SEPARATOR.'Fixtures')
             ->name('*.txt')->sortByName()
             ->contains($matchPatterns)
             ->notContains($noMatchPatterns);
@@ -531,7 +531,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     public function testContainsOnDirectory(ehough_finder_adapter_AdapterInterface $adapter)
     {
         $finder = $this->buildFinder($adapter);
-        $finder->in(__DIR__)
+        $finder->in(dirname(__FILE__))
             ->directories()
             ->name('Fixtures')
             ->contains('abc');
@@ -544,7 +544,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     public function testNotContainsOnDirectory(ehough_finder_adapter_AdapterInterface $adapter)
     {
         $finder = $this->buildFinder($adapter);
-        $finder->in(__DIR__)
+        $finder->in(dirname(__FILE__))
             ->directories()
             ->name('Fixtures')
             ->notContains('abc');
@@ -671,7 +671,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     public function testPath(ehough_finder_adapter_AdapterInterface $adapter, $matchPatterns, $noMatchPatterns, array $expected)
     {
         $finder = $this->buildFinder($adapter);
-        $finder->in(__DIR__.DIRECTORY_SEPARATOR.'Fixtures')
+        $finder->in(dirname(__FILE__).DIRECTORY_SEPARATOR.'Fixtures')
             ->path($matchPatterns)
             ->notPath($noMatchPatterns);
 
