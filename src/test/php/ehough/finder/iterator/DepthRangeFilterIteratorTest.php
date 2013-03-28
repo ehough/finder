@@ -16,7 +16,15 @@ class ehough_finder_iterator_DepthRangeFilterIteratorTest extends ehough_finder_
      */
     public function testAccept($minDepth, $maxDepth, $expected)
     {
-        $inner = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->toAbsolute(), FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
+        if (version_compare(PHP_VERSION, '5.3') < 0) {
+
+            $inner = new RecursiveIteratorIterator(new ehough_filesystem_iterator_SkipDotsRecursiveDirectoryIterator($this->toAbsolute()));
+
+        } else {
+
+            $inner = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->toAbsolute(), FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
+        }
+
 
         $iterator = new ehough_finder_iterator_DepthRangeFilterIterator($inner, $minDepth, $maxDepth);
 

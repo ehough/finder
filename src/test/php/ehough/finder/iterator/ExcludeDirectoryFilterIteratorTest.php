@@ -16,7 +16,15 @@ class ehough_finder_iterator_ExcludeDirectoryFilterIteratorTest extends ehough_f
      */
     public function testAccept($directories, $expected)
     {
-        $inner = new RecursiveIteratorIterator(new ehough_finder_iterator_RecursiveDirectoryIterator($this->toAbsolute(), FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
+
+        if (version_compare(PHP_VERSION, '5.3') >= 0) {
+
+            $inner = new RecursiveIteratorIterator(new ehough_finder_iterator_RecursiveDirectoryIterator($this->toAbsolute(), FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
+
+        } else {
+
+            $inner = new RecursiveIteratorIterator(new ehough_filesystem_iterator_SkipDotsRecursiveDirectoryIterator($this->toAbsolute()));
+        }
 
         $iterator = new ehough_finder_iterator_ExcludeDirectoryFilterIterator($inner, $directories);
 

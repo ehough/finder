@@ -21,16 +21,23 @@ class ehough_finder_adapter_PhpAdapter extends ehough_finder_adapter_AbstractAda
      */
     public function searchInDirectory($dir)
     {
-        $flags = RecursiveDirectoryIterator::SKIP_DOTS;
+        if (version_compare(PHP_VERSION, '5.3') < 0) {
 
-        if ($this->followLinks) {
-            $flags |= RecursiveDirectoryIterator::FOLLOW_SYMLINKS;
+            $iterator = new ehough_filesystem_iterator_SkipDotsRecursiveDirectoryIterator($dir);
+
+        } else {
+
+            $flags = RecursiveDirectoryIterator::SKIP_DOTS;
+
+            if ($this->followLinks) {
+                $flags |= RecursiveDirectoryIterator::FOLLOW_SYMLINKS;
+            }
+
+            $iterator = new RecursiveIteratorIterator(
+                new ehough_finder_iterator_RecursiveDirectoryIterator($dir, $flags),
+                RecursiveIteratorIterator::SELF_FIRST
+            );
         }
-
-        $iterator = new RecursiveIteratorIterator(
-            new ehough_finder_iterator_RecursiveDirectoryIterator($dir, $flags),
-            RecursiveIteratorIterator::SELF_FIRST
-        );
 
         if ($this->minDepth > 0 || $this->maxDepth < PHP_INT_MAX) {
             $iterator = new ehough_finder_iterator_DepthRangeFilterIterator($iterator, $this->minDepth, $this->maxDepth);
