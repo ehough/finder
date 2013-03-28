@@ -74,7 +74,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      */
     public static function create()
     {
-        return new static();
+        return new self();
     }
 
     /**
