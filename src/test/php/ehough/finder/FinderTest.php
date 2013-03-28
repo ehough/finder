@@ -609,7 +609,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
 
     public function testAdaptersChaining()
     {
-        $iterator  = new \ArrayIterator(array());
+        $iterator  = new ArrayIterator(array());
         $filenames = $this->toAbsolute(array('foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto'));
         foreach ($filenames as $file) {
             $iterator->append(new ehough_finder_SplFileInfo($file, null, null));
@@ -627,9 +627,14 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     public function getAdaptersTestData()
     {
         return array_map(
-            function ($adapter)  { return array($adapter); },
+            array($this, '_callbackGetAdaptersTestData'),
             $this->getValidAdapters()
         );
+    }
+
+    public function _callbackGetAdaptersTestData($adapter)
+    {
+        return array($adapter);
     }
 
     public function getContainsTestData()
@@ -783,9 +788,12 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
                 new ehough_finder_adapter_GnuFindAdapter(),
                 new ehough_finder_adapter_PhpAdapter()
             ),
-            function (ehough_finder_adapter_AdapterInterface $adapter)  {
-                return $adapter->isSupported();
-            }
+            array($this, '_callbackGetValidAdapters')
         );
+    }
+
+    public function _callbackGetValidAdapters(ehough_finder_adapter_AdapterInterface $adapter)
+    {
+        return $adapter->isSupported();
     }
 }

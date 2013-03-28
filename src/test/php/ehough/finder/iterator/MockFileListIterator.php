@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-class ehough_finder_iterator_MockFileListIterator extends \ArrayIterator
+class ehough_finder_iterator_MockFileListIterator extends ArrayIterator
 {
     public function __construct(array $filesArray = array())
     {

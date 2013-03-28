@@ -727,15 +727,18 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      */
     private function sortAdapters()
     {
-        uasort($this->adapters, function (array $a, array $b) {
-            if ($a['selected'] || $b['selected']) {
-                return $a['selected'] ? -1 : 1;
-            }
-
-            return $a['priority'] > $b['priority'] ? -1 : 1;
-        });
+        uasort($this->adapters, array($this, '_callbackSortAdapters'));
 
         return $this;
+    }
+
+    public function _callbackSortAdapters(array $a, array $b)
+    {
+        if ($a['selected'] || $b['selected']) {
+            return $a['selected'] ? -1 : 1;
+        }
+
+        return $a['priority'] > $b['priority'] ? -1 : 1;
     }
 
     /**

@@ -38,31 +38,15 @@ class ehough_finder_iterator_SortableIterator implements IteratorAggregate
         $this->iterator = $iterator;
 
         if (self::SORT_BY_NAME === $sort) {
-            $this->sort = function ($a, $b) {
-                return strcmp($a->getRealpath(), $b->getRealpath());
-            };
+            $this->sort = array($this, '_callbackSortName');
         } elseif (self::SORT_BY_TYPE === $sort) {
-            $this->sort = function ($a, $b) {
-                if ($a->isDir() && $b->isFile()) {
-                    return -1;
-                } elseif ($a->isFile() && $b->isDir()) {
-                    return 1;
-                }
-
-                return strcmp($a->getRealpath(), $b->getRealpath());
-            };
+            $this->sort = array($this, '_callbackSortType');
         } elseif (self::SORT_BY_ACCESSED_TIME === $sort) {
-            $this->sort = function ($a, $b) {
-                return ($a->getATime() > $b->getATime());
-            };
+            $this->sort = array($this, '_callbackSortTime');
         } elseif (self::SORT_BY_CHANGED_TIME === $sort) {
-            $this->sort = function ($a, $b) {
-                return ($a->getCTime() > $b->getCTime());
-            };
+            $this->sort = array($this, '_callbackSortChangedTime');
         } elseif (self::SORT_BY_MODIFIED_TIME === $sort) {
-            $this->sort = function ($a, $b) {
-                return ($a->getMTime() > $b->getMTime());
-            };
+            $this->sort = array($this, '_callbackSortModTime');
         } elseif (is_callable($sort)) {
             $this->sort = $sort;
         } else {
@@ -76,5 +60,36 @@ class ehough_finder_iterator_SortableIterator implements IteratorAggregate
         uasort($array, $this->sort);
 
         return new ArrayIterator($array);
+    }
+
+    public function _callbackSortModTime($a, $b)
+    {
+        return ($a->getMTime() > $b->getMTime());
+    }
+
+    public function _callbackSortChangedTime($a, $b)
+    {
+        return ($a->getCTime() > $b->getCTime());
+    }
+
+    public function _callbackSortTime($a, $b)
+    {
+        return ($a->getATime() > $b->getATime());
+    }
+
+    public function _callbackSortType($a, $b)
+    {
+        if ($a->isDir() && $b->isFile()) {
+            return -1;
+        } elseif ($a->isFile() && $b->isDir()) {
+            return 1;
+        }
+
+        return strcmp($a->getRealpath(), $b->getRealpath());
+    }
+
+    public function _callbackSortName($a, $b)
+    {
+        return strcmp($a->getRealpath(), $b->getRealpath());
     }
 }
