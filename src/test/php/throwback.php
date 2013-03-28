@@ -6,6 +6,6 @@ __throwback::$config = array(
     'autoload'     => dirname(__FILE__) . '/../../main/php',
     'dependencies' => array(
 
-        'ehough/filesystem', 'git://github.com/ehough/filesystem.git', 'src/main/php'
+        array('ehough/filesystem', 'git://github.com/ehough/filesystem.git', 'src/main/php')
     )
 );
