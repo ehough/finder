@@ -42,7 +42,6 @@ class ehough_finder_iterator_ExcludeDirectoryFilterIterator extends ehough_finde
     public function accept()
     {if (!($this->current() instanceof ehough_finder_SplFileInfo)) {
         debug_print_backtrace();
-        print($this->current());
     }
 
         $path = $this->isDir() ? $this->current()->getRelativePathname() : $this->current()->getRelativePath();
