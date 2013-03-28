@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Iterator;
-
 /**
  * ehough_finder_iterator_FileTypeFilterIterator only keeps files, directories, or both.
  *
@@ -26,7 +24,7 @@ class ehough_finder_iterator_FileTypeFilterIterator extends ehough_finder_iterat
     /**
      * Constructor.
      *
-     * @param \Iterator $iterator The Iterator to filter
+     * @param Iterator $iterator The Iterator to filter
      * @param integer   $mode     The mode (self::ONLY_FILES or self::ONLY_DIRECTORIES)
      */
     public function __construct(Iterator $iterator, $mode)

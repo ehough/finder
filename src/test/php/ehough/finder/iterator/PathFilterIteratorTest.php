@@ -9,17 +9,13 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
-//use Symfony\Component\Finder\Iterator\PathFilterIterator;
-
 class ehough_finder_iterator_PathFilterIteratorTest extends ehough_finder_iterator_IteratorTestCase
 {
 
     /**
      * @dataProvider getTestFilterData
      */
-    public function testFilter(\Iterator $inner, array $matchPatterns, array $noMatchPatterns, array $resultArray)
+    public function testFilter(Iterator $inner, array $matchPatterns, array $noMatchPatterns, array $resultArray)
     {
         $iterator = new ehough_finder_iterator_PathFilterIterator($inner, $matchPatterns, $noMatchPatterns);
         $this->assertIterator($resultArray, $iterator);

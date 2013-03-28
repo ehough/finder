@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Iterator;
-
-//use Symfony\Component\Finder\Comparator\DateComparator;
-
 /**
  * ehough_finder_iterator_DateRangeFilterIterator filters out files that are not in the given date range (last modified dates).
  *

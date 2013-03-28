@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Iterator;
-
-//use Symfony\Component\Finder\Comparator\NumberComparator;
-
 /**
  * ehough_finder_iterator_SizeRangeFilterIterator filters out files that are not in the given size range.
  *

@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
-//use Symfony\Component\Finder\Iterator\FileTypeFilterIterator;
-
 class ehough_finder_iterator_FileTypeFilterIteratorTest extends ehough_finder_iterator_RealIteratorTestCase
 {
     /**
@@ -53,11 +49,11 @@ class ehough_finder_iterator_FileTypeFilterIteratorTest extends ehough_finder_it
     }
 }
 
-class InnerTypeIterator extends \ArrayIterator
+class InnerTypeIterator extends ArrayIterator
 {
    public function current()
     {
-        return new \SplFileInfo(parent::current());
+        return new SplFileInfo(parent::current());
     }
 
     public function isFile()

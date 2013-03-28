@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Exception;
-
-//use Symfony\Component\Finder\Adapter\AdapterInterface;
-
 /**
  * Base exception for all adapter failures.
  *
@@ -28,7 +24,7 @@ class ehough_finder_exception_AdapterFailureException extends RuntimeException i
     /**
      * @param ehough_finder_adapter_AdapterInterface $adapter
      * @param string|null      $message
-     * @param \Exception|null  $previous
+     * @param Exception|null  $previous
      */
     public function __construct(ehough_finder_adapter_AdapterInterface $adapter, $message = null, Exception $previous = null)
     {

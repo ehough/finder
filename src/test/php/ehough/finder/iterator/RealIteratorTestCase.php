@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
 require_once 'IteratorTestCase.php';
 
 abstract class ehough_finder_iterator_RealIteratorTestCase extends ehough_finder_iterator_IteratorTestCase

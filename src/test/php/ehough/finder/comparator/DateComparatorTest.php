@@ -9,26 +9,22 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Comparator;
-
-//use Symfony\Component\Finder\Comparator\DateComparator;
-
-class ehough_finder_comparator_DateComparatorTest extends \PHPUnit_Framework_TestCase
+class ehough_finder_comparator_DateComparatorTest extends PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {
         try {
             new ehough_finder_comparator_DateComparator('foobar');
-            $this->fail('__construct() throws an \InvalidArgumentException if the test expression is not valid.');
-        } catch (\Exception $e) {
-            $this->assertInstanceOf('InvalidArgumentException', $e, '__construct() throws an \InvalidArgumentException if the test expression is not valid.');
+            $this->fail('__construct() throws an InvalidArgumentException if the test expression is not valid.');
+        } catch (Exception $e) {
+            $this->assertInstanceOf('InvalidArgumentException', $e, '__construct() throws an InvalidArgumentException if the test expression is not valid.');
         }
 
         try {
             new ehough_finder_comparator_DateComparator('');
-            $this->fail('__construct() throws an \InvalidArgumentException if the test expression is not valid.');
-        } catch (\Exception $e) {
-            $this->assertInstanceOf('InvalidArgumentException', $e, '__construct() throws an \InvalidArgumentException if the test expression is not valid.');
+            $this->fail('__construct() throws an InvalidArgumentException if the test expression is not valid.');
+        } catch (Exception $e) {
+            $this->assertInstanceOf('InvalidArgumentException', $e, '__construct() throws an InvalidArgumentException if the test expression is not valid.');
         }
     }
 

@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Iterator;
-
 /**
  * ehough_finder_iterator_FilecontentFilterIterator filters files by their contents using patterns (regexps or strings).
  *

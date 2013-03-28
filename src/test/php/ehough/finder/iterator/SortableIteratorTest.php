@@ -9,19 +9,15 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
-//use Symfony\Component\Finder\Iterator\SortableIterator;
-
 class ehough_finder_iterator_SortableIteratorTest extends ehough_finder_iterator_RealIteratorTestCase
 {
     public function testConstructor()
     {
         try {
             new ehough_finder_iterator_SortableIterator(new ehough_finder_iterator_Iterator(array()), 'foobar');
-            $this->fail('__construct() throws an \InvalidArgumentException exception if the mode is not valid');
-        } catch (\Exception $e) {
-            $this->assertInstanceOf('InvalidArgumentException', $e, '__construct() throws an \InvalidArgumentException exception if the mode is not valid');
+            $this->fail('__construct() throws an InvalidArgumentException exception if the mode is not valid');
+        } catch (Exception $e) {
+            $this->assertInstanceOf('InvalidArgumentException', $e, '__construct() throws an InvalidArgumentException exception if the mode is not valid');
         }
     }
 

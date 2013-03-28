@@ -9,11 +9,9 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
-abstract class ehough_finder_iterator_IteratorTestCase extends \PHPUnit_Framework_TestCase
+abstract class ehough_finder_iterator_IteratorTestCase extends PHPUnit_Framework_TestCase
 {
-    protected function assertIterator($expected, \Traversable $iterator)
+    protected function assertIterator($expected, Traversable $iterator)
     {
         // set iterator_to_array $use_key to false to avoid values merge
         // this made ehough_finder_FinderTest::testAppendWithAnArray() failed with GnuFinderAdapter
@@ -27,7 +25,7 @@ abstract class ehough_finder_iterator_IteratorTestCase extends \PHPUnit_Framewor
         $this->assertEquals($expected, array_values($values));
     }
 
-    protected function assertOrderedIterator($expected, \Traversable $iterator)
+    protected function assertOrderedIterator($expected, Traversable $iterator)
     {
         $values = array_map(array($this, '_callbackAssertOrderIterator'), iterator_to_array($iterator));
 

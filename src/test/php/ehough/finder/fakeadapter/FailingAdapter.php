@@ -9,11 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\FakeAdapter;
-
-//use Symfony\Component\Finder\Adapter\AbstractAdapter;
-//use Symfony\Component\Finder\Exception\AdapterFailureException;
-
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */

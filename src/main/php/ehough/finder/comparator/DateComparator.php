@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Comparator;
-
 /**
  * DateCompare compiles date comparisons.
  *
@@ -33,7 +31,7 @@ class ehough_finder_comparator_DateComparator extends ehough_finder_comparator_C
         }
 
         try {
-            $date = new \DateTime($matches[2]);
+            $date = new DateTime($matches[2]);
             $target = $date->format('U');
         } catch (Exception $e) {
             throw new InvalidArgumentException(sprintf('"%s" is not a valid date.', $matches[2]));

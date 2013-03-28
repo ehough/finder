@@ -9,12 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests;
-
-//use Symfony\Component\Finder\Finder;
-//use Symfony\Component\Finder\Adapter;
-//use Symfony\Component\Finder\Tests\FakeAdapter;
-
 require_once dirname(__FILE__) . '/iterator/RealIteratorTestCase.php';
 require_once 'fakeadapter/DummyAdapter.php';
 require_once 'fakeadapter/FailingAdapter.php';
@@ -318,9 +312,9 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $finder = $this->buildFinder($adapter);
         try {
             $finder->in('foobar');
-            $this->fail('->in() throws a \InvalidArgumentException if the directory does not exist');
-        } catch (\Exception $e) {
-            $this->assertInstanceOf('InvalidArgumentException', $e, '->in() throws a \InvalidArgumentException if the directory does not exist');
+            $this->fail('->in() throws a InvalidArgumentException if the directory does not exist');
+        } catch (Exception $e) {
+            $this->assertInstanceOf('InvalidArgumentException', $e, '->in() throws a InvalidArgumentException if the directory does not exist');
         }
 
         $finder = $this->buildFinder($adapter);
@@ -342,7 +336,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
 
     /**
      * @dataProvider getAdaptersTestData
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testInWithNonDirectoryGlob($adapter)
     {
@@ -359,7 +353,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         try {
             $finder->getIterator();
             $this->fail('->getIterator() throws a \LogicException if the in() method has not been called');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertInstanceOf('LogicException', $e, '->getIterator() throws a \LogicException if the in() method has not been called');
         }
 
@@ -374,16 +368,16 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         sort($dirs);
         sort($expected);
 
-        $this->assertEquals($expected, $dirs, 'implements the \IteratorAggregate interface');
+        $this->assertEquals($expected, $dirs, 'implements the IteratorAggregate interface');
 
         $finder = $this->buildFinder($adapter);
-        $this->assertEquals(2, iterator_count($finder->directories()->in(self::$tmpDir)), 'implements the \IteratorAggregate interface');
+        $this->assertEquals(2, iterator_count($finder->directories()->in(self::$tmpDir)), 'implements the IteratorAggregate interface');
 
         $finder = $this->buildFinder($adapter);
         $a = iterator_to_array($finder->directories()->in(self::$tmpDir));
         $a = array_values(array_map(array($this, '_callbackTestGetIterator'), $a));
         sort($a);
-        $this->assertEquals($expected, $a, 'implements the \IteratorAggregate interface');
+        $this->assertEquals($expected, $a, 'implements the IteratorAggregate interface');
     }
 
     public function _callbackTestGetIterator($a)
@@ -508,7 +502,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     }
 
     /**
-     * @expectedException \LogicException
+     * @expectedException LogicException
      */
     public function testCountWithoutIn()
     {
@@ -755,7 +749,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         try {
             $this->assertIterator($this->toAbsolute(array('test.php', 'test.py')), $finder->getIterator());
             $this->fail('Finder should throw an exception when opening a non-readable directory.');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertEquals('ehough_finder_exception_AccessDeniedException', get_class($e));
         }
 

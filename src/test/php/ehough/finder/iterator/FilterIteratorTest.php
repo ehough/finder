@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
 /**
  * @author Alex Bogomazov
  */
@@ -20,7 +18,7 @@ class ehough_finder_iterator_FilterIteratorTest extends ehough_finder_iterator_R
 
     public function testFilterFilesystemIterators()
     {
-        $i = new \FilesystemIterator($this->toAbsolute());
+        $i = new FilesystemIterator($this->toAbsolute());
 
         // it is expected that there are test.py test.php in the tmpDir
         $i = $this->getMockForAbstractClass('ehough_finder_iterator_FilterIterator', array($i));
@@ -44,7 +42,7 @@ class ehough_finder_iterator_FilterIteratorTest extends ehough_finder_iterator_R
             $c++;
         }
 
-        // This would fail with \FilterIterator but works with Symfony\Component\Finder\Iterator\FilterIterator
+        // This would fail with \FilterIterator but works with Symfony\Component\FinderIterator\FilterIterator
         // see https://bugs.php.net/bug.php?id=49104
         $this->assertEquals(1, $c);
     }

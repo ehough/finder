@@ -9,11 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Exception;
-
-//use Symfony\Component\Finder\Adapter\AdapterInterface;
-//use Symfony\Component\Finder\Shell\Command;
-
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
@@ -27,7 +22,7 @@ class ehough_finder_exception_ShellCommandFailureException extends ehough_finder
     /**
      * @param ehough_finder_adapter_AdapterInterface $adapter
      * @param ehough_finder_shell_Command          $command
-     * @param \Exception|null  $previous
+     * @param Exception|null  $previous
      */
     public function __construct(ehough_finder_adapter_AdapterInterface $adapter, ehough_finder_shell_Command $command, Exception $previous = null)
     {

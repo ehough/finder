@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\FakeAdapter;
-
-//use Symfony\Component\Finder\Adapter\AbstractAdapter;
-
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
@@ -23,7 +19,7 @@ class ehough_finder_fakeadapter_UnsupportedAdapter extends ehough_finder_adapter
      */
     public function searchInDirectory($dir)
     {
-        return new \ArrayIterator(array());
+        return new ArrayIterator(array());
     }
 
     /**

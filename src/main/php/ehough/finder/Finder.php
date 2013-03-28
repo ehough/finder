@@ -9,14 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder;
-
-//use Symfony\Component\Finder\Adapter\AdapterInterface;
-//use Symfony\Component\Finder\Adapter\GnuFindAdapter;
-//use Symfony\Component\Finder\Adapter\BsdFindAdapter;
-//use Symfony\Component\Finder\Adapter\PhpAdapter;
-//use Symfony\Component\Finder\Exception\ExceptionInterface;
-
 /**
  * ehough_finder_Finder allows to build rules to find files and directories.
  *
@@ -121,7 +113,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      *
      * @param string $name
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      */
@@ -477,7 +469,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
     /**
      * Sorts files and directories by an anonymous function.
      *
-     * The anonymous function receives two \SplFileInfo instances to compare.
+     * The anonymous function receives two SplFileInfo instances to compare.
      *
      * This can be slow as all the matching files and directories must be retrieved for comparison.
      *
@@ -597,7 +589,7 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
     /**
      * Filters the iterator with an anonymous function.
      *
-     * The anonymous function receives a \SplFileInfo and must return false
+     * The anonymous function receives a SplFileInfo and must return false
      * to remove files.
      *
      * @param callable $closure An anonymous function
@@ -664,11 +656,11 @@ class ehough_finder_Finder implements IteratorAggregate, Countable
      *
      * This method implements the IteratorAggregate interface.
      *
-     * @return \Iterator An iterator
+     * @return Iterator An iterator
      *
-     * @throws \LogicException if the in() method has not been called
+     * @throws LogicException if the in() method has not been called
      */
-    public function getIterator()(function
+    public function getIterator()
     {
         if (0 === count($this->dirs) && 0 === count($this->iterators)) {
             throw new LogicException('You must call one of in() or append() methods before iterating over a ehough_finder_Finder.');

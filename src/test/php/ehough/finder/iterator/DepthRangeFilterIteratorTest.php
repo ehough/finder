@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
-//use Symfony\Component\Finder\Iterator\DepthRangeFilterIterator;
-
 class ehough_finder_iterator_DepthRangeFilterIteratorTest extends ehough_finder_iterator_RealIteratorTestCase
 {
     /**
@@ -20,7 +16,7 @@ class ehough_finder_iterator_DepthRangeFilterIteratorTest extends ehough_finder_
      */
     public function testAccept($minDepth, $maxDepth, $expected)
     {
-        $inner = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->toAbsolute(), \FilesystemIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST);
+        $inner = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->toAbsolute(), FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
 
         $iterator = new ehough_finder_iterator_DepthRangeFilterIterator($inner, $minDepth, $maxDepth);
 

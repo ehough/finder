@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Comparator;
-
 /**
  * ehough_finder_comparator_Comparator.
  *

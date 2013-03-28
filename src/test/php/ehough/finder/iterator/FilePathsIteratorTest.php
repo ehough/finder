@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
-//use Symfony\Component\Finder\Iterator\FilePathsIterator;
-
 class ehough_finder_iterator_FilePathsIteratorTest extends ehough_finder_iterator_RealIteratorTestCase
 {
     /**

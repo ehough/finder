@@ -9,17 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Adapter;
-
-//use Symfony\Component\Finder\Exception\AccessDeniedException;
-//use Symfony\Component\Finder\Iterator;
-//use Symfony\Component\Finder\Shell\Shell;
-//use Symfony\Component\Finder\Expression\Expression;
-//use Symfony\Component\Finder\Shell\Command;
-//use Symfony\Component\Finder\Iterator\SortableIterator;
-//use Symfony\Component\Finder\Comparator\NumberComparator;
-//use Symfony\Component\Finder\Comparator\DateComparator;
-
 /**
  * Shell engine implementation using GNU find command.
  *

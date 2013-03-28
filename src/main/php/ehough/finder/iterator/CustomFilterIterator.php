@@ -9,12 +9,10 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Iterator;
-
 /**
  * ehough_finder_iterator_CustomFilterIterator filters files by applying anonymous functions.
  *
- * The anonymous function receives a \SplFileInfo and must return false
+ * The anonymous function receives a SplFileInfo and must return false
  * to remove files.
  *
  * @author Fabien Potencier <fabien@symfony.com>

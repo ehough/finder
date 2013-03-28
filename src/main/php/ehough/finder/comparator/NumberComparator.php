@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Comparator;
-
 /**
  * ehough_finder_comparator_NumberComparator compiles a simple comparison to an anonymous
  * subroutine, which you can call with a value to be tested again.
@@ -40,7 +38,7 @@ class ehough_finder_comparator_NumberComparator extends ehough_finder_comparator
      *
      * @param string $test A comparison string
      *
-     * @throws \InvalidArgumentException If the test is not understood
+     * @throws InvalidArgumentException If the test is not understood
      */
     public function __construct($test)
     {

@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Expression;
-
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */

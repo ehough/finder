@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Iterator;
-
 /**
  * ehough_finder_iterator_PathFilterIterator filters files by path patterns (e.g. some/special/dir).
  *

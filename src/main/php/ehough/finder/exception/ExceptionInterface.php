@@ -1,7 +1,5 @@
 <?php
 
-//namespace Symfony\Component\Finder\Exception;
-
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */

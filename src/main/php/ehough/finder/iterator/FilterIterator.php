@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Iterator;
-
 /**
  * This iterator just overrides the rewind method in order to correct a PHP bug.
  *

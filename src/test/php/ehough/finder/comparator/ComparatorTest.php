@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Comparator;
-
-//use Symfony\Component\Finder\Comparator\Comparator;
-
 class ehough_finder_comparator_ComparatorTest extends PHPUnit_Framework_TestCase
 {
     public function testGetSetOperator()
@@ -20,9 +16,9 @@ class ehough_finder_comparator_ComparatorTest extends PHPUnit_Framework_TestCase
         $comparator = new ehough_finder_comparator_Comparator();
         try {
             $comparator->setOperator('foo');
-            $this->fail('->setOperator() throws an \InvalidArgumentException if the operator is not valid.');
-        } catch (\Exception $e) {
-            $this->assertInstanceOf('InvalidArgumentException', $e, '->setOperator() throws an \InvalidArgumentException if the operator is not valid.');
+            $this->fail('->setOperator() throws an InvalidArgumentException if the operator is not valid.');
+        } catch (Exception $e) {
+            $this->assertInstanceOf('InvalidArgumentException', $e, '->setOperator() throws an InvalidArgumentException if the operator is not valid.');
         }
 
         $comparator = new ehough_finder_comparator_Comparator();

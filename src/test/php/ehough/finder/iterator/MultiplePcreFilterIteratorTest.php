@@ -9,11 +9,7 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
-//use Symfony\Component\Finder\Iterator\MultiplePcreFilterIterator;
-
-class ehough_finder_iterator_MultiplePcreFilterIteratorTest extends \PHPUnit_Framework_TestCase
+class ehough_finder_iterator_MultiplePcreFilterIteratorTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider getIsRegexFixtures
@@ -52,7 +48,7 @@ class TestMultiplePcreFilterIterator extends ehough_finder_iterator_MultiplePcre
 
     public function accept()
     {
-        throw new \BadFunctionCallException('Not implemented');
+        throw new BadFunctionCallException('Not implemented');
     }
 
     public function isRegex($str)
@@ -62,6 +58,6 @@ class TestMultiplePcreFilterIterator extends ehough_finder_iterator_MultiplePcre
 
     public function toRegex($str)
     {
-        throw new \BadFunctionCallException('Not implemented');
+        throw new BadFunctionCallException('Not implemented');
     }
 }

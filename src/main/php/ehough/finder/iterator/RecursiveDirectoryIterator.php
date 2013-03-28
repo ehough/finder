@@ -9,11 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Iterator;
-
-//use Symfony\Component\Finder\Exception\AccessDeniedException;
-//use Symfony\Component\Finder\SplFileInfo;
-
 /**
  * Extends the \RecursiveDirectoryIterator to support relative paths
  *

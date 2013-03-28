@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
 class ehough_finder_iterator_Iterator implements Iterator
 {
     protected $values;
@@ -19,12 +17,12 @@ class ehough_finder_iterator_Iterator implements Iterator
     {
         $this->values = array();
         foreach ($values as $value) {
-            $this->attach(new \SplFileInfo($value));
+            $this->attach(new SplFileInfo($value));
         }
         $this->rewind();
     }
 
-    public function attach(\SplFileInfo $fileinfo)
+    public function attach(SplFileInfo $fileinfo)
     {
         $this->values[] = $fileinfo;
     }

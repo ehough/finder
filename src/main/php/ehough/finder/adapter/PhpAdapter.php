@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Adapter;
-
-//use Symfony\Component\Finder\Iterator;
-
 /**
  * PHP finder engine implementation.
  *

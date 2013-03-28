@@ -9,11 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
-//use Symfony\Component\Finder\Iterator\SizeRangeFilterIterator;
-//use Symfony\Component\Finder\Comparator\NumberComparator;
-
 class ehough_finder_iterator_SizeRangeFilterIteratorTest extends ehough_finder_iterator_RealIteratorTestCase
 {
     /**
@@ -44,11 +39,11 @@ class ehough_finder_iterator_SizeRangeFilterIteratorTest extends ehough_finder_i
     }
 }
 
-class InnerSizeIterator extends \ArrayIterator
+class InnerSizeIterator extends ArrayIterator
 {
    public function current()
     {
-        return new \SplFileInfo(parent::current());
+        return new SplFileInfo(parent::current());
     }
 
     public function getFilename()

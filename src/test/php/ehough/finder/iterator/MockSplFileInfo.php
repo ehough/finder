@@ -9,9 +9,7 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
-class ehough_finder_iterator_MockSplFileInfo extends \SplFileInfo
+class ehough_finder_iterator_MockSplFileInfo extends SplFileInfo
 {
     const   TYPE_DIRECTORY = 1;
     const   TYPE_FILE      = 2;
@@ -44,7 +42,7 @@ class ehough_finder_iterator_MockSplFileInfo extends \SplFileInfo
             $this->setRelativePath($defaults['relativePath']);
             $this->setRelativePathname($defaults['relativePathname']);
         } else {
-            throw new \RuntimeException(sprintf('Incorrect parameter "%s"', $param));
+            throw new RuntimeException(sprintf('Incorrect parameter "%s"', $param));
         }
     }
 

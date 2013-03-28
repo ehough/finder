@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Expression;
-
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
@@ -123,14 +121,14 @@ class ehough_finder_expression_Expression implements ehough_finder_expression_Va
     }
 
     /**
-     * @throws \LogicException
+     * @throws LogicException
      *
      * @return ehough_finder_expression_Glob
      */
     public function getGlob()
     {
         if (self::TYPE_GLOB !== $this->value->getType()) {
-            throw new \LogicException('Regex cant be transformed to glob.');
+            throw new LogicException('Regex cant be transformed to glob.');
         }
 
         return $this->value;

@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Iterator;
-
-//use Symfony\Component\Finder\SplFileInfo;
-
 /**
  * Iterate over shell command result.
  *

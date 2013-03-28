@@ -9,12 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
-//use Symfony\Component\Finder\Iterator\FilecontentFilterIterator;
-//use Symfony\Component\Finder\Tests\Iterator\MockSplFileInfo;
-//use Symfony\Component\Finder\Tests\Iterator\MockFileListIterator;
-
 require_once 'MockFileListIterator.php';
 require_once 'MockSplFileInfo.php';
 
@@ -45,7 +39,7 @@ class ehough_finder_iterator_FilecontentFilterIteratorTest extends ehough_finder
     /**
      * @dataProvider getTestFilterData
      */
-    public function testFilter(\Iterator $inner, array $matchPatterns, array $noMatchPatterns, array $resultArray)
+    public function testFilter(Iterator $inner, array $matchPatterns, array $noMatchPatterns, array $resultArray)
     {
         $iterator = new ehough_finder_iterator_FilecontentFilterIterator($inner, $matchPatterns, $noMatchPatterns);
         $this->assertIterator($resultArray, $iterator);

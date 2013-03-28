@@ -9,16 +9,12 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
-//use Symfony\Component\Finder\Iterator\CustomFilterIterator;
-
 require_once 'Iterator.php';
 
 class ehough_finder_iterator_CustomFilterIteratorTest extends ehough_finder_iterator_IteratorTestCase
 {
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testWithInvalidFilter()
     {

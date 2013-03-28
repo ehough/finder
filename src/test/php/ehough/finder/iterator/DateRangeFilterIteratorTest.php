@@ -9,11 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
-//use Symfony\Component\Finder\Iterator\DateRangeFilterIterator;
-//use Symfony\Component\Finder\Comparator\DateComparator;
-
 class ehough_finder_iterator_DateRangeFilterIteratorTest extends ehough_finder_iterator_RealIteratorTestCase
 {
     /**

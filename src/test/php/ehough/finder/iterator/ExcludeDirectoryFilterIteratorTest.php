@@ -9,11 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Iterator;
-
-//use Symfony\Component\Finder\Iterator\ExcludeDirectoryFilterIterator;
-//use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
-
 class ehough_finder_iterator_ExcludeDirectoryFilterIteratorTest extends ehough_finder_iterator_RealIteratorTestCase
 {
     /**
@@ -21,7 +16,7 @@ class ehough_finder_iterator_ExcludeDirectoryFilterIteratorTest extends ehough_f
      */
     public function testAccept($directories, $expected)
     {
-        $inner = new \RecursiveIteratorIterator(new ehough_finder_iterator_RecursiveDirectoryIterator($this->toAbsolute(), \FilesystemIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST);
+        $inner = new RecursiveIteratorIterator(new ehough_finder_iterator_RecursiveDirectoryIterator($this->toAbsolute(), FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
 
         $iterator = new ehough_finder_iterator_ExcludeDirectoryFilterIterator($inner, $directories);
 

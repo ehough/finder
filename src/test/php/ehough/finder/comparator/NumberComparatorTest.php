@@ -9,11 +9,7 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests\Comparator;
-
-//use Symfony\Component\Finder\Comparator\NumberComparator;
-
-class ehough_finder_comparator_NumberComparatorTest extends \PHPUnit_Framework_TestCase
+class ehough_finder_comparator_NumberComparatorTest extends PHPUnit_Framework_TestCase
 {
 
     /**
@@ -28,9 +24,9 @@ class ehough_finder_comparator_NumberComparatorTest extends \PHPUnit_Framework_T
         foreach ($failures as $f) {
             try {
                 new ehough_finder_comparator_NumberComparator($f);
-                $this->fail('__construct() throws an \InvalidArgumentException if the test expression is not valid.');
-            } catch (\Exception $e) {
-                $this->assertInstanceOf('InvalidArgumentException', $e, '__construct() throws an \InvalidArgumentException if the test expression is not valid.');
+                $this->fail('__construct() throws an InvalidArgumentException if the test expression is not valid.');
+            } catch (Exception $e) {
+                $this->assertInstanceOf('InvalidArgumentException', $e, '__construct() throws an InvalidArgumentException if the test expression is not valid.');
             }
         }
     }

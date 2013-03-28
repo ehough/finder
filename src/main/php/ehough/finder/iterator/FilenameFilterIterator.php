@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Iterator;
-
-//use Symfony\Component\Finder\Expression\Expression;
-
 /**
  * ehough_finder_iterator_FilenameFilterIterator filters files by patterns (a regexp, a glob, or a string).
  *

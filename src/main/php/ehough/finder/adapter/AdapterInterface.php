@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Adapter;
-
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
@@ -117,7 +115,7 @@ interface ehough_finder_adapter_AdapterInterface
     /**
      * @param string $dir
      *
-     * @return \Iterator Result iterator
+     * @return Iterator Result iterator
      */
     public function searchInDirectory($dir);
 

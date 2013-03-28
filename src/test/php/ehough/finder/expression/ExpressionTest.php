@@ -9,11 +9,7 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\Finder\Tests;
-
-//use Symfony\Component\Finder\Expression\Expression;
-
-class ehough_finder_expression_ExpressionTest extends \PHPUnit_Framework_TestCase
+class ehough_finder_expression_ExpressionTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider getTypeGuesserData
