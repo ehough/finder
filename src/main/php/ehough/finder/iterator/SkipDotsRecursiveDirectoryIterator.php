@@ -14,17 +14,8 @@
  *
  * @author Victor Berchet <victor@suumit.com>
  */
-class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirectoryIterator
+class ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator extends ehough_filesystem_iterator_SkipDotsRecursiveDirectoryIterator
 {
-    public function __construct($path, $flags)
-    {
-        if ($flags & (self::CURRENT_AS_PATHNAME | self::CURRENT_AS_SELF)) {
-            throw new RuntimeException('This iterator only support returning current as fileinfo.');
-        }
-
-        parent::__construct($path, $flags);
-    }
-
     /**
      * Return an instance of SplFileInfo with support for relative paths
      *

@@ -40,10 +40,7 @@ class ehough_finder_iterator_ExcludeDirectoryFilterIterator extends ehough_finde
      * @return Boolean true if the value should be kept, false otherwise
      */
     public function accept()
-    {if (!($this->current() instanceof ehough_finder_SplFileInfo)) {
-        debug_print_backtrace();
-    }
-
+    {
         $path = $this->isDir() ? $this->current()->getRelativePathname() : $this->current()->getRelativePath();
         $path = strtr($path, '\\', '/');
         foreach ($this->patterns as $pattern) {

@@ -23,7 +23,7 @@ class ehough_finder_adapter_PhpAdapter extends ehough_finder_adapter_AbstractAda
     {
         if (version_compare(PHP_VERSION, '5.3') < 0) {
 
-            $iterator = new RecursiveIteratorIterator(new ehough_filesystem_iterator_SkipDotsRecursiveDirectoryIterator($dir));
+            $iterator = new RecursiveIteratorIterator(new ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator($dir));
 
         } else {
 
