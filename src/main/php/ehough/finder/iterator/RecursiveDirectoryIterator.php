@@ -14,7 +14,7 @@
  *
  * @author Victor Berchet <victor@suumit.com>
  */
-class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirectoryIterator
+class ehough_finder_iterator_RecursiveDirectoryIterator extends ehough_filesystem_iterator_SkipDotsRecursiveDirectoryIterator
 {
     public function __construct($path, $flags)
     {
