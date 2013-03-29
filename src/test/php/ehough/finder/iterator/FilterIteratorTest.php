@@ -18,7 +18,7 @@ class ehough_finder_iterator_FilterIteratorTest extends ehough_finder_iterator_R
 
     public function testFilterFilesystemIterators()
     {
-        $i = new FilesystemIterator($this->toAbsolute());
+        $i = new DirectoryIterator($this->toAbsolute());
 
         // it is expected that there are test.py test.php in the tmpDir
         $i = $this->getMockForAbstractClass('ehough_finder_iterator_FilterIterator', array($i));
