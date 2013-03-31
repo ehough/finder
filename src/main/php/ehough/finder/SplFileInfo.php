@@ -79,7 +79,7 @@ class ehough_finder_SplFileInfo extends SplFileInfo
 
         if (version_compare(PHP_VERSION, '5.3') < 0 && $this->_endsWithSlash($pathName)) {
 
-            return substr($pathName, 0, strlen($pathName) - 1);
+            return rtrim($pathName, DIRECTORY_SEPARATOR);
         }
 
         return $pathName;
