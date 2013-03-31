@@ -72,4 +72,26 @@ class ehough_finder_SplFileInfo extends SplFileInfo
 
         return $content;
     }
+
+    public function getRealPath()
+    {
+        $parentPath = parent::getRealPath();
+
+        if (version_compare(PHP_VERSION, '5.3') < 0 && $this->_endsWithSlash($parentPath)) {
+
+            return substr($parentPath, 0, strlen($parentPath) - 1);
+        }
+
+        return $parentPath;
+    }
+
+    private function _endsWithSlash($path)
+    {
+        $length = strlen(DIRECTORY_SEPARATOR);
+        if ($length == 0) {
+            return true;
+        }
+
+        return (substr($path, -$length) === DIRECTORY_SEPARATOR);
+    }
 }
