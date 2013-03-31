@@ -43,7 +43,7 @@ class ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator extends Recursiv
     public function next()
     {
         parent::next();
-return;
+
         while ($this->isDot()) {
 
             parent::next();
