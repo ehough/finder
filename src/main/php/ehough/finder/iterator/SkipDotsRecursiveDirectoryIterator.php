@@ -64,11 +64,6 @@ class ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator extends Recursiv
 
     private function _endsWithSlash($path)
     {
-        if (! is_dir($path)) {
-
-            return false;
-        }
-
         $length = strlen(DIRECTORY_SEPARATOR);
         if ($length == 0) {
             return true;
