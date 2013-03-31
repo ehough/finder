@@ -49,4 +49,31 @@ class ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator extends Recursiv
             parent::next();
         }
     }
+
+    public function getPathname()
+    {
+        $pathName = parent::getPathname();
+
+        if ($this->_endsWithSlash($pathName)) {
+
+            return substr($pathName, 0, strlen($pathName) - 1);
+        }
+
+        return $pathName;
+    }
+
+    private function _endsWithSlash($path)
+    {
+        if (! is_dir($path)) {
+
+            return false;
+        }
+
+        $length = strlen(DIRECTORY_SEPARATOR);
+        if ($length == 0) {
+            return true;
+        }
+
+        return (substr($path, -$length) === DIRECTORY_SEPARATOR);
+    }
 }
