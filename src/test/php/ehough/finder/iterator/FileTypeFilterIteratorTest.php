@@ -51,6 +51,24 @@ class ehough_finder_iterator_FileTypeFilterIteratorTest extends ehough_finder_it
 
 class InnerTypeIterator extends ArrayIterator
 {
+    public function __construct(array $values = array())
+    {
+        $toSendToParent = array();
+
+        foreach ($values as $value) {
+
+            if ($this->_endsWithSlash($value)) {
+
+                $toSendToParent[] = rtrim($value, DIRECTORY_SEPARATOR);
+            } else {
+
+                $toSendToParent[] = $value;
+            }
+        }
+
+        parent::__construct($toSendToParent);
+    }
+
    public function current()
     {
         return new SplFileInfo(parent::current());
@@ -64,5 +82,10 @@ class InnerTypeIterator extends ArrayIterator
     public function isDir()
     {
         return $this->current()->isDir();
+    }
+
+    private function _endsWithSlash($haystack)
+    {
+        return (substr($haystack, -1) === DIRECTORY_SEPARATOR);
     }
 }
