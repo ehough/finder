@@ -14,7 +14,7 @@
  *
  * @author Victor Berchet <victor@suumit.com>
  */
-class ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator extends ehough_filesystem_iterator_SkipDotsRecursiveDirectoryIterator
+class ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator extends RecursiveDirectoryIterator
 {
     /**
      * Return an instance of SplFileInfo with support for relative paths
@@ -37,6 +37,16 @@ class ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator extends ehough_f
             return parent::getChildren();
         } catch (UnexpectedValueException $e) {
             throw new ehough_finder_exception_AccessDeniedException($e->getMessage(), $e->getCode(), $e);
+        }
+    }
+
+    public function next()
+    {
+        parent::next();
+
+        while ($this->isDot()) {
+
+            parent::next();
         }
     }
 }
