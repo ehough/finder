@@ -17,6 +17,12 @@ class ehough_finder_iterator_Iterator implements Iterator
     {
         $this->values = array();
         foreach ($values as $value) {
+
+            if ($this->_endsWithSlash($value)) {
+
+                $value = rtrim($value, DIRECTORY_SEPARATOR);
+            }
+
             $this->attach(new SplFileInfo($value));
         }
         $this->rewind();
@@ -50,5 +56,10 @@ class ehough_finder_iterator_Iterator implements Iterator
     public function key()
     {
         return key($this->values);
+    }
+
+    private function _endsWithSlash($haystack)
+    {
+        return (substr($haystack, -1) === DIRECTORY_SEPARATOR);
     }
 }
