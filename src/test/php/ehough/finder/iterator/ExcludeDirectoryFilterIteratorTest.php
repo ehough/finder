@@ -23,7 +23,7 @@ class ehough_finder_iterator_ExcludeDirectoryFilterIteratorTest extends ehough_f
 
         } else {
 
-            $inner = new RecursiveIteratorIterator(new ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator($this->toAbsolute()));
+            $inner = new RecursiveIteratorIterator(new ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator($this->toAbsolute()), RecursiveIteratorIterator::SELF_FIRST);
         }
 
         $iterator = new ehough_finder_iterator_ExcludeDirectoryFilterIterator($inner, $directories);
