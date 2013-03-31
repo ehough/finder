@@ -23,7 +23,14 @@ class ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator extends Recursiv
      */
     public function current()
     {
-        return new ehough_finder_SplFileInfo(parent::current()->getPathname(), $this->getSubPath(), $this->getSubPathname());
+        $parentPathName = parent::current()->getPathname();
+
+        if (version_compare(PHP_VERSION, '5.3') < 0 && $this->_endsWithSlash($parentPathName)) {
+
+            $parentPathName = rtrim($parentPathName, DIRECTORY_SEPARATOR);
+        }
+
+        return new ehough_finder_SplFileInfo($parentPathName, $this->getSubPath(), $this->getSubPathname());
     }
 
     /**
@@ -48,5 +55,15 @@ class ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator extends Recursiv
 
             parent::next();
         }
+    }
+
+    private function _endsWithSlash($path)
+    {
+        $length = strlen(DIRECTORY_SEPARATOR);
+        if ($length == 0) {
+            return true;
+        }
+
+        return (substr($path, -$length) === DIRECTORY_SEPARATOR);
     }
 }
