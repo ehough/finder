@@ -23,10 +23,22 @@ class ehough_finder_adapter_PhpAdapter extends ehough_finder_adapter_AbstractAda
     {
         if (version_compare(PHP_VERSION, '5.3') < 0) {
 
-            $iterator = new RecursiveIteratorIterator(
-                new ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator($dir),
-                RecursiveIteratorIterator::SELF_FIRST
-            );
+            try {
+
+                $iterator = new RecursiveIteratorIterator(
+                    new ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator($dir),
+                    RecursiveIteratorIterator::SELF_FIRST
+                );
+
+            } catch (Exception $e) {
+
+                if (strpos($e->getMessage(), 'Permission denied') !== false) {
+
+                    throw new ehough_finder_exception_AccessDeniedException();
+                }
+
+                throw $e;
+            }
 
         } else {
 
