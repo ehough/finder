@@ -31,7 +31,7 @@ class ehough_finder_adapter_PhpAdapter extends ehough_finder_adapter_AbstractAda
                 );
 
             } catch (Exception $e) {
-var_dump($e);
+
                 if (strpos($e->getMessage(), 'Permission denied') !== false) {
 
                     throw new ehough_finder_exception_AccessDeniedException();
