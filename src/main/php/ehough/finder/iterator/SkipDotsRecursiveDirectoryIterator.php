@@ -16,6 +16,16 @@
  */
 class ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator extends RecursiveDirectoryIterator
 {
+    public function __construct($path)
+    {
+        if (!is_dir($path) || !is_readable($path)) {
+
+            throw new ehough_finder_exception_AccessDeniedException();
+        }
+
+        parent::__construct($path);
+    }
+
     /**
      * Return an instance of SplFileInfo with support for relative paths
      *
