@@ -20,7 +20,7 @@ class ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator extends Recursiv
     {
         if (!is_dir($path) || !is_readable($path)) {
 
-            throw new ehough_finder_exception_AccessDeniedException();
+            throw new ehough_finder_exception_AccessDeniedException("Could not open directory at $path");
         }
 
         parent::__construct($path);
