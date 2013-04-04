@@ -46,7 +46,7 @@ class ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator extends Recursiv
         try {
             return parent::getChildren();
         } catch (UnexpectedValueException $e) {
-            throw new ehough_finder_exception_AccessDeniedException($e->getMessage(), $e->getCode(), $e);
+            throw new ehough_finder_exception_AccessDeniedException($e->getMessage(), $e->getCode());
         }
     }
 
