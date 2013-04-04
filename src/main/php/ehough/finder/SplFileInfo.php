@@ -9,14 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder;
-
 /**
- * Extends \SplFileInfo to support relative paths
+ * Extends SplFileInfo to support relative paths
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class SplFileInfo extends \SplFileInfo
+class ehough_finder_SplFileInfo extends SplFileInfo
 {
     private $relativePath;
     private $relativePathname;
@@ -60,7 +58,7 @@ class SplFileInfo extends \SplFileInfo
      *
      * @return string the contents of the file
      *
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function getContents()
     {
@@ -69,7 +67,7 @@ class SplFileInfo extends \SplFileInfo
         error_reporting($level);
         if (false === $content) {
             $error = error_get_last();
-            throw new \RuntimeException($error['message']);
+            throw new RuntimeException($error['message']);
         }
 
         return $content;

@@ -9,30 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Finder;
-
-use Symfony\Component\Finder\Adapter\AdapterInterface;
-use Symfony\Component\Finder\Adapter\GnuFindAdapter;
-use Symfony\Component\Finder\Adapter\BsdFindAdapter;
-use Symfony\Component\Finder\Adapter\PhpAdapter;
-use Symfony\Component\Finder\Exception\ExceptionInterface;
-
 /**
- * Finder allows to build rules to find files and directories.
+ * ehough_finder_Finder allows to build rules to find files and directories.
  *
  * It is a thin wrapper around several specialized iterator classes.
  *
  * All rules may be invoked several times.
  *
- * All methods return the current Finder object to allow easy chaining:
+ * All methods return the current ehough_finder_Finder object to allow easy chaining:
  *
- * $finder = Finder::create()->files()->name('*.php')->in(__DIR__);
+ * $finder = ehough_finder_Finder::create()->files()->name('*.php')->in(__DIR__);
  *
  * @author Fabien Potencier <fabien@symfony.com>
  *
  * @api
  */
-class Finder implements \IteratorAggregate, \Countable
+class ehough_finder_Finder implements IteratorAggregate, Countable
 {
     const IGNORE_VCS_FILES = 1;
     const IGNORE_DOT_FILES = 2;
@@ -63,37 +55,37 @@ class Finder implements \IteratorAggregate, \Countable
      */
     public function __construct()
     {
-        $this->ignore = static::IGNORE_VCS_FILES | static::IGNORE_DOT_FILES;
+        $this->ignore = self::IGNORE_VCS_FILES | self::IGNORE_DOT_FILES;
 
         $this
-            ->addAdapter(new GnuFindAdapter())
-            ->addAdapter(new BsdFindAdapter())
-            ->addAdapter(new PhpAdapter(), -50)
+            ->addAdapter(new ehough_finder_adapter_GnuFindAdapter())
+            ->addAdapter(new ehough_finder_adapter_BsdFindAdapter())
+            ->addAdapter(new ehough_finder_adapter_PhpAdapter(), -50)
             ->setAdapter('php')
         ;
     }
 
     /**
-     * Creates a new Finder.
+     * Creates a new ehough_finder_Finder.
      *
-     * @return Finder A new Finder instance
+     * @return ehough_finder_Finder A new ehough_finder_Finder instance
      *
      * @api
      */
     public static function create()
     {
-        return new static();
+        return new self();
     }
 
     /**
      * Registers a finder engine implementation.
      *
-     * @param AdapterInterface $adapter  An adapter instance
+     * @param ehough_finder_adapter_AdapterInterface $adapter  An adapter instance
      * @param integer          $priority Highest is selected first
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      */
-    public function addAdapter(Adapter\AdapterInterface $adapter, $priority = 0)
+    public function addAdapter(ehough_finder_adapter_AdapterInterface $adapter, $priority = 0)
     {
         $this->adapters[$adapter->getName()] = array(
             'adapter'  => $adapter,
@@ -107,7 +99,7 @@ class Finder implements \IteratorAggregate, \Countable
     /**
      * Sets the selected adapter to the best one according to the current platform the code is run on.
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      */
     public function useBestAdapter()
     {
@@ -121,14 +113,14 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * @param string $name
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      */
     public function setAdapter($name)
     {
         if (!isset($this->adapters[$name])) {
-            throw new \InvalidArgumentException(sprintf('Adapter "%s" does not exist.', $name));
+            throw new InvalidArgumentException(sprintf('Adapter "%s" does not exist.', $name));
         }
 
         $this->resetAdapterSelection();
@@ -140,7 +132,7 @@ class Finder implements \IteratorAggregate, \Countable
     /**
      * Removes all adapters registered in the finder.
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      */
     public function removeAdapters()
     {
@@ -152,25 +144,28 @@ class Finder implements \IteratorAggregate, \Countable
     /**
      * Returns registered adapters ordered by priority without extra information.
      *
-     * @return AdapterInterface[]
+     * @return ehough_finder_adapter_AdapterInterface[]
      */
     public function getAdapters()
     {
-        return array_values(array_map(function(array $adapter) {
-            return $adapter['adapter'];
-        }, $this->adapters));
+        return array_values(array_map(array($this, '_callbackGetAdapters'), $this->adapters));
+    }
+
+    public function _callbackGetAdapters(array $adapter)
+    {
+        return $adapter['adapter'];
     }
 
     /**
      * Restricts the matching to directories only.
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @api
      */
     public function directories()
     {
-        $this->mode = Iterator\FileTypeFilterIterator::ONLY_DIRECTORIES;
+        $this->mode = ehough_finder_iterator_FileTypeFilterIterator::ONLY_DIRECTORIES;
 
         return $this;
     }
@@ -178,13 +173,13 @@ class Finder implements \IteratorAggregate, \Countable
     /**
      * Restricts the matching to files only.
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @api
      */
     public function files()
     {
-        $this->mode = Iterator\FileTypeFilterIterator::ONLY_FILES;
+        $this->mode = ehough_finder_iterator_FileTypeFilterIterator::ONLY_FILES;
 
         return $this;
     }
@@ -194,21 +189,21 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * Usage:
      *
-     *   $finder->depth('> 1') // the Finder will start matching at level 1.
-     *   $finder->depth('< 3') // the Finder will descend at most 3 levels of directories below the starting point.
+     *   $finder->depth('> 1') // the ehough_finder_Finder will start matching at level 1.
+     *   $finder->depth('< 3') // the ehough_finder_Finder will descend at most 3 levels of directories below the starting point.
      *
      * @param int $level The depth level expression
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\DepthRangeFilterIterator
-     * @see Symfony\Component\Finder\Comparator\NumberComparator
+     * @see ehough_finder_iterator_DepthRangeFilterIterator
+     * @see ehough_finder_comparator_NumberComparator
      *
      * @api
      */
     public function depth($level)
     {
-        $this->depths[] = new Comparator\NumberComparator($level);
+        $this->depths[] = new ehough_finder_comparator_NumberComparator($level);
 
         return $this;
     }
@@ -225,17 +220,17 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * @param string $date A date rage string
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @see strtotime
-     * @see Symfony\Component\Finder\Iterator\DateRangeFilterIterator
-     * @see Symfony\Component\Finder\Comparator\DateComparator
+     * @see ehough_finder_iterator_DateRangeFilterIterator
+     * @see ehough_finder_comparator_DateComparator
      *
      * @api
      */
     public function date($date)
     {
-        $this->dates[] = new Comparator\DateComparator($date);
+        $this->dates[] = new ehough_finder_comparator_DateComparator($date);
 
         return $this;
     }
@@ -251,9 +246,9 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * @param string $pattern A pattern (a regexp, a glob, or a string)
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\FilenameFilterIterator
+     * @see ehough_finder_iterator_FilenameFilterIterator
      *
      * @api
      */
@@ -269,9 +264,9 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * @param string $pattern A pattern (a regexp, a glob, or a string)
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\FilenameFilterIterator
+     * @see ehough_finder_iterator_FilenameFilterIterator
      *
      * @api
      */
@@ -292,9 +287,9 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * @param string $pattern A pattern (string or regexp)
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\FilecontentFilterIterator
+     * @see ehough_finder_iterator_FilecontentFilterIterator
      */
     public function contains($pattern)
     {
@@ -313,9 +308,9 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * @param string $pattern A pattern (string or regexp)
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\FilecontentFilterIterator
+     * @see ehough_finder_iterator_FilecontentFilterIterator
      */
     public function notContains($pattern)
     {
@@ -336,9 +331,9 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * @param string $pattern A pattern (a regexp or a string)
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\FilenameFilterIterator
+     * @see ehough_finder_iterator_FilenameFilterIterator
      */
     public function path($pattern)
     {
@@ -359,9 +354,9 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * @param string $pattern A pattern (a regexp or a string)
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\FilenameFilterIterator
+     * @see ehough_finder_iterator_FilenameFilterIterator
      */
     public function notPath($pattern)
     {
@@ -379,16 +374,16 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * @param string $size A size range string
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\SizeRangeFilterIterator
-     * @see Symfony\Component\Finder\Comparator\NumberComparator
+     * @see ehough_finder_iterator_SizeRangeFilterIterator
+     * @see ehough_finder_comparator_NumberComparator
      *
      * @api
      */
     public function size($size)
     {
-        $this->sizes[] = new Comparator\NumberComparator($size);
+        $this->sizes[] = new ehough_finder_comparator_NumberComparator($size);
 
         return $this;
     }
@@ -398,9 +393,9 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * @param string|array $dirs A directory path or an array of directories
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\ExcludeDirectoryFilterIterator
+     * @see ehough_finder_iterator_ExcludeDirectoryFilterIterator
      *
      * @api
      */
@@ -416,18 +411,18 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * @param Boolean $ignoreDotFiles Whether to exclude "hidden" files or not
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\ExcludeDirectoryFilterIterator
+     * @see ehough_finder_iterator_ExcludeDirectoryFilterIterator
      *
      * @api
      */
     public function ignoreDotFiles($ignoreDotFiles)
     {
         if ($ignoreDotFiles) {
-            $this->ignore = $this->ignore | static::IGNORE_DOT_FILES;
+            $this->ignore = $this->ignore | self::IGNORE_DOT_FILES;
         } else {
-            $this->ignore = $this->ignore & ~static::IGNORE_DOT_FILES;
+            $this->ignore = $this->ignore & ~self::IGNORE_DOT_FILES;
         }
 
         return $this;
@@ -438,18 +433,18 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * @param Boolean $ignoreVCS Whether to exclude VCS files or not
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\ExcludeDirectoryFilterIterator
+     * @see ehough_finder_iterator_ExcludeDirectoryFilterIterator
      *
      * @api
      */
     public function ignoreVCS($ignoreVCS)
     {
         if ($ignoreVCS) {
-            $this->ignore = $this->ignore | static::IGNORE_VCS_FILES;
+            $this->ignore = $this->ignore | self::IGNORE_VCS_FILES;
         } else {
-            $this->ignore = $this->ignore & ~static::IGNORE_VCS_FILES;
+            $this->ignore = $this->ignore & ~self::IGNORE_VCS_FILES;
         }
 
         return $this;
@@ -474,19 +469,19 @@ class Finder implements \IteratorAggregate, \Countable
     /**
      * Sorts files and directories by an anonymous function.
      *
-     * The anonymous function receives two \SplFileInfo instances to compare.
+     * The anonymous function receives two SplFileInfo instances to compare.
      *
      * This can be slow as all the matching files and directories must be retrieved for comparison.
      *
-     * @param \Closure $closure An anonymous function
+     * @param callable $closure An anonymous function
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\SortableIterator
+     * @see ehough_finder_iterator_SortableIterator
      *
      * @api
      */
-    public function sort(\Closure $closure)
+    public function sort($closure)
     {
         $this->sort = $closure;
 
@@ -498,15 +493,15 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * This can be slow as all the matching files and directories must be retrieved for comparison.
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\SortableIterator
+     * @see ehough_finder_iterator_SortableIterator
      *
      * @api
      */
     public function sortByName()
     {
-        $this->sort = Iterator\SortableIterator::SORT_BY_NAME;
+        $this->sort = ehough_finder_iterator_SortableIterator::SORT_BY_NAME;
 
         return $this;
     }
@@ -516,15 +511,15 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * This can be slow as all the matching files and directories must be retrieved for comparison.
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\SortableIterator
+     * @see ehough_finder_iterator_SortableIterator
      *
      * @api
      */
     public function sortByType()
     {
-        $this->sort = Iterator\SortableIterator::SORT_BY_TYPE;
+        $this->sort = ehough_finder_iterator_SortableIterator::SORT_BY_TYPE;
 
         return $this;
     }
@@ -536,15 +531,15 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * This can be slow as all the matching files and directories must be retrieved for comparison.
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\SortableIterator
+     * @see ehough_finder_iterator_SortableIterator
      *
      * @api
      */
     public function sortByAccessedTime()
     {
-        $this->sort = Iterator\SortableIterator::SORT_BY_ACCESSED_TIME;
+        $this->sort = ehough_finder_iterator_SortableIterator::SORT_BY_ACCESSED_TIME;
 
         return $this;
     }
@@ -558,15 +553,15 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * This can be slow as all the matching files and directories must be retrieved for comparison.
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\SortableIterator
+     * @see ehough_finder_iterator_SortableIterator
      *
      * @api
      */
     public function sortByChangedTime()
     {
-        $this->sort = Iterator\SortableIterator::SORT_BY_CHANGED_TIME;
+        $this->sort = ehough_finder_iterator_SortableIterator::SORT_BY_CHANGED_TIME;
 
         return $this;
     }
@@ -578,15 +573,15 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * This can be slow as all the matching files and directories must be retrieved for comparison.
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\SortableIterator
+     * @see ehough_finder_iterator_SortableIterator
      *
      * @api
      */
     public function sortByModifiedTime()
     {
-        $this->sort = Iterator\SortableIterator::SORT_BY_MODIFIED_TIME;
+        $this->sort = ehough_finder_iterator_SortableIterator::SORT_BY_MODIFIED_TIME;
 
         return $this;
     }
@@ -594,18 +589,18 @@ class Finder implements \IteratorAggregate, \Countable
     /**
      * Filters the iterator with an anonymous function.
      *
-     * The anonymous function receives a \SplFileInfo and must return false
+     * The anonymous function receives a SplFileInfo and must return false
      * to remove files.
      *
-     * @param \Closure $closure An anonymous function
+     * @param callable $closure An anonymous function
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @see Symfony\Component\Finder\Iterator\CustomFilterIterator
+     * @see ehough_finder_iterator_CustomFilterIterator
      *
      * @api
      */
-    public function filter(\Closure $closure)
+    public function filter($closure)
     {
         $this->filters[] = $closure;
 
@@ -615,7 +610,7 @@ class Finder implements \IteratorAggregate, \Countable
     /**
      * Forces the following of symlinks.
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @api
      */
@@ -631,9 +626,9 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * @param string|array $dirs A directory path or an array of directories
      *
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
-     * @throws \InvalidArgumentException if one of the directories does not exist
+     * @throws InvalidArgumentException if one of the directories does not exist
      *
      * @api
      */
@@ -647,7 +642,7 @@ class Finder implements \IteratorAggregate, \Countable
             } elseif ($glob = glob($dir, GLOB_ONLYDIR)) {
                 $resolvedDirs = array_merge($resolvedDirs, $glob);
             } else {
-                throw new \InvalidArgumentException(sprintf('The "%s" directory does not exist.', $dir));
+                throw new InvalidArgumentException(sprintf('The "%s" directory does not exist.', $dir));
             }
         }
 
@@ -657,25 +652,25 @@ class Finder implements \IteratorAggregate, \Countable
     }
 
     /**
-     * Returns an Iterator for the current Finder configuration.
+     * Returns an Iterator for the current ehough_finder_Finder configuration.
      *
      * This method implements the IteratorAggregate interface.
      *
-     * @return \Iterator An iterator
+     * @return Iterator An iterator
      *
-     * @throws \LogicException if the in() method has not been called
+     * @throws LogicException if the in() method has not been called
      */
     public function getIterator()
     {
         if (0 === count($this->dirs) && 0 === count($this->iterators)) {
-            throw new \LogicException('You must call one of in() or append() methods before iterating over a Finder.');
+            throw new LogicException('You must call one of in() or append() methods before iterating over a ehough_finder_Finder.');
         }
 
         if (1 === count($this->dirs) && 0 === count($this->iterators)) {
             return $this->searchInDirectory($this->dirs[0]);
         }
 
-        $iterator = new \AppendIterator();
+        $iterator = new AppendIterator();
         foreach ($this->dirs as $dir) {
             $iterator->append($this->searchInDirectory($dir));
         }
@@ -690,28 +685,28 @@ class Finder implements \IteratorAggregate, \Countable
     /**
      * Appends an existing set of files/directories to the finder.
      *
-     * The set can be another Finder, an Iterator, an IteratorAggregate, or even a plain array.
+     * The set can be another ehough_finder_Finder, an Iterator, an IteratorAggregate, or even a plain array.
      *
      * @param mixed $iterator
      *
-     * @return Finder The finder
+     * @return ehough_finder_Finder The finder
      *
-     * @throws \InvalidArgumentException When the given argument is not iterable.
+     * @throws InvalidArgumentException When the given argument is not iterable.
      */
     public function append($iterator)
     {
-        if ($iterator instanceof \IteratorAggregate) {
+        if ($iterator instanceof IteratorAggregate) {
             $this->iterators[] = $iterator->getIterator();
-        } elseif ($iterator instanceof \Iterator) {
+        } elseif ($iterator instanceof Iterator) {
             $this->iterators[] = $iterator;
-        } elseif ($iterator instanceof \Traversable || is_array($iterator)) {
-            $it = new \ArrayIterator();
+        } elseif ($iterator instanceof Traversable || is_array($iterator)) {
+            $it = new ArrayIterator();
             foreach ($iterator as $file) {
-                $it->append($file instanceof \SplFileInfo ? $file : new \SplFileInfo($file));
+                $it->append($file instanceof SplFileInfo ? $file : new SplFileInfo($file));
             }
             $this->iterators[] = $it;
         } else {
-            throw new \InvalidArgumentException('Finder::append() method wrong argument type.');
+            throw new InvalidArgumentException('Finder::append() method wrong argument type.');
         }
 
         return $this;
@@ -728,35 +723,38 @@ class Finder implements \IteratorAggregate, \Countable
     }
 
     /**
-     * @return Finder The current Finder instance
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
      */
     private function sortAdapters()
     {
-        uasort($this->adapters, function (array $a, array $b) {
-            if ($a['selected'] || $b['selected']) {
-                return $a['selected'] ? -1 : 1;
-            }
-
-            return $a['priority'] > $b['priority'] ? -1 : 1;
-        });
+        uasort($this->adapters, array($this, '_callbackSortAdapters'));
 
         return $this;
+    }
+
+    public function _callbackSortAdapters(array $a, array $b)
+    {
+        if ($a['selected'] || $b['selected']) {
+            return $a['selected'] ? -1 : 1;
+        }
+
+        return $a['priority'] > $b['priority'] ? -1 : 1;
     }
 
     /**
      * @param $dir
      *
-     * @return \Iterator
+     * @return Iterator
      *
-     * @throws \RuntimeException When none of the adapters are supported
+     * @throws RuntimeException When none of the adapters are supported
      */
     private function searchInDirectory($dir)
     {
-        if (static::IGNORE_VCS_FILES === (static::IGNORE_VCS_FILES & $this->ignore)) {
+        if (self::IGNORE_VCS_FILES === (self::IGNORE_VCS_FILES & $this->ignore)) {
             $this->exclude = array_merge($this->exclude, self::$vcsPatterns);
         }
 
-        if (static::IGNORE_DOT_FILES === (static::IGNORE_DOT_FILES & $this->ignore)) {
+        if (self::IGNORE_DOT_FILES === (self::IGNORE_DOT_FILES & $this->ignore)) {
             $this->notPaths[] = '#(^|/)\..+(/|$)#';
         }
 
@@ -766,19 +764,19 @@ class Finder implements \IteratorAggregate, \Countable
                     return $this
                         ->buildAdapter($adapter['adapter'])
                         ->searchInDirectory($dir);
-                } catch (ExceptionInterface $e) {}
+                } catch (ehough_finder_exception_ExceptionInterface $e) {}
             }
         }
 
-        throw new \RuntimeException('No supported adapter found.');
+        throw new RuntimeException('No supported adapter found.');
     }
 
     /**
-     * @param AdapterInterface $adapter
+     * @param ehough_finder_adapter_AdapterInterface $adapter
      *
-     * @return AdapterInterface
+     * @return ehough_finder_adapter_AdapterInterface
      */
-    private function buildAdapter(AdapterInterface $adapter)
+    private function buildAdapter(ehough_finder_adapter_AdapterInterface $adapter)
     {
         return $adapter
             ->setFollowLinks($this->followLinks)
@@ -802,10 +800,13 @@ class Finder implements \IteratorAggregate, \Countable
      */
     private function resetAdapterSelection()
     {
-        $this->adapters = array_map(function (array $properties) {
-            $properties['selected'] = false;
+        $this->adapters = array_map(array($this, '_callbackResetAdapterSelection'), $this->adapters);
+    }
 
-            return $properties;
-        }, $this->adapters);
+    public function _callbackResetAdapterSelection(array $properties)
+    {
+        $properties['selected'] = false;
+
+        return $properties;
     }
 }

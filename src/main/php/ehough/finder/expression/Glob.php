@@ -10,47 +10,101 @@
  */
 
 /**
- * Glob matches globbing patterns against text.
- *
- *   if match_glob("foo.*", "foo.bar") echo "matched\n";
- *
- * // prints foo.bar and foo.baz
- * $regex = glob_to_regex("foo.*");
- * for (array('foo.bar', 'foo.baz', 'foo', 'bar') as $t)
- * {
- *   if (/$regex/) echo "matched: $car\n";
- * }
- *
- * ehough_finder_expression_Glob implements glob(3) style matching that can be used to match
- * against text, rather than fetching names from a filesystem.
- *
- * Based on the Perl Text::Glob module.
- *
- * @author Fabien Potencier <fabien@symfony.com> PHP port
- * @author     Richard Clamp <richardc@unixbeard.net> Perl version
- * @copyright  2004-2005 Fabien Potencier <fabien@symfony.com>
- * @copyright  2002 Richard Clamp <richardc@unixbeard.net>
+ * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class ehough_finder_Glob
+class ehough_finder_expression_Glob implements ehough_finder_expression_ValueInterface
 {
     /**
-     * Returns a regexp which is the equivalent of the glob pattern.
-     *
-     * @param string  $glob                The glob pattern
-     * @param Boolean $strictLeadingDot
-     * @param Boolean $strictWildcardSlash
-     *
-     * @return string regex The regexp
+     * @var string
      */
-    public static function toRegex($glob, $strictLeadingDot = true, $strictWildcardSlash = true)
+    private $pattern;
+
+    /**
+     * @param string $pattern
+     */
+    public function __construct($pattern)
+    {
+        $this->pattern = $pattern;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function render()
+    {
+        return $this->pattern;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function renderPattern()
+    {
+        return $this->pattern;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getType()
+    {
+        return ehough_finder_expression_Expression::TYPE_GLOB;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isCaseSensitive()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function prepend($expr)
+    {
+        $this->pattern = $expr.$this->pattern;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function append($expr)
+    {
+        $this->pattern .= $expr;
+
+        return $this;
+    }
+
+    /**
+     * Tests if glob is expandable ("*.{a,b}" syntax).
+     *
+     * @return bool
+     */
+    public function isExpandable()
+    {
+        return false !== strpos($this->pattern, '{')
+            && false !== strpos($this->pattern, '}');
+    }
+
+    /**
+     * @param bool $strictLeadingDot
+     * @param bool $strictWildcardSlash
+     *
+     * @return ehough_finder_expression_Regex
+     */
+    public function toRegex($strictLeadingDot = true, $strictWildcardSlash = true)
     {
         $firstByte = true;
         $escaping = false;
         $inCurlies = 0;
         $regex = '';
-        $sizeGlob = strlen($glob);
+        $sizeGlob = strlen($this->pattern);
         for ($i = 0; $i < $sizeGlob; $i++) {
-            $car = $glob[$i];
+            $car = $this->pattern[$i];
             if ($firstByte) {
                 if ($strictLeadingDot && '.' !== $car) {
                     $regex .= '(?=[^\.])';
@@ -96,6 +150,6 @@ class ehough_finder_Glob
             $escaping = false;
         }
 
-        return '#^'.$regex.'$#';
+        return new ehough_finder_expression_Regex('^'.$regex.'$');
     }
 }
