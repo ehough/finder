@@ -24,7 +24,7 @@
  *
  * @api
  */
-class ehough_finder_Finder implements IteratorAggregate, Countable
+class ehough_finder_Finder implements ehough_finder_FinderInterface
 {
     const IGNORE_VCS_FILES = 1;
     const IGNORE_DOT_FILES = 2;

@@ -159,6 +159,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
      */
     public function testDate($adapter)
     {
+        date_default_timezone_set('America/New_York');
         $finder = $this->buildFinder($adapter);
         $this->assertSame($finder, $finder->files()->date('until last month'));
         $this->assertIterator($this->toAbsolute(array('foo/bar.tmp', 'test.php')), $finder->in(self::$tmpDir)->getIterator());

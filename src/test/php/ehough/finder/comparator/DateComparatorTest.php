@@ -46,6 +46,8 @@ class ehough_finder_comparator_DateComparatorTest extends PHPUnit_Framework_Test
 
     public function getTestData()
     {
+        date_default_timezone_set('America/New_York');
+
         return array(
             array('< 2005-10-10', array(strtotime('2005-10-09')), array(strtotime('2005-10-15'))),
             array('until 2005-10-10', array(strtotime('2005-10-09')), array(strtotime('2005-10-15'))),
