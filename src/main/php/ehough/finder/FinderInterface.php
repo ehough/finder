@@ -380,17 +380,6 @@ interface ehough_finder_FinderInterface extends IteratorAggregate, Countable
     function in($dirs);
 
     /**
-     * Returns an Iterator for the current ehough_finder_Finder configuration.
-     *
-     * This method implements the IteratorAggregate interface.
-     *
-     * @return Iterator An iterator
-     *
-     * @throws LogicException if the in() method has not been called
-     */
-    function getIterator();
-
-    /**
      * Appends an existing set of files/directories to the finder.
      *
      * The set can be another ehough_finder_Finder, an Iterator, an IteratorAggregate, or even a plain array.
@@ -402,11 +391,4 @@ interface ehough_finder_FinderInterface extends IteratorAggregate, Countable
      * @throws InvalidArgumentException When the given argument is not iterable.
      */
     function append($iterator);
-
-    /**
-     * Counts all the results collected by the iterators.
-     *
-     * @return int
-     */
-    function count();
 }
