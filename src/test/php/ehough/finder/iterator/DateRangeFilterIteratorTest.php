@@ -60,6 +60,8 @@ class ehough_finder_iterator_DateRangeFilterIteratorTest extends ehough_finder_i
             '.foo',
         );
 
+        date_default_timezone_set('America/New_York');
+
         return array(
             array(array(new ehough_finder_comparator_DateComparator('since 20 years ago')), $this->toAbsolute($since20YearsAgo)),
             array(array(new ehough_finder_comparator_DateComparator('since 2 months ago')), $this->toAbsolute($since2MonthsAgo)),
