@@ -18,7 +18,7 @@ class ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator extends Recursiv
 {
     private $_ignoreUnreadableDirs;
 
-    public function __construct($path, $ignoreUnreadableDirs)
+    public function __construct($path, $ignoreUnreadableDirs = false)
     {
         if (!$ignoreUnreadableDirs && (!is_dir($path) || !is_readable($path))) {
 
