@@ -1,4 +1,4 @@
-<?php
+A<?php
 
 /*
  * This file is part of the Symfony package.
@@ -24,7 +24,7 @@ class ehough_finder_adapter_PhpAdapter extends ehough_finder_adapter_AbstractAda
         if (version_compare(PHP_VERSION, '5.3') < 0) {
 
             $iterator = new RecursiveIteratorIterator(
-                new ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator($dir),
+                new ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator($dir, $this->ignoreUnreadableDirs),
                 RecursiveIteratorIterator::SELF_FIRST
             );
 
