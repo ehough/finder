@@ -113,6 +113,13 @@ interface ehough_finder_adapter_AdapterInterface
     public function setNotPath(array $notPaths);
 
     /**
+     * @param boolean $ignore
+     *
+     * @return ehough_finder_adapter_AdapterInterface Current instance
+     */
+    public function ignoreUnreadableDirs($ignore = true);
+
+    /**
      * @param string $dir
      *
      * @return Iterator Result iterator

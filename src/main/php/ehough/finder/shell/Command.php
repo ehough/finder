@@ -164,7 +164,7 @@ class ehough_finder_shell_Command
     public function ins($label)
     {
         if (isset($this->labels[$label])) {
-            throw new RuntimeException('Label "'.$label.'" already exists.');
+            throw new RuntimeException(sprintf('Label "%s" already exists.', $label));
         }
 
         $this->bits[] = self::create($this);
@@ -185,7 +185,7 @@ class ehough_finder_shell_Command
     public function get($label)
     {
         if (!isset($this->labels[$label])) {
-            throw new RuntimeException('Label "'.$label.'" does not exists.');
+            throw new RuntimeException(sprintf('Label "%s" does not exists.', $label));
         }
 
         return $this->bits[$this->labels[$label]];

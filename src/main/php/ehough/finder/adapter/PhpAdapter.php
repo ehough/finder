@@ -37,7 +37,7 @@ class ehough_finder_adapter_PhpAdapter extends ehough_finder_adapter_AbstractAda
             }
 
             $iterator = new RecursiveIteratorIterator(
-                new ehough_finder_iterator_RecursiveDirectoryIterator($dir, $flags),
+                new ehough_finder_iterator_RecursiveDirectoryIterator($dir, $flags, $this->ignoreUnreadableDirs),
                 RecursiveIteratorIterator::SELF_FIRST
             );
         }

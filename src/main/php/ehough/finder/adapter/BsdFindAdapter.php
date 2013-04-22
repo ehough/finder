@@ -55,7 +55,7 @@ class ehough_finder_adapter_BsdFindAdapter extends ehough_finder_adapter_Abstrac
                 $format = '%m';
                 break;
             default:
-                throw new InvalidArgumentException('Unknown sort options: '.$sort.'.');
+                throw new InvalidArgumentException(sprintf('Unknown sort options: %s.', $sort));
         }
 
         $command

@@ -108,7 +108,10 @@ abstract class ehough_finder_adapter_AbstractFindAdapter extends ehough_finder_a
 
     public function callbackAccessDeniedThrower($stderr)
     {
-        throw new ehough_finder_exception_AccessDeniedException($stderr);
+        if (!$this->ignoreUnreadableDirs) {
+
+            throw new ehough_finder_exception_AccessDeniedException($stderr);
+        }
     }
 
     /**
@@ -234,20 +237,20 @@ abstract class ehough_finder_adapter_AbstractFindAdapter extends ehough_finder_a
 
             switch ($size->getOperator()) {
                 case '<=':
-                    $command->add('-size -' . ($size->getTarget() + 1) . 'c');
+                    $command->add('-size -'.($size->getTarget() + 1).'c');
                     break;
                 case '>=':
-                    $command->add('-size +'. ($size->getTarget() - 1) . 'c');
+                    $command->add('-size +'. ($size->getTarget() - 1).'c');
                     break;
                 case '>':
-                    $command->add('-size +' . $size->getTarget() . 'c');
+                    $command->add('-size +'.$size->getTarget().'c');
                     break;
                 case '!=':
-                    $command->add('-size -' . $size->getTarget() . 'c');
-                    $command->add('-size +' . $size->getTarget() . 'c');
+                    $command->add('-size -'.$size->getTarget().'c');
+                    $command->add('-size +'.$size->getTarget().'c');
                 case '<':
                 default:
-                    $command->add('-size -' . $size->getTarget() . 'c');
+                    $command->add('-size -'.$size->getTarget().'c');
             }
         }
     }
@@ -272,20 +275,20 @@ abstract class ehough_finder_adapter_AbstractFindAdapter extends ehough_finder_a
 
             switch ($date->getOperator()) {
                 case '<=':
-                    $command->add('-mmin +' . ($mins - 1));
+                    $command->add('-mmin +'.($mins - 1));
                     break;
                 case '>=':
-                    $command->add('-mmin -' . ($mins + 1));
+                    $command->add('-mmin -'.($mins + 1));
                     break;
                 case '>':
-                    $command->add('-mmin -' . $mins);
+                    $command->add('-mmin -'.$mins);
                     break;
                 case '!=':
-                    $command->add('-mmin +' . $mins.' -or -mmin -' . $mins);
+                    $command->add('-mmin +'.$mins.' -or -mmin -'.$mins);
                     break;
                 case '<':
                 default:
-                    $command->add('-mmin +' . $mins);
+                    $command->add('-mmin +'.$mins);
             }
         }
     }
