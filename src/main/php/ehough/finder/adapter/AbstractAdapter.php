@@ -31,6 +31,7 @@ abstract class ehough_finder_adapter_AbstractAdapter implements ehough_finder_ad
     protected $sort        = false;
     protected $paths       = array();
     protected $notPaths    = array();
+    protected $ignoreUnreadableDirs = false;
 
     private static $areSupported = array();
 
@@ -204,6 +205,16 @@ abstract class ehough_finder_adapter_AbstractAdapter implements ehough_finder_ad
     public function setNotPath(array $notPaths)
     {
         $this->notPaths = $notPaths;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function ignoreUnreadableDirs($ignore = true)
+    {
+        $this->ignoreUnreadableDirs = (Boolean) $ignore;
 
         return $this;
     }

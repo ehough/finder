@@ -47,7 +47,7 @@ class ehough_finder_adapter_GnuFindAdapter extends ehough_finder_adapter_Abstrac
                 $format = '%T@';
                 break;
             default:
-                throw new InvalidArgumentException('Unknown sort options: '.$sort.'.');
+                throw new InvalidArgumentException(sprintf('Unknown sort options: %s.', $sort));
         }
 
         $command

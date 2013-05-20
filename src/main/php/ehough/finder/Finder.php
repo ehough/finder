@@ -47,6 +47,7 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
     private $adapters    = array();
     private $paths       = array();
     private $notPaths    = array();
+    private $ignoreUnreadableDirs = false;
 
     private static $vcsPatterns = array('.svn', '_svn', 'CVS', '_darcs', '.arch-params', '.monotone', '.bzr', '.git', '.hg');
 
@@ -622,6 +623,22 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
     }
 
     /**
+     * Tells finder to ignore unreadable directories.
+     *
+     * By default, scanning unreadable directories content throws an AccessDeniedException.
+     *
+     * @param boolean $ignore
+     *
+     * @return ehough_finder_Finder The current ehough_finder_Finder instance
+     */
+    public function ignoreUnreadableDirs($ignore = true)
+    {
+        $this->ignoreUnreadableDirs = (Boolean) $ignore;
+
+        return $this;
+    }
+
+    /**
      * Searches files and directories which match defined rules.
      *
      * @param string|array $dirs A directory path or an array of directories
@@ -792,7 +809,8 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
             ->setFilters($this->filters)
             ->setSort($this->sort)
             ->setPath($this->paths)
-            ->setNotPath($this->notPaths);
+            ->setNotPath($this->notPaths)
+            ->ignoreUnreadableDirs($this->ignoreUnreadableDirs);
     }
 
     /**

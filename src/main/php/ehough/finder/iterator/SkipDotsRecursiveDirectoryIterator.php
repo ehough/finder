@@ -16,12 +16,16 @@
  */
 class ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator extends RecursiveDirectoryIterator
 {
-    public function __construct($path)
+    private $_ignoreUnreadableDirs;
+
+    public function __construct($path, $ignoreUnreadableDirs = false)
     {
-        if (!is_dir($path) || !is_readable($path)) {
+        if (!$ignoreUnreadableDirs && (!is_dir($path) || !is_readable($path))) {
 
             throw new ehough_finder_exception_AccessDeniedException("Could not open directory at $path");
         }
+
+        $this->_ignoreUnreadableDirs = $ignoreUnreadableDirs;
 
         parent::__construct($path);
     }
@@ -46,7 +50,12 @@ class ehough_finder_iterator_SkipDotsRecursiveDirectoryIterator extends Recursiv
         try {
             return parent::getChildren();
         } catch (UnexpectedValueException $e) {
-            throw new ehough_finder_exception_AccessDeniedException($e->getMessage(), $e->getCode());
+            if ($this->_ignoreUnreadableDirs) {
+                // If directory is unreadable and finder is set to ignore it, a fake empty content is returned.
+                return new RecursiveArrayIterator(array());
+            } else {
+                throw new ehough_finder_exception_AccessDeniedException($e->getMessage(), $e->getCode());
+            }
         }
     }
 
