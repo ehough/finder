@@ -28,7 +28,15 @@ abstract class ehough_finder_iterator_FilterIterator extends FilterIterator
     {
         $iterator = $this;
         while ($iterator instanceof OuterIterator) {
-            if (class_exists('FilesystemIterator') && $iterator->getInnerIterator() instanceof FilesystemIterator) {
+            $innerIterator = $iterator->getInnerIterator();
+
+            if ($innerIterator instanceof ehough_finder_iterator_RecursiveDirectoryIterator) {
+                if ($innerIterator->isRewindable()) {
+                    $innerIterator->next();
+                    $innerIterator->rewind();
+                }
+            } elseif (class_exists('FilesystemIterator') && $iterator->getInnerIterator() instanceof FilesystemIterator) {
+
                 $iterator->getInnerIterator()->next();
                 $iterator->getInnerIterator()->rewind();
             }
