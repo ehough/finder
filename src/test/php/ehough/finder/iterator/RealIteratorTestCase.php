@@ -88,7 +88,6 @@ abstract class ehough_finder_iterator_RealIteratorTestCase extends ehough_finder
         }
 
         if (is_string($files)) {
-
             return self::$tmpDir.DIRECTORY_SEPARATOR.str_replace('/', DIRECTORY_SEPARATOR, $files);
         }
 

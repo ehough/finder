@@ -63,7 +63,7 @@ class ehough_finder_SplFileInfo extends SplFileInfo
     public function getContents()
     {
         $level = error_reporting(0);
-        $content = file_get_contents($this->getRealpath());
+        $content = file_get_contents($this->getPathname());
         error_reporting($level);
         if (false === $content) {
             $error = error_get_last();
