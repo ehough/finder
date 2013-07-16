@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=5.2",
-        "ehough/filesystem": "~1.0.0"
+        "ehough/filesystem": "~2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
