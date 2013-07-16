@@ -57,5 +57,5 @@ foreach ($finder->in('s3://bucket-name') as $file) {
 
 ### Releases and Versioning
 
-Releases are synchronized with the upstream Symfony repository. e.g. ehough/finder v2.3.1 has merged the code
-from Symfony/Finder v2.3.1.
+Releases are synchronized with the upstream Symfony repository. e.g. `ehough/finder v2.3.1` has merged the code
+from `Symfony/Finder v2.3.1`.
