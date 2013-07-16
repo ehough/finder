@@ -22,6 +22,11 @@ class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirecto
     private $ignoreUnreadableDirs;
 
     /**
+     * @var Boolean
+     */
+    private $rewindable;
+
+    /**
      * Constructor.
      *
      * @param string  $path
@@ -67,5 +72,43 @@ class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirecto
                 throw new ehough_finder_exception_AccessDeniedException($e->getMessage(), $e->getCode(), $e);
             }
         }
+    }
+
+    /**
+     * Do nothing for non rewindable stream
+     */
+    public function rewind()
+    {
+        if (false === $this->isRewindable()) {
+            return;
+        }
+
+        // @see https://bugs.php.net/bug.php?id=49104
+        parent::next();
+
+        parent::rewind();
+    }
+
+    /**
+     * Checks if the stream is rewindable.
+     *
+     * @return Boolean true when the stream is rewindable, false otherwise
+     */
+    public function isRewindable()
+    {
+        if (null !== $this->rewindable) {
+            return $this->rewindable;
+        }
+
+        if (false !== $stream = @opendir($this->getPath())) {
+            $infos = stream_get_meta_data($stream);
+            closedir($stream);
+
+            if ($infos['seekable']) {
+                return $this->rewindable = true;
+            }
+        }
+
+        return $this->rewindable = false;
     }
 }
