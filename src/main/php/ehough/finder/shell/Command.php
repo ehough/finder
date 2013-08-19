@@ -185,7 +185,7 @@ class ehough_finder_shell_Command
     public function get($label)
     {
         if (!isset($this->labels[$label])) {
-            throw new RuntimeException(sprintf('Label "%s" does not exists.', $label));
+            throw new RuntimeException(sprintf('Label "%s" does not exist.', $label));
         }
 
         return $this->bits[$this->labels[$label]];
