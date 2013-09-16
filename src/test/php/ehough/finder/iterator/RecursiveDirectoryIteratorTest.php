@@ -16,7 +16,7 @@ class ehough_finder_iterator_RecursiveDirectoryIteratorTest extends ehough_finde
      *
      * @param string  $path
      * @param Boolean $seekable
-     * @param Boolean $supports
+     * @param array   $contains
      * @param string  $message
      */
     public function testRewind($path, $seekable, $contains, $message = null)
@@ -37,7 +37,7 @@ class ehough_finder_iterator_RecursiveDirectoryIteratorTest extends ehough_finde
      *
      * @param string  $path
      * @param Boolean $seekable
-     * @param Boolean $supports
+     * @param array   $contains
      * @param string  $message
      */
     public function testSeek($path, $seekable, $contains, $message = null)
