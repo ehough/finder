@@ -11,11 +11,10 @@
 
 class ehough_finder_iterator_Iterator implements Iterator
 {
-    protected $values;
+    protected $values = array();
 
     public function __construct(array $values = array())
     {
-        $this->values = array();
         foreach ($values as $value) {
 
             if ($this->_endsWithSlash($value)) {
