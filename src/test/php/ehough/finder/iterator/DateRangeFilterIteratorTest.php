@@ -52,12 +52,8 @@ class ehough_finder_iterator_DateRangeFilterIteratorTest extends ehough_finder_i
         );
 
         $untilLastMonth = array(
-            '.git',
-            'foo',
             'foo/bar.tmp',
             'test.php',
-            'toto',
-            '.foo',
         );
 
         date_default_timezone_set('America/New_York');

@@ -747,7 +747,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     public function testAccessDeniedException(ehough_finder_adapter_AdapterInterface $adapter)
     {
         if (defined('PHP_WINDOWS_VERSION_MAJOR')) {
-            $this->markTestSkipped('chmod is not supported on windows');
+            $this->markTestSkipped('chmod is not supported on Windows');
         }
 
         $finder = $this->buildFinder($adapter);
@@ -773,7 +773,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     public function testIgnoredAccessDeniedException(ehough_finder_adapter_AdapterInterface $adapter)
     {
         if (defined('PHP_WINDOWS_VERSION_MAJOR')) {
-            $this->markTestSkipped('chmod is not supported on windows');
+            $this->markTestSkipped('chmod is not supported on Windows');
         }
 
         $finder = $this->buildFinder($adapter);

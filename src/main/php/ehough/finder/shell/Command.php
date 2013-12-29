@@ -268,8 +268,10 @@ class ehough_finder_shell_Command
     public function join()
     {
         return implode(' ', array_filter(
-            array_map(array($this, '_callbackJoinMap'), $this->bits),
-            array($this, '_callbackJoinFilter')
+            array_map(function ($bit) {
+                return $bit instanceof Command ? $bit->join() : ($bit ?: null);
+            }, $this->bits),
+            function ($bit) { return null !== $bit; }
         ));
     }
 
