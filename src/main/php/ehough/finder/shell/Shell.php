@@ -49,7 +49,7 @@ class ehough_finder_shell_Shell
     public function testCommand($command)
     {
         if (self::TYPE_WINDOWS === $this->type) {
-            // todo: find a way to test if windows command exists
+            // todo: find a way to test if Windows command exists
             return false;
         }
 

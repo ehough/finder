@@ -40,10 +40,6 @@ class ehough_finder_iterator_DateRangeFilterIterator extends ehough_finder_itera
     {
         $fileinfo = $this->current();
 
-        if (!$fileinfo->isFile()) {
-            return true;
-        }
-
         $filedate = $fileinfo->getMTime();
         foreach ($this->comparators as $compare) {
             if (!$compare->test($filedate)) {
