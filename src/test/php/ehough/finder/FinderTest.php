@@ -582,7 +582,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $finder = $this->buildFinder($adapter);
         $finder->in($locations)->depth('< 1')->name('test.php');
 
-        $this->assertEquals(1, count($finder));
+        $this->assertCount(1, $finder);
     }
 
     /**
@@ -771,7 +771,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
             $this->assertIterator($this->toAbsolute(array('foo bar', 'test.php', 'test.py')), $finder->getIterator());
             $this->fail('Finder should throw an exception when opening a non-readable directory.');
         } catch (Exception $e) {
-            $this->assertEquals('ehough_finder_exception_AccessDeniedException', get_class($e), $e->getMessage());
+            $this->assertInstanceOf('ehough_finder_exception_AccessDeniedException', $e);
         }
 
         // restore original permissions
