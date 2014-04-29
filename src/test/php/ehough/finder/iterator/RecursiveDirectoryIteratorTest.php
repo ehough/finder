@@ -22,7 +22,7 @@ class ehough_finder_iterator_RecursiveDirectoryIteratorTest extends ehough_finde
     public function testRewind($path, $seekable, $contains, $message = null)
     {
         try {
-            $i = new ehough_finder_iterator_RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS);
+            $i = new ehough_finder_iterator_RecursiveDirectoryIterator($path);
         } catch (UnexpectedValueException $e) {
             $this->markTestSkipped(sprintf('Unsupported stream "%s".', $path));
         }
@@ -43,7 +43,7 @@ class ehough_finder_iterator_RecursiveDirectoryIteratorTest extends ehough_finde
     public function testSeek($path, $seekable, $contains, $message = null)
     {
         try {
-            $i = new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS);
+            $i = new ehough_finder_iterator_RecursiveDirectoryIterator($path);
         } catch (UnexpectedValueException $e) {
             $this->markTestSkipped(sprintf('Unsupported stream "%s".', $path));
         }

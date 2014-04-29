@@ -564,7 +564,8 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     }
 
     /**
-     * Searching in multiple locations involves AppendIterator which does an unnecessary rewind which leaves ehough_finder_iterator_FilterIterator
+     * Searching in multiple locations involves AppendIterator which does an unnecessary rewind
+     * which leaves ehough_finder_iterator_FilterIterator
      * with inner FilesystemIterator in an invalid state.
      *
      * @see https://bugs.php.net/bug.php?id=49104

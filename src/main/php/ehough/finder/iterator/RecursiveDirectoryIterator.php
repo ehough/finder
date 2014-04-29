@@ -35,13 +35,13 @@ class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirecto
      *
      * @throws RuntimeException
      */
-    public function __construct($path, $flags, $ignoreUnreadableDirs = false)
+    public function __construct($path, $flags = 0, $ignoreUnreadableDirs = false)
     {
         if ($flags & (self::CURRENT_AS_PATHNAME | self::CURRENT_AS_SELF)) {
             throw new RuntimeException('This iterator only support returning current as fileinfo.');
         }
 
-        parent::__construct($path, $flags);
+        @parent::__construct($path, $flags);
         $this->ignoreUnreadableDirs = $ignoreUnreadableDirs;
     }
 
@@ -69,7 +69,13 @@ class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirecto
                 // If directory is unreadable and finder is set to ignore it, a fake empty content is returned.
                 return new RecursiveArrayIterator(array());
             } else {
-                throw new ehough_finder_exception_AccessDeniedException($e->getMessage(), $e->getCode(), $e);
+
+                if (version_compare(PHP_VERSION, '5.3') >= 0) {
+
+                    throw new ehough_finder_exception_AccessDeniedException($e->getMessage(), $e->getCode(), $e);
+                }
+
+                throw new ehough_finder_exception_AccessDeniedException($e->getMessage(), $e->getCode());
             }
         }
     }
@@ -87,6 +93,8 @@ class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirecto
         parent::next();
 
         parent::rewind();
+
+        $this->skipdots();
     }
 
     /**
@@ -110,5 +118,20 @@ class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirecto
         }
 
         return $this->rewindable = false;
+    }
+
+    public function next() {
+
+        parent::next();
+
+        $this->skipdots();
+    }
+
+    protected function skipdots() {
+
+        while ($this->isDot()) {
+
+            parent::next();
+        }
     }
 }
