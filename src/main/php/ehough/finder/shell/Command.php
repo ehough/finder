@@ -268,10 +268,8 @@ class ehough_finder_shell_Command
     public function join()
     {
         return implode(' ', array_filter(
-            array_map(function ($bit) {
-                return $bit instanceof Command ? $bit->join() : ($bit ?: null);
-            }, $this->bits),
-            function ($bit) { return null !== $bit; }
+            array_map(array($this, '_callbackJoinMap'), $this->bits),
+            array($this, '_callbackJoinFilter')
         ));
     }
 
@@ -289,7 +287,7 @@ class ehough_finder_shell_Command
      * Insert a string or a ehough_finder_shell_Command instance before the bit at given position $index (index starts from 0).
      *
      * @param string|ehough_finder_shell_Command $bit
-     * @param integer        $index
+     * @param int                                $index
      *
      * @return ehough_finder_shell_Command The current ehough_finder_shell_Command instance
      */

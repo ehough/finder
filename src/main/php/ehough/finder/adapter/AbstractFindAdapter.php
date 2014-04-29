@@ -140,7 +140,7 @@ abstract class ehough_finder_adapter_AbstractFindAdapter extends ehough_finder_a
     /**
      * @param ehough_finder_shell_Command  $command
      * @param string[] $names
-     * @param Boolean  $not
+     * @param bool     $not
      */
     private function buildNamesFiltering(ehough_finder_shell_Command $command, array $names, $not = false)
     {
@@ -188,7 +188,7 @@ abstract class ehough_finder_adapter_AbstractFindAdapter extends ehough_finder_a
      * @param ehough_finder_shell_Command  $command
      * @param string   $dir
      * @param string[] $paths
-     * @param Boolean  $not
+     * @param bool     $not
      */
     private function buildPathsFiltering(ehough_finder_shell_Command $command, $dir, array $paths, $not = false)
     {
@@ -313,7 +313,7 @@ abstract class ehough_finder_adapter_AbstractFindAdapter extends ehough_finder_a
     /**
      * @param ehough_finder_shell_Command $command
      * @param array   $contains
-     * @param Boolean $not
+     * @param bool    $not
      */
     abstract protected function buildContentFiltering(ehough_finder_shell_Command $command, array $contains, $not = false);
 }

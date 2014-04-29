@@ -36,9 +36,9 @@ abstract class ehough_finder_iterator_IteratorTestCase extends PHPUnit_Framework
      * Same as IteratorTestCase::assertIterator with foreach usage
      *
      * @param array $expected
-     * @param \Traversable $iterator
+     * @param Traversable $iterator
      */
-    protected function assertIteratorInForeach($expected, \Traversable $iterator)
+    protected function assertIteratorInForeach($expected, Traversable $iterator)
     {
         $values = array();
         foreach ($iterator as $file) {
@@ -56,9 +56,9 @@ abstract class ehough_finder_iterator_IteratorTestCase extends PHPUnit_Framework
      * Same as IteratorTestCase::assertOrderedIterator with foreach usage
      *
      * @param array $expected
-     * @param \Traversable $iterator
+     * @param Traversable $iterator
      */
-    protected function assertOrderedIteratorInForeach($expected, \Traversable $iterator)
+    protected function assertOrderedIteratorInForeach($expected, Traversable $iterator)
     {
         $values = array();
         foreach ($iterator as $file) {

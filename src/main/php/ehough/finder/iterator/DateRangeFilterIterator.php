@@ -34,7 +34,7 @@ class ehough_finder_iterator_DateRangeFilterIterator extends ehough_finder_itera
     /**
      * Filters the iterator values.
      *
-     * @return Boolean true if the value should be kept, false otherwise
+     * @return bool    true if the value should be kept, false otherwise
      */
     public function accept()
     {

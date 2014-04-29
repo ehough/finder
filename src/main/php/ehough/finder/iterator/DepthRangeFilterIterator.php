@@ -36,7 +36,7 @@ class ehough_finder_iterator_DepthRangeFilterIterator extends ehough_finder_iter
     /**
      * Filters the iterator values.
      *
-     * @return Boolean true if the value should be kept, false otherwise
+     * @return bool    true if the value should be kept, false otherwise
      */
     public function accept()
     {

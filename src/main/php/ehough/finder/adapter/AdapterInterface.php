@@ -15,14 +15,14 @@
 interface ehough_finder_adapter_AdapterInterface
 {
     /**
-     * @param Boolean $followLinks
+     * @param bool    $followLinks
      *
      * @return ehough_finder_adapter_AdapterInterface Current instance
      */
     public function setFollowLinks($followLinks);
 
     /**
-     * @param integer $mode
+     * @param int     $mode
      *
      * @return ehough_finder_adapter_AdapterInterface Current instance
      */
@@ -92,7 +92,7 @@ interface ehough_finder_adapter_AdapterInterface
     public function setFilters(array $filters);
 
     /**
-     * @param callable|integer $sort
+     * @param callable|int $sort
      *
      * @return ehough_finder_adapter_AdapterInterface Current instance
      */
@@ -113,7 +113,7 @@ interface ehough_finder_adapter_AdapterInterface
     public function setNotPath(array $notPaths);
 
     /**
-     * @param boolean $ignore
+     * @param bool    $ignore
      *
      * @return ehough_finder_adapter_AdapterInterface Current instance
      */
@@ -129,7 +129,7 @@ interface ehough_finder_adapter_AdapterInterface
     /**
      * Tests adapter support for current platform.
      *
-     * @return Boolean
+     * @return bool
      */
     public function isSupported();
 
