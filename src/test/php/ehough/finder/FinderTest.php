@@ -864,6 +864,10 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
 
     public function testNonSeekableStream()
     {
+        if (!in_array('ftp', stream_get_wrappers())) {
+            $this->markTestSkipped(sprintf('Unavailable stream "%s".', 'ftp'));
+        }
+
         try {
             $i = ehough_finder_Finder::create()->in('ftp://ftp.mozilla.org/')->depth(0)->getIterator();
         } catch (UnexpectedValueException $e) {

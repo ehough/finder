@@ -37,8 +37,8 @@ class ehough_finder_Glob
      * Returns a regexp which is the equivalent of the glob pattern.
      *
      * @param string  $glob                The glob pattern
-     * @param Boolean $strictLeadingDot
-     * @param Boolean $strictWildcardSlash
+     * @param bool    $strictLeadingDot
+     * @param bool    $strictWildcardSlash
      *
      * @return string regex The regexp
      */

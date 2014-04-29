@@ -44,7 +44,7 @@ abstract class ehough_finder_iterator_MultiplePcreFilterIterator extends ehough_
      *
      * @param string $str
      *
-     * @return Boolean Whether the given string is a regex
+     * @return bool    Whether the given string is a regex
      */
     protected function isRegex($str)
     {

@@ -82,7 +82,7 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * Registers a finder engine implementation.
      *
      * @param ehough_finder_adapter_AdapterInterface $adapter  An adapter instance
-     * @param integer          $priority Highest is selected first
+     * @param int                                    $priority Highest is selected first
      *
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      */
@@ -410,7 +410,7 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
     /**
      * Excludes "hidden" directories and files (starting with a dot).
      *
-     * @param Boolean $ignoreDotFiles Whether to exclude "hidden" files or not
+     * @param bool    $ignoreDotFiles Whether to exclude "hidden" files or not
      *
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
@@ -432,7 +432,7 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
     /**
      * Forces the finder to ignore version control directories.
      *
-     * @param Boolean $ignoreVCS Whether to exclude VCS files or not
+     * @param bool    $ignoreVCS Whether to exclude VCS files or not
      *
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
@@ -627,13 +627,13 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      *
      * By default, scanning unreadable directories content throws an AccessDeniedException.
      *
-     * @param boolean $ignore
+     * @param bool    $ignore
      *
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      */
     public function ignoreUnreadableDirs($ignore = true)
     {
-        $this->ignoreUnreadableDirs = (Boolean) $ignore;
+        $this->ignoreUnreadableDirs = (bool) $ignore;
 
         return $this;
     }
