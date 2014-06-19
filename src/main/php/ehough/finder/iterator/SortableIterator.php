@@ -64,17 +64,17 @@ class ehough_finder_iterator_SortableIterator implements IteratorAggregate
 
     public function _callbackSortModTime($a, $b)
     {
-        return ($a->getMTime() > $b->getMTime());
+        return ($a->getMTime() - $b->getMTime());
     }
 
     public function _callbackSortChangedTime($a, $b)
     {
-        return ($a->getCTime() > $b->getCTime());
+        return ($a->getCTime() - $b->getCTime());
     }
 
     public function _callbackSortTime($a, $b)
     {
-        return ($a->getATime() > $b->getATime());
+        return ($a->getATime() - $b->getATime());
     }
 
     public function _callbackSortType($a, $b)
