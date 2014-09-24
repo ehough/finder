@@ -784,7 +784,11 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
 
         // restore original permissions
         chmod($testDir, 0777);
-        clearstatcache($testDir);
+        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
+            clearstatcache();
+        } else {
+            clearstatcache($testDir);
+        }
 
         if ($couldRead) {
             $this->markTestSkipped('could read test files while test requires unreadable');
@@ -813,7 +817,11 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
 
         // restore original permissions
         chmod($testDir, 0777);
-        clearstatcache($testDir);
+        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
+            clearstatcache();
+        } else {
+            clearstatcache($testDir);
+        }
 
         if ($couldRead) {
             $this->markTestSkipped('could read test files while test requires unreadable');
