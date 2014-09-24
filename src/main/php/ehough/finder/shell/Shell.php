@@ -48,17 +48,19 @@ class ehough_finder_shell_Shell
      */
     public function testCommand($command)
     {
-        if (self::TYPE_WINDOWS === $this->type) {
-            // todo: find a way to test if Windows command exists
-            return false;
-        }
-
         if (!function_exists('exec')) {
             return false;
         }
 
         // todo: find a better way (command could not be available)
-        exec('command -v '.$command, $output, $code);
+        $testCommand = 'which ';
+        if (self::TYPE_WINDOWS === $this->type) {
+            $testCommand = 'where ';
+        }
+
+        $command = escapeshellcmd($command);
+
+        exec($testCommand.$command, $output, $code);
 
         return 0 === $code && count($output) > 0;
     }
