@@ -17,7 +17,6 @@ require_once 'fakeadapter/UnsupportedAdapter.php';
 
 class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCase
 {
-
     public function testCreate()
     {
         $this->assertInstanceOf('ehough_finder_Finder', ehough_finder_Finder::create());
