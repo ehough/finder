@@ -9,6 +9,14 @@
             "name": "Eric Hough",
             "email": "eric@tubepress.com",
             "homepage": "https://github.com/ehough"
+        },
+        {
+            "name": "Fabien Potencier",
+            "email": "fabien@symfony.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://symfony.com/contributors"
         }
     ],
     "require": {

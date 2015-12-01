@@ -133,8 +133,6 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
 
     /**
      * @dataProvider getRegexNameTestData
-     *
-     * @group regexName
      */
     public function testRegexName($adapter, $regex)
     {
@@ -523,7 +521,6 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
 
     /**
      * @dataProvider getContainsTestData
-     * @group grep
      */
     public function testContains($adapter, $matchPatterns, $noMatchPatterns, $expected)
     {
