@@ -410,7 +410,7 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
     /**
      * Excludes "hidden" directories and files (starting with a dot).
      *
-     * @param bool    $ignoreDotFiles Whether to exclude "hidden" files or not
+     * @param bool $ignoreDotFiles Whether to exclude "hidden" files or not
      *
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
@@ -432,7 +432,7 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
     /**
      * Forces the finder to ignore version control directories.
      *
-     * @param bool    $ignoreVCS Whether to exclude VCS files or not
+     * @param bool $ignoreVCS Whether to exclude VCS files or not
      *
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
@@ -627,7 +627,7 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      *
      * By default, scanning unreadable directories content throws an AccessDeniedException.
      *
-     * @param bool    $ignore
+     * @param bool $ignore
      *
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      */

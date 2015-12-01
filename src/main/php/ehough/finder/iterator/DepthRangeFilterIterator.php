@@ -21,9 +21,9 @@ class ehough_finder_iterator_DepthRangeFilterIterator extends ehough_finder_iter
     /**
      * Constructor.
      *
-     * @param RecursiveIteratorIterator $iterator    The Iterator to filter
-     * @param int                        $minDepth    The min depth
-     * @param int                        $maxDepth    The max depth
+     * @param RecursiveIteratorIterator $iterator The Iterator to filter
+     * @param int                       $minDepth The min depth
+     * @param int                       $maxDepth The max depth
      */
     public function __construct(RecursiveIteratorIterator $iterator, $minDepth = 0, $maxDepth = PHP_INT_MAX)
     {
@@ -36,7 +36,7 @@ class ehough_finder_iterator_DepthRangeFilterIterator extends ehough_finder_iter
     /**
      * Filters the iterator values.
      *
-     * @return bool    true if the value should be kept, false otherwise
+     * @return bool true if the value should be kept, false otherwise
      */
     public function accept()
     {

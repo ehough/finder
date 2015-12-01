@@ -29,9 +29,9 @@ class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirecto
     /**
      * Constructor.
      *
-     * @param string  $path
-     * @param int     $flags
-     * @param bool    $ignoreUnreadableDirs
+     * @param string $path
+     * @param int    $flags
+     * @param bool   $ignoreUnreadableDirs
      *
      * @throws RuntimeException
      */
@@ -107,7 +107,7 @@ class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirecto
     /**
      * Checks if the stream is rewindable.
      *
-     * @return bool    true when the stream is rewindable, false otherwise
+     * @return bool true when the stream is rewindable, false otherwise
      */
     public function isRewindable()
     {
