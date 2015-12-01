@@ -73,7 +73,7 @@ class ehough_finder_adapter_GnuFindAdapter extends ehough_finder_adapter_Abstrac
      */
     protected function buildFindCommand(ehough_finder_shell_Command $command, $dir)
     {
-      return parent::buildFindCommand($command, $dir)->add('-regextype posix-extended');
+        return parent::buildFindCommand($command, $dir)->add('-regextype posix-extended');
     }
 
     /**

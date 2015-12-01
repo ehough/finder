@@ -50,12 +50,17 @@ class ehough_finder_iterator_SortableIteratorTest extends ehough_finder_iterator
 
         $iterator = new ehough_finder_iterator_SortableIterator($inner, $mode);
 
-        $this->assertOrderedIterator($expected, $iterator);
+        if ($mode === ehough_finder_iterator_SortableIterator::SORT_BY_ACCESSED_TIME
+            || $mode === ehough_finder_iterator_SortableIterator::SORT_BY_CHANGED_TIME
+            || $mode === ehough_finder_iterator_SortableIterator::SORT_BY_MODIFIED_TIME) {
+            $this->assertOrderedIteratorForGroups($expected, $iterator);
+        } else {
+            $this->assertOrderedIterator($expected, $iterator);
+        }
     }
 
     public function getAcceptData()
     {
-
         $sortByName = array(
             '.bar',
             '.foo',
@@ -99,45 +104,53 @@ class ehough_finder_iterator_SortableIteratorTest extends ehough_finder_iterator
         );
 
         $sortByAccessedTime = array(
-            'foo/bar.tmp',
-            'test.php',
-            'toto',
-            'foo bar',
-            'foo',
-            'test.py',
-            '.foo',
-            '.foo/.bar',
-            '.foo/bar',
-            '.git',
-            '.bar'
+            // For these two files the access time was set to 2005-10-15
+            array('foo/bar.tmp', 'test.php'),
+            // These files were created more or less at the same time
+            array(
+                '.git',
+                '.foo',
+                '.foo/.bar',
+                '.foo/bar',
+                'test.py',
+                'foo',
+                'toto',
+                'foo bar',
+            ),
+            // This file was accessed after sleeping for 1 sec
+            array('.bar'),
         );
 
         $sortByChangedTime = array(
-            'foo',
-            'foo/bar.tmp',
-            'toto',
-            '.git',
-            '.bar',
-            '.foo',
-            'foo bar',
-            '.foo/.bar',
-            '.foo/bar',
-            'test.php',
-            'test.py'
+            array(
+                '.git',
+                '.foo',
+                '.foo/.bar',
+                '.foo/bar',
+                '.bar',
+                'foo',
+                'foo/bar.tmp',
+                'toto',
+                'foo bar',
+            ),
+            array('test.php'),
+            array('test.py'),
         );
 
         $sortByModifiedTime = array(
-            'foo/bar.tmp',
-            'foo',
-            'toto',
-            '.git',
-            '.bar',
-            '.foo',
-            'foo bar',
-            '.foo/.bar',
-            '.foo/bar',
-            'test.php',
-            'test.py'
+            array(
+                '.git',
+                '.foo',
+                '.foo/.bar',
+                '.foo/bar',
+                '.bar',
+                'foo',
+                'foo/bar.tmp',
+                'toto',
+                'foo bar',
+            ),
+            array('test.php'),
+            array('test.py'),
         );
 
         return array(

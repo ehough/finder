@@ -16,7 +16,6 @@
  */
 class ehough_finder_comparator_DateComparator extends ehough_finder_comparator_Comparator
 {
-
     /**
      * Constructor.
      *

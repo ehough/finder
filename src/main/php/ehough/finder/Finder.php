@@ -781,7 +781,8 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
                     return $this
                         ->buildAdapter($adapter['adapter'])
                         ->searchInDirectory($dir);
-                } catch (ehough_finder_exception_ExceptionInterface $e) {}
+                } catch (ehough_finder_exception_ExceptionInterface $e) {
+                }
             }
         }
 

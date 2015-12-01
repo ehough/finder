@@ -11,7 +11,6 @@
 
 class ehough_finder_iterator_PathFilterIteratorTest extends ehough_finder_iterator_IteratorTestCase
 {
-
     /**
      * @dataProvider getTestFilterData
      */
@@ -77,5 +76,4 @@ class ehough_finder_iterator_PathFilterIteratorTest extends ehough_finder_iterat
 
         );
     }
-
 }

@@ -16,7 +16,9 @@ class ehough_finder_iterator_DateRangeFilterIteratorTest extends ehough_finder_i
      */
     public function testAccept($size, $expected)
     {
-        $inner = new ehough_finder_iterator_Iterator(self::$files);
+        $files = self::$files;
+        $files[] = self::toAbsolute('doesnotexist');
+        $inner = new ehough_finder_iterator_Iterator($files);
 
         $iterator = new ehough_finder_iterator_DateRangeFilterIterator($inner, $size);
 

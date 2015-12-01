@@ -43,7 +43,7 @@ class ehough_finder_iterator_ExcludeDirectoryFilterIteratorTest extends ehough_f
             'test.py',
             'test.php',
             'toto',
-            'foo bar'
+            'foo bar',
         );
 
         $fo = array(
@@ -57,7 +57,7 @@ class ehough_finder_iterator_ExcludeDirectoryFilterIteratorTest extends ehough_f
             'foo/bar.tmp',
             'test.php',
             'toto',
-            'foo bar'
+            'foo bar',
         );
 
         return array(
@@ -65,5 +65,4 @@ class ehough_finder_iterator_ExcludeDirectoryFilterIteratorTest extends ehough_f
             array(array('fo'), $this->toAbsolute($fo)),
         );
     }
-
 }

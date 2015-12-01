@@ -598,6 +598,20 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         }
     }
 
+    /**
+     * @dataProvider getAdaptersTestData
+     */
+    public function testRegexSpecialCharsLocationWithPathRestrictionContainingStartFlag(ehough_finder_adapter_AdapterInterface $adapter)
+    {
+        $finder = $this->buildFinder($adapter);
+        $finder->in(__DIR__.DIRECTORY_SEPARATOR.'Fixtures'.DIRECTORY_SEPARATOR.'r+e.gex[c]a(r)s')
+            ->path('/^dir/');
+
+        $expected = array('r+e.gex[c]a(r)s'.DIRECTORY_SEPARATOR.'dir',
+                          'r+e.gex[c]a(r)s'.DIRECTORY_SEPARATOR.'dir'.DIRECTORY_SEPARATOR.'bar.dat',);
+        $this->assertIterator($this->toAbsoluteFixtures($expected), $finder);
+    }
+
     public function testAdaptersOrdering()
     {
         $finder = ehough_finder_Finder::create()
@@ -710,7 +724,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $tests = array(
             array('', '', array()),
             array('/^A\/B\/C/', '/C$/',
-                array('A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat')
+                array('A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat'),
             ),
             array('/^A\/B/', 'foobar',
                 array(
@@ -718,7 +732,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
                     'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C',
                     'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'ab.dat',
                     'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat',
-                )
+                ),
             ),
             array('A/B/C', 'foobar',
                 array(
@@ -726,7 +740,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
                     'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat',
                     'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C',
                     'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat.copy',
-                )
+                ),
             ),
             array('A/B', 'foobar',
                 array(
@@ -740,12 +754,12 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
                     'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat',
                     'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'ab.dat.copy',
                     'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat.copy',
-                )
+                ),
             ),
             array('/^with space\//', 'foobar',
                 array(
                     'with space'.DIRECTORY_SEPARATOR.'foo.txt',
-                )
+                ),
             ),
         );
 
@@ -765,17 +779,34 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $finder->files()->in(self::$tmpDir);
 
         // make 'foo' directory non-readable
-        chmod(self::$tmpDir.DIRECTORY_SEPARATOR.'foo', 0333);
+        $testDir = self::$tmpDir.DIRECTORY_SEPARATOR.'foo';
+        chmod($testDir, 0333);
 
-        try {
-            $this->assertIterator($this->toAbsolute(array('foo bar', 'test.php', 'test.py')), $finder->getIterator());
-            $this->fail('Finder should throw an exception when opening a non-readable directory.');
-        } catch (Exception $e) {
-            $this->assertInstanceOf('ehough_finder_exception_AccessDeniedException', $e);
+        if (false === $couldRead = is_readable($testDir)) {
+            try {
+                $this->assertIterator($this->toAbsolute(array('foo bar', 'test.php', 'test.py')), $finder->getIterator());
+                $this->fail('Finder should throw an exception when opening a non-readable directory.');
+            } catch (Exception $e) {
+                $expectedExceptionClass = 'ehough_finder_exception_AccessDeniedException';
+                if ($e instanceof PHPUnit_Framework_ExpectationFailedException) {
+                    $this->fail(sprintf("Expected exception:\n%s\nGot:\n%s\nWith comparison failure:\n%s", $expectedExceptionClass, 'PHPUnit_Framework_ExpectationFailedException', $e->getComparisonFailure()->getExpectedAsString()));
+                }
+
+                $this->assertInstanceOf($expectedExceptionClass, $e);
+            }
         }
 
         // restore original permissions
-        chmod(self::$tmpDir.DIRECTORY_SEPARATOR.'foo', 0777);
+        chmod($testDir, 0777);
+        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
+            clearstatcache();
+        } else {
+            clearstatcache($testDir);
+        }
+
+        if ($couldRead) {
+            $this->markTestSkipped('could read test files while test requires unreadable');
+        }
     }
 
     /**
@@ -791,12 +822,24 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $finder->files()->ignoreUnreadableDirs()->in(self::$tmpDir);
 
         // make 'foo' directory non-readable
-        chmod(self::$tmpDir.DIRECTORY_SEPARATOR.'foo', 0333);
+        $testDir = self::$tmpDir.DIRECTORY_SEPARATOR.'foo';
+        chmod($testDir, 0333);
 
-        $this->assertIterator($this->toAbsolute(array('foo bar', 'test.php', 'test.py')), $finder->getIterator());
+        if (false === ($couldRead = is_readable($testDir))) {
+            $this->assertIterator($this->toAbsolute(array('foo bar', 'test.php', 'test.py')), $finder->getIterator());
+        }
 
         // restore original permissions
-        chmod(self::$tmpDir.DIRECTORY_SEPARATOR.'foo', 0777);
+        chmod($testDir, 0777);
+        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
+            clearstatcache();
+        } else {
+            clearstatcache($testDir);
+        }
+
+        if ($couldRead) {
+            $this->markTestSkipped('could read test files while test requires unreadable');
+        }
     }
 
     private function buildTestData(array $tests)
@@ -824,7 +867,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
             array(
                 new ehough_finder_adapter_BsdFindAdapter(),
                 new ehough_finder_adapter_GnuFindAdapter(),
-                new ehough_finder_adapter_PhpAdapter()
+                new ehough_finder_adapter_PhpAdapter(),
             ),
             array($this, '_callbackGetValidAdapters')
         );
@@ -859,26 +902,5 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
 
         $this->assertIterator($expected, $finder);
         $this->assertIteratorInForeach($expected, $finder);
-    }
-
-    public function testNonSeekableStream()
-    {
-        if (!in_array('ftp', stream_get_wrappers())) {
-            $this->markTestSkipped(sprintf('Unavailable stream "%s".', 'ftp'));
-        }
-
-        try {
-            $i = ehough_finder_Finder::create()->in('ftp://ftp.mozilla.org/')->depth(0)->getIterator();
-        } catch (UnexpectedValueException $e) {
-            $this->markTestSkipped(sprintf('Unsupported stream "%s".', 'ftp'));
-        }
-
-        $contains = array(
-            'ftp://ftp.mozilla.org'.DIRECTORY_SEPARATOR.'README',
-            'ftp://ftp.mozilla.org'.DIRECTORY_SEPARATOR.'index.html',
-            'ftp://ftp.mozilla.org'.DIRECTORY_SEPARATOR.'pub',
-        );
-
-        $this->assertIteratorInForeach($contains, $i);
     }
 }

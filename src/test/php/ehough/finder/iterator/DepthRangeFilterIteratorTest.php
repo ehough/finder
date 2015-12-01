@@ -82,5 +82,4 @@ class ehough_finder_iterator_DepthRangeFilterIteratorTest extends ehough_finder_
             array(1, 1, $this->toAbsolute($equalTo1)),
         );
     }
-
 }
