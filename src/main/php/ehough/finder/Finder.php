@@ -219,7 +219,7 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      *   $finder->date('> now - 2 hours');
      *   $finder->date('>= 2005-10-15');
      *
-     * @param string $date A date rage string
+     * @param string $date A date range string
      *
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
@@ -421,9 +421,9 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
     public function ignoreDotFiles($ignoreDotFiles)
     {
         if ($ignoreDotFiles) {
-            $this->ignore = $this->ignore | self::IGNORE_DOT_FILES;
+            $this->ignore |= self::IGNORE_DOT_FILES;
         } else {
-            $this->ignore = $this->ignore & ~self::IGNORE_DOT_FILES;
+            $this->ignore &= ~self::IGNORE_DOT_FILES;
         }
 
         return $this;
@@ -443,9 +443,9 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
     public function ignoreVCS($ignoreVCS)
     {
         if ($ignoreVCS) {
-            $this->ignore = $this->ignore | self::IGNORE_VCS_FILES;
+            $this->ignore |= self::IGNORE_VCS_FILES;
         } else {
-            $this->ignore = $this->ignore & ~self::IGNORE_VCS_FILES;
+            $this->ignore &= ~self::IGNORE_VCS_FILES;
         }
 
         return $this;
