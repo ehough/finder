@@ -492,7 +492,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $i = 0;
 
         foreach ($directory as $dir) {
-            $i++;
+            ++$i;
         }
 
         $this->assertCount($i, $directory);
@@ -504,7 +504,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $i = 0;
 
         foreach ($files as $file) {
-            $i++;
+            ++$i;
         }
 
         $this->assertCount($i, $files);

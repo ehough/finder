@@ -49,7 +49,7 @@ class ehough_finder_Glob
         $inCurlies = 0;
         $regex = '';
         $sizeGlob = strlen($glob);
-        for ($i = 0; $i < $sizeGlob; $i++) {
+        for ($i = 0; $i < $sizeGlob; ++$i) {
             $car = $glob[$i];
             if ($firstByte) {
                 if ($strictLeadingDot && '.' !== $car) {
