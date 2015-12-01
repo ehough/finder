@@ -251,7 +251,7 @@ class ehough_finder_shell_Command
             $output = preg_split('~(\r\n|\r|\n)~', stream_get_contents($pipes[1]), -1, PREG_SPLIT_NO_EMPTY);
 
             if ($error = stream_get_contents($pipes[2])) {
-                $errorHandler($error);
+                call_user_func($errorHandler, $error);
             }
 
             proc_close($process);

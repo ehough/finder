@@ -82,7 +82,7 @@ class ehough_finder_shell_CommandTest extends PHPUnit_Framework_TestCase
         $cmd = ehough_finder_shell_Command::create()->add('--force');
 
         $cmd->arg('--run');
-        $this->assertSame('--force \'--run\'', $cmd->join());
+        $this->assertSame('--force '.escapeshellarg('--run'), $cmd->join());
     }
 
     public function testCmd()
@@ -129,10 +129,15 @@ class ehough_finder_shell_CommandTest extends PHPUnit_Framework_TestCase
     public function testErrorHandler()
     {
         $cmd = ehough_finder_shell_Command::create();
-        $handler = function() { return 'error-handler'; };
+        $handler = array($this, '__callbackErrorHandler');
         $cmd->setErrorHandler($handler);
 
         $this->assertSame($handler, $cmd->getErrorHandler());
+    }
+
+    public function __callbackErrorHandler()
+    {
+        return 'error-handler';
     }
 
     public function testExecute()

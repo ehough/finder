@@ -29,7 +29,11 @@ class ehough_finder_iterator_SortableIteratorTest extends ehough_finder_iterator
         if (!is_callable($mode)) {
             switch ($mode) {
                 case ehough_finder_iterator_SortableIterator::SORT_BY_ACCESSED_TIME :
-                    file_get_contents(self::toAbsolute('.git'));
+                    if ('\\' === DIRECTORY_SEPARATOR) {
+                        touch(self::toAbsolute('.git'));
+                    } else {
+                        file_get_contents(self::toAbsolute('.git'));
+                    }
                     sleep(1);
                     file_get_contents(self::toAbsolute('.bar'));
                     break;
@@ -52,7 +56,11 @@ class ehough_finder_iterator_SortableIteratorTest extends ehough_finder_iterator
 
         if ($mode === ehough_finder_iterator_SortableIterator::SORT_BY_ACCESSED_TIME
             || $mode === ehough_finder_iterator_SortableIterator::SORT_BY_CHANGED_TIME
-            || $mode === ehough_finder_iterator_SortableIterator::SORT_BY_MODIFIED_TIME) {
+            || $mode === ehough_finder_iterator_SortableIterator::SORT_BY_MODIFIED_TIME
+        ) {
+            if ('\\' === DIRECTORY_SEPARATOR && ehough_finder_iterator_SortableIterator::SORT_BY_MODIFIED_TIME !== $mode) {
+                $this->markTestSkipped('Sorting by atime or ctime is not supported on Windows');
+            }
             $this->assertOrderedIteratorForGroups($expected, $iterator);
         } else {
             $this->assertOrderedIterator($expected, $iterator);

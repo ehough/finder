@@ -27,7 +27,7 @@ class ehough_finder_iterator_PathFilterIterator extends ehough_finder_iterator_M
         $filename = $this->current()->getRelativePathname();
 
         if ('\\' === DIRECTORY_SEPARATOR) {
-            $filename = strtr($filename, '\\', '/');
+            $filename = str_replace('\\', '/', $filename);
         }
 
         // should at least not match one rule to exclude
