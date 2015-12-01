@@ -285,7 +285,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
 
     public function _callbackTestFilter(SplFileInfo $f)
     {
-        return preg_match('/test/', $f) > 0;
+        return false !== strpos($f, 'test');
     }
 
     /**

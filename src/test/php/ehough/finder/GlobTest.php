@@ -15,8 +15,8 @@ class ehough_finder_GlobTest extends PHPUnit_Framework_TestCase
 
     public function testGlobToRegexDelimiters()
     {
-        $this->assertEquals(ehough_finder_Glob::toRegex('.*'), '#^\.[^/]*$#');
-        $this->assertEquals(ehough_finder_Glob::toRegex('.*', true, true, ''), '^\.[^/]*$');
-        $this->assertEquals(ehough_finder_Glob::toRegex('.*', true, true, '/'), '/^\.[^/]*$/');
+        $this->assertEquals('#^\.[^/]*$#', ehough_finder_Glob::toRegex('.*'));
+        $this->assertEquals('^\.[^/]*$', ehough_finder_Glob::toRegex('.*', true, true, ''));
+        $this->assertEquals('/^\.[^/]*$/', ehough_finder_Glob::toRegex('.*', true, true, '/'));
     }
 }

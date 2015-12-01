@@ -44,7 +44,7 @@ class ehough_finder_iterator_CustomFilterIteratorTest extends ehough_finder_iter
 
     public function _callbackGetAcceptData2(SplFileInfo $fileinfo)
     {
-        return preg_match('/^test/', $fileinfo) > 0;
+        return 0 === strpos($fileinfo, 'test');
     }
 
     public function _callbackGetAcceptData1(SplFileInfo $fileinfo)
