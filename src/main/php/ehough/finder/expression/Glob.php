@@ -103,7 +103,7 @@ class ehough_finder_expression_Glob implements ehough_finder_expression_ValueInt
         $inCurlies = 0;
         $regex = '';
         $sizeGlob = strlen($this->pattern);
-        for ($i = 0; $i < $sizeGlob; $i++) {
+        for ($i = 0; $i < $sizeGlob; ++$i) {
             $car = $this->pattern[$i];
             if ($firstByte) {
                 if ($strictLeadingDot && '.' !== $car) {

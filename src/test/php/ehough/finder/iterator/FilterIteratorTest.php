@@ -30,7 +30,7 @@ class ehough_finder_iterator_FilterIteratorTest extends ehough_finder_iterator_R
 
         $c = 0;
         foreach ($i as $item) {
-            $c++;
+            ++$c;
         }
 
         $this->assertEquals(1, $c);
@@ -39,7 +39,7 @@ class ehough_finder_iterator_FilterIteratorTest extends ehough_finder_iterator_R
 
         $c = 0;
         foreach ($i as $item) {
-            $c++;
+            ++$c;
         }
 
         // This would fail with \FilterIterator but works with Symfony\Component\FinderIterator\FilterIterator
