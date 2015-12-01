@@ -17,7 +17,6 @@
  */
 class ehough_finder_iterator_PathFilterIterator extends ehough_finder_iterator_MultiplePcreFilterIterator
 {
-
     /**
      * Filters the iterator values.
      *

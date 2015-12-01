@@ -13,7 +13,6 @@ require_once 'IteratorTestCase.php';
 
 abstract class ehough_finder_iterator_RealIteratorTestCase extends ehough_finder_iterator_IteratorTestCase
 {
-
     protected static $tmpDir;
     protected static $files;
 
@@ -32,7 +31,7 @@ abstract class ehough_finder_iterator_RealIteratorTestCase extends ehough_finder
             'foo/bar.tmp',
             'test.php',
             'toto/',
-            'foo bar'
+            'foo bar',
         );
 
         self::$files = self::toAbsolute(self::$files);
@@ -81,7 +80,11 @@ abstract class ehough_finder_iterator_RealIteratorTestCase extends ehough_finder
         if (is_array($files)) {
             $f = array();
             foreach ($files as $file) {
-                $f[] = self::$tmpDir.DIRECTORY_SEPARATOR.str_replace('/', DIRECTORY_SEPARATOR, $file);
+                if (is_array($file)) {
+                    $f[] = self::toAbsolute($file);
+                } else {
+                    $f[] = self::$tmpDir.DIRECTORY_SEPARATOR.str_replace('/', DIRECTORY_SEPARATOR, $file);
+                }
             }
 
             return $f;
@@ -103,5 +106,4 @@ abstract class ehough_finder_iterator_RealIteratorTestCase extends ehough_finder
 
         return $f;
     }
-
 }

@@ -178,7 +178,7 @@ class ehough_finder_expression_Regex implements ehough_finder_expression_ValueIn
     public function addOption($option)
     {
         if (!$this->hasOption($option)) {
-            $this->options.= $option;
+            $this->options .= $option;
         }
 
         return $this;

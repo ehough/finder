@@ -11,7 +11,6 @@
 
 class ehough_finder_comparator_NumberComparatorTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @dataProvider getConstructorTestData
      */
@@ -97,9 +96,8 @@ class ehough_finder_comparator_NumberComparatorTest extends PHPUnit_Framework_Te
                     '=1', '===1',
                     '0 . 1', '123 .45', '234. 567',
                     '..', '.0.', '0.1.2',
-                )
+                ),
             ),
         );
     }
-
 }

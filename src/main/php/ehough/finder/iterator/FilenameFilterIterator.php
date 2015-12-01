@@ -16,7 +16,6 @@
  */
 class ehough_finder_iterator_FilenameFilterIterator extends ehough_finder_iterator_MultiplePcreFilterIterator
 {
-
     /**
      * Filters the iterator values.
      *

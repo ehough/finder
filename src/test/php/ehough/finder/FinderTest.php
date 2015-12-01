@@ -598,6 +598,20 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         }
     }
 
+    /**
+     * @dataProvider getAdaptersTestData
+     */
+    public function testRegexSpecialCharsLocationWithPathRestrictionContainingStartFlag(ehough_finder_adapter_AdapterInterface $adapter)
+    {
+        $finder = $this->buildFinder($adapter);
+        $finder->in(__DIR__.DIRECTORY_SEPARATOR.'Fixtures'.DIRECTORY_SEPARATOR.'r+e.gex[c]a(r)s')
+            ->path('/^dir/');
+
+        $expected = array('r+e.gex[c]a(r)s'.DIRECTORY_SEPARATOR.'dir',
+                          'r+e.gex[c]a(r)s'.DIRECTORY_SEPARATOR.'dir'.DIRECTORY_SEPARATOR.'bar.dat',);
+        $this->assertIterator($this->toAbsoluteFixtures($expected), $finder);
+    }
+
     public function testAdaptersOrdering()
     {
         $finder = ehough_finder_Finder::create()
@@ -710,7 +724,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $tests = array(
             array('', '', array()),
             array('/^A\/B\/C/', '/C$/',
-                array('A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat')
+                array('A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat'),
             ),
             array('/^A\/B/', 'foobar',
                 array(
@@ -718,7 +732,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
                     'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C',
                     'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'ab.dat',
                     'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat',
-                )
+                ),
             ),
             array('A/B/C', 'foobar',
                 array(
@@ -726,7 +740,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
                     'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat',
                     'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C',
                     'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat.copy',
-                )
+                ),
             ),
             array('A/B', 'foobar',
                 array(
@@ -740,12 +754,12 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
                     'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat',
                     'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'ab.dat.copy',
                     'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat.copy',
-                )
+                ),
             ),
             array('/^with space\//', 'foobar',
                 array(
                     'with space'.DIRECTORY_SEPARATOR.'foo.txt',
-                )
+                ),
             ),
         );
 
@@ -853,7 +867,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
             array(
                 new ehough_finder_adapter_BsdFindAdapter(),
                 new ehough_finder_adapter_GnuFindAdapter(),
-                new ehough_finder_adapter_PhpAdapter()
+                new ehough_finder_adapter_PhpAdapter(),
             ),
             array($this, '_callbackGetValidAdapters')
         );
