@@ -1,14 +1,19 @@
-# finder [![Build Status](https://secure.travis-ci.org/ehough/finder.png)](http://travis-ci.org/ehough/finder)
+## finder
+
+[![Build Status](https://secure.travis-ci.org/ehough/finder.png)](http://travis-ci.org/ehough/finder)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Latest Stable Version](https://poser.pugx.org/ehough/finder/v/stable)](https://packagist.org/packages/ehough/finder)
+[![License](https://poser.pugx.org/ehough/finder/license)](https://packagist.org/packages/ehough/finder)
 
 Fork of [Symfony's Finder component](https://github.com/symfony/Finder) compatible with PHP 5.2+.
 
 ### Motivation
 
-Symfony's Finder component is fantastic, but it's only compatible with PHP 5.3+. While 97% of PHP servers run PHP 5.2 or higher,
-**32% of all servers are still running PHP 5.2 or lower** ([source](http://w3techs.com/technologies/details/pl-php/5/all)).
-It would be a shame to exempt this library from nearly half of the world's servers just because of a few version incompatibilities.
+[Symfony's Finder component](https://github.com/symfony/Finder) is a fantastic library,
+but it's only compatible with PHP 5.3+. While 99% of PHP servers run PHP 5.2 or higher,
+13% of all servers are still running PHP 5.2 or lower ([source](http://w3techs.com/technologies/details/pl-php/5/all)).
 
-Once PHP 5.3+ adoption levels near closer to 100%, this library will be retired.
+**Once PHP 5.3+ adoption levels break 90%, this library will be retired.**
 
 ### Differences from [Symfony's Finder component](https://github.com/symfony/Finder)
 
