@@ -318,7 +318,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $finder = $this->buildFinder($adapter);
         $iterator = $finder->files()->name('*.php')->depth('< 1')->in(array(self::$tmpDir, dirname(__FILE__)))->getIterator();
 
-        $this->assertIterator(array(self::$tmpDir.DIRECTORY_SEPARATOR.'test.php', dirname(__FILE__).DIRECTORY_SEPARATOR.'FinderTest.php'), $iterator);
+        $this->assertIterator(array(self::$tmpDir.DIRECTORY_SEPARATOR.'test.php', dirname(__FILE__).DIRECTORY_SEPARATOR.'FinderTest.php', dirname(__FILE__).DIRECTORY_SEPARATOR.'GlobTest.php'), $iterator);
     }
 
     /**
