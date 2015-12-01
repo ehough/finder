@@ -27,7 +27,7 @@ class ehough_finder_iterator_FilePathsIteratorTest extends ehough_finder_iterato
 
     public function getSubPathData()
     {
-        $tmpDir = sys_get_temp_dir().'/symfony2_finder';
+        $tmpDir = sys_get_temp_dir().'/symfony_finder';
 
         return array(
             array(
