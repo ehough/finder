@@ -15,7 +15,7 @@
 class ehough_finder_expression_Expression implements ehough_finder_expression_ValueInterface
 {
     const TYPE_REGEX = 1;
-    const TYPE_GLOB  = 2;
+    const TYPE_GLOB = 2;
 
     /**
      * @var ehough_finder_expression_ValueInterface

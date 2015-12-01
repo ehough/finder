@@ -49,31 +49,31 @@ class ehough_finder_iterator_FilecontentFilterIteratorTest extends ehough_finder
         $inner = new ehough_finder_iterator_MockFileListIterator();
 
         $inner[] = new ehough_finder_iterator_MockSplFileInfo(array(
-            'name'     => 'a.txt',
+            'name' => 'a.txt',
             'contents' => 'Lorem ipsum...',
-            'type'     => 'file',
-            'mode'     => 'r+',)
+            'type' => 'file',
+            'mode' => 'r+',)
         );
 
         $inner[] = new ehough_finder_iterator_MockSplFileInfo(array(
-            'name'     => 'b.yml',
+            'name' => 'b.yml',
             'contents' => 'dolor sit...',
-            'type'     => 'file',
-            'mode'     => 'r+',)
+            'type' => 'file',
+            'mode' => 'r+',)
         );
 
         $inner[] = new ehough_finder_iterator_MockSplFileInfo(array(
-            'name'     => 'some/other/dir/third.php',
+            'name' => 'some/other/dir/third.php',
             'contents' => 'amet...',
-            'type'     => 'file',
-            'mode'     => 'r+',)
+            'type' => 'file',
+            'mode' => 'r+',)
         );
 
         $inner[] = new ehough_finder_iterator_MockSplFileInfo(array(
-            'name'     => 'unreadable-file.txt',
+            'name' => 'unreadable-file.txt',
             'contents' => false,
-            'type'     => 'file',
-            'mode'     => 'r+',)
+            'type' => 'file',
+            'mode' => 'r+',)
         );
 
         return array(

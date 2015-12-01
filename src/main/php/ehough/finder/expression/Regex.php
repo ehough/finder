@@ -15,10 +15,10 @@
 class ehough_finder_expression_Regex implements ehough_finder_expression_ValueInterface
 {
     const START_FLAG = '^';
-    const END_FLAG   = '$';
-    const BOUNDARY   = '~';
-    const JOKER      = '.*';
-    const ESCAPING   = '\\';
+    const END_FLAG = '$';
+    const BOUNDARY = '~';
+    const JOKER = '.*';
+    const ESCAPING = '\\';
 
     /**
      * @var string
@@ -63,7 +63,7 @@ class ehough_finder_expression_Regex implements ehough_finder_expression_ValueIn
     {
         if (preg_match('/^(.{3,}?)([imsxuADU]*)$/', $expr, $m)) {
             $start = substr($m[1], 0, 1);
-            $end   = substr($m[1], -1);
+            $end = substr($m[1], -1);
 
             if (
                 ($start === $end && !preg_match('/[*?[:alnum:] \\\\]/', $start))

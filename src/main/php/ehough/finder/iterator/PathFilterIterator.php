@@ -57,7 +57,7 @@ class ehough_finder_iterator_PathFilterIterator extends ehough_finder_iterator_M
      * PCRE patterns are left unchanged.
      *
      * Default conversion:
-     *     'lorem/ipsum/dolor'  ==>  'lorem\/ipsum\/dolor/'
+     *     'lorem/ipsum/dolor' ==>  'lorem\/ipsum\/dolor/'
      *
      * Use only / as directory separator (on Windows also).
      *
