@@ -265,7 +265,7 @@ abstract class ehough_finder_adapter_AbstractFindAdapter extends ehough_finder_a
         foreach ($dates as $i => $date) {
             $command->add($i > 0 ? '-and' : null);
 
-            $mins = (int) round((time()-$date->getTarget()) / 60);
+            $mins = (int) round((time() - $date->getTarget()) / 60);
 
             if (0 > $mins) {
                 // mtime is in the future
