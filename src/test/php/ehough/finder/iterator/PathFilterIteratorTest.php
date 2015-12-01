@@ -26,38 +26,38 @@ class ehough_finder_iterator_PathFilterIteratorTest extends ehough_finder_iterat
 
         //PATH:   A/B/C/abc.dat
         $inner[] = new ehough_finder_iterator_MockSplFileInfo(array(
-            'name'              => 'abc.dat',
-            'relativePathname'  => 'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat',
+            'name' => 'abc.dat',
+            'relativePathname' => 'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat',
         ));
 
         //PATH:   A/B/ab.dat
         $inner[] = new ehough_finder_iterator_MockSplFileInfo(array(
-            'name'              => 'ab.dat',
-            'relativePathname'  => 'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'ab.dat',
+            'name' => 'ab.dat',
+            'relativePathname' => 'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'ab.dat',
         ));
 
         //PATH:   A/a.dat
         $inner[] = new ehough_finder_iterator_MockSplFileInfo(array(
-            'name'              => 'a.dat',
-            'relativePathname'  => 'A'.DIRECTORY_SEPARATOR.'a.dat',
+            'name' => 'a.dat',
+            'relativePathname' => 'A'.DIRECTORY_SEPARATOR.'a.dat',
         ));
 
         //PATH:   copy/A/B/C/abc.dat.copy
         $inner[] = new ehough_finder_iterator_MockSplFileInfo(array(
-            'name'              => 'abc.dat.copy',
-            'relativePathname'  => 'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat',
+            'name' => 'abc.dat.copy',
+            'relativePathname' => 'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat',
         ));
 
         //PATH:   copy/A/B/ab.dat.copy
         $inner[] = new ehough_finder_iterator_MockSplFileInfo(array(
-            'name'              => 'ab.dat.copy',
-            'relativePathname'  => 'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'ab.dat',
+            'name' => 'ab.dat.copy',
+            'relativePathname' => 'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'ab.dat',
         ));
 
         //PATH:   copy/A/a.dat.copy
         $inner[] = new ehough_finder_iterator_MockSplFileInfo(array(
-            'name'              => 'a.dat.copy',
-            'relativePathname'  => 'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'a.dat',
+            'name' => 'a.dat.copy',
+            'relativePathname' => 'copy'.DIRECTORY_SEPARATOR.'A'.DIRECTORY_SEPARATOR.'a.dat',
         ));
 
         return array(

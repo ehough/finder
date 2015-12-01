@@ -16,7 +16,7 @@
  */
 class ehough_finder_iterator_FileTypeFilterIterator extends ehough_finder_iterator_FilterIterator
 {
-    const ONLY_FILES       = 1;
+    const ONLY_FILES = 1;
     const ONLY_DIRECTORIES = 2;
 
     private $mode;

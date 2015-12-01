@@ -17,20 +17,20 @@
 abstract class ehough_finder_adapter_AbstractAdapter implements ehough_finder_adapter_AdapterInterface
 {
     protected $followLinks = false;
-    protected $mode        = 0;
-    protected $minDepth    = 0;
-    protected $maxDepth    = PHP_INT_MAX;
-    protected $exclude     = array();
-    protected $names       = array();
-    protected $notNames    = array();
-    protected $contains    = array();
+    protected $mode = 0;
+    protected $minDepth = 0;
+    protected $maxDepth = PHP_INT_MAX;
+    protected $exclude = array();
+    protected $names = array();
+    protected $notNames = array();
+    protected $contains = array();
     protected $notContains = array();
-    protected $sizes       = array();
-    protected $dates       = array();
-    protected $filters     = array();
-    protected $sort        = false;
-    protected $paths       = array();
-    protected $notPaths    = array();
+    protected $sizes = array();
+    protected $dates = array();
+    protected $filters = array();
+    protected $sort = false;
+    protected $paths = array();
+    protected $notPaths = array();
     protected $ignoreUnreadableDirs = false;
 
     private static $areSupported = array();

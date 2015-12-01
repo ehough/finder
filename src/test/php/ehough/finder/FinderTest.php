@@ -635,7 +635,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
 
     public function testAdaptersChaining()
     {
-        $iterator  = new ArrayIterator(array());
+        $iterator = new ArrayIterator(array());
         $filenames = $this->toAbsolute(array('foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto'));
         foreach ($filenames as $file) {
             $iterator->append(new ehough_finder_SplFileInfo($file, null, null));
