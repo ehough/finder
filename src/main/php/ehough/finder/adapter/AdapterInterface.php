@@ -15,14 +15,14 @@
 interface ehough_finder_adapter_AdapterInterface
 {
     /**
-     * @param bool    $followLinks
+     * @param bool $followLinks
      *
      * @return ehough_finder_adapter_AdapterInterface Current instance
      */
     public function setFollowLinks($followLinks);
 
     /**
-     * @param int     $mode
+     * @param int $mode
      *
      * @return ehough_finder_adapter_AdapterInterface Current instance
      */
@@ -113,7 +113,7 @@ interface ehough_finder_adapter_AdapterInterface
     public function setNotPath(array $notPaths);
 
     /**
-     * @param bool    $ignore
+     * @param bool $ignore
      *
      * @return ehough_finder_adapter_AdapterInterface Current instance
      */

@@ -228,7 +228,7 @@ abstract class ehough_finder_adapter_AbstractAdapter implements ehough_finder_ad
      *
      * @see isSupported
      *
-     * @return bool    Whether the adapter is supported
+     * @return bool Whether the adapter is supported
      */
     abstract protected function canBeUsed();
 }

@@ -19,7 +19,7 @@ class ehough_finder_iterator_FilenameFilterIterator extends ehough_finder_iterat
     /**
      * Filters the iterator values.
      *
-     * @return bool    true if the value should be kept, false otherwise
+     * @return bool true if the value should be kept, false otherwise
      */
     public function accept()
     {
