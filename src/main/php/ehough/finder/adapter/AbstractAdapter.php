@@ -226,7 +226,7 @@ abstract class ehough_finder_adapter_AbstractAdapter implements ehough_finder_ad
      * isSupported in the adapters as the generic implementation provides a cache
      * layer.
      *
-     * @see isSupported
+     * @see isSupported()
      *
      * @return bool Whether the adapter is supported
      */

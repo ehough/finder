@@ -10,7 +10,7 @@
  */
 
 /**
- * Extends the \RecursiveDirectoryIterator to support relative paths
+ * Extends the \RecursiveDirectoryIterator to support relative paths.
  *
  * @author Victor Berchet <victor@suumit.com>
  */
@@ -46,7 +46,7 @@ class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirecto
     }
 
     /**
-     * Return an instance of SplFileInfo with support for relative paths
+     * Return an instance of SplFileInfo with support for relative paths.
      *
      * @return SplFileInfo File information
      */
@@ -88,7 +88,7 @@ class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirecto
     }
 
     /**
-     * Do nothing for non rewindable stream
+     * Do nothing for non rewindable stream.
      */
     public function rewind()
     {
