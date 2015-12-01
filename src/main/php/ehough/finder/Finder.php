@@ -454,7 +454,7 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
     /**
      * Adds VCS patterns.
      *
-     * @see ignoreVCS
+     * @see ignoreVCS()
      *
      * @param string|string[] $pattern VCS patterns to ignore
      */

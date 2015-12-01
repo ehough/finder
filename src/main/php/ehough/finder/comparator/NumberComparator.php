@@ -25,11 +25,10 @@
  *
  * @author    Fabien Potencier <fabien@symfony.com> PHP port
  * @author    Richard Clamp <richardc@unixbeard.net> Perl version
- *
  * @copyright 2004-2005 Fabien Potencier <fabien@symfony.com>
  * @copyright 2002 Richard Clamp <richardc@unixbeard.net>
  *
- * @see       http://physics.nist.gov/cuu/Units/binary.html
+ * @see http://physics.nist.gov/cuu/Units/binary.html
  */
 class ehough_finder_comparator_NumberComparator extends ehough_finder_comparator_Comparator
 {
