@@ -9,6 +9,9 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * @group legacy
+ */
 class ehough_finder_shell_CommandTest extends PHPUnit_Framework_TestCase
 {
     public function testCreate()

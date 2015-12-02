@@ -42,7 +42,7 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
     private $iterators = array();
     private $contains = array();
     private $notContains = array();
-    private $adapters = array();
+    private $adapters = null;
     private $paths = array();
     private $notPaths = array();
     private $ignoreUnreadableDirs = false;
@@ -55,13 +55,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
     public function __construct()
     {
         $this->ignore = self::IGNORE_VCS_FILES | self::IGNORE_DOT_FILES;
-
-        $this
-            ->addAdapter(new ehough_finder_adapter_GnuFindAdapter())
-            ->addAdapter(new ehough_finder_adapter_BsdFindAdapter())
-            ->addAdapter(new ehough_finder_adapter_PhpAdapter(), -50)
-            ->setAdapter('php')
-        ;
     }
 
     /**
@@ -84,6 +77,8 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      */
     public function addAdapter(ehough_finder_adapter_AdapterInterface $adapter, $priority = 0)
     {
+        $this->initDefaultAdapters();
+
         $this->adapters[$adapter->getName()] = array(
             'adapter' => $adapter,
             'priority' => $priority,
@@ -100,6 +95,8 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      */
     public function useBestAdapter()
     {
+        $this->initDefaultAdapters();
+
         $this->resetAdapterSelection();
 
         return $this->sortAdapters();
@@ -116,6 +113,8 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      */
     public function setAdapter($name)
     {
+        $this->initDefaultAdapters();
+
         if (!isset($this->adapters[$name])) {
             throw new InvalidArgumentException(sprintf('Adapter "%s" does not exist.', $name));
         }
@@ -145,6 +144,8 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      */
     public function getAdapters()
     {
+        $this->initDefaultAdapters();
+
         return array_values(array_map(array($this, '_callbackGetAdapters'), $this->adapters));
     }
 
@@ -720,8 +721,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * @param $dir
      *
      * @return Iterator
-     *
-     * @throws RuntimeException When none of the adapters are supported
      */
     private function searchInDirectory($dir)
     {
@@ -733,18 +732,97 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
             $this->notPaths[] = '#(^|/)\..+(/|$)#';
         }
 
-        foreach ($this->adapters as $adapter) {
-            if ($adapter['adapter']->isSupported()) {
-                try {
-                    return $this
-                        ->buildAdapter($adapter['adapter'])
-                        ->searchInDirectory($dir);
-                } catch (ehough_finder_exception_ExceptionInterface $e) {
+        if ($this->adapters) {
+            foreach ($this->adapters as $adapter) {
+                if ($adapter['adapter']->isSupported()) {
+                    try {
+                        return $this->buildAdapter($adapter['adapter'])->searchInDirectory($dir);
+                    } catch (ehough_finder_exception_ExceptionInterface $e) {
+                    }
                 }
             }
         }
 
-        throw new RuntimeException('No supported adapter found.');
+        $minDepth = 0;
+        $maxDepth = PHP_INT_MAX;
+        foreach ($this->depths as $comparator) {
+            switch ($comparator->getOperator()) {
+                case '>':
+                    $minDepth = $comparator->getTarget() + 1;
+                    break;
+                case '>=':
+                    $minDepth = $comparator->getTarget();
+                    break;
+                case '<':
+                    $maxDepth = $comparator->getTarget() - 1;
+                    break;
+                case '<=':
+                    $maxDepth = $comparator->getTarget();
+                    break;
+                default:
+                    $minDepth = $maxDepth = $comparator->getTarget();
+            }
+        }
+
+        if (version_compare(PHP_VERSION, '5.3') < 0) {
+
+            $flags = 0;
+
+        } else {
+
+            $flags = RecursiveDirectoryIterator::SKIP_DOTS;
+
+            if ($this->followLinks) {
+                $flags |= RecursiveDirectoryIterator::FOLLOW_SYMLINKS;
+            }
+        }
+
+        $iterator = new ehough_finder_iterator_RecursiveDirectoryIterator($dir, $flags, $this->ignoreUnreadableDirs);
+
+        if ($this->exclude) {
+            $iterator = new ehough_finder_iterator_ExcludeDirectoryFilterIterator($iterator, $this->exclude);
+        }
+
+        $iterator = new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
+
+        if ($minDepth > 0 || $maxDepth < PHP_INT_MAX) {
+            $iterator = new ehough_finder_iterator_DepthRangeFilterIterator($iterator, $minDepth, $maxDepth);
+        }
+
+        if ($this->mode) {
+            $iterator = new ehough_finder_iterator_FileTypeFilterIterator($iterator, $this->mode);
+        }
+
+        if ($this->names || $this->notNames) {
+            $iterator = new ehough_finder_iterator_FilenameFilterIterator($iterator, $this->names, $this->notNames);
+        }
+
+        if ($this->contains || $this->notContains) {
+            $iterator = new ehough_finder_iterator_FilecontentFilterIterator($iterator, $this->contains, $this->notContains);
+        }
+
+        if ($this->sizes) {
+            $iterator = new ehough_finder_iterator_SizeRangeFilterIterator($iterator, $this->sizes);
+        }
+
+        if ($this->dates) {
+            $iterator = new ehough_finder_iterator_DateRangeFilterIterator($iterator, $this->dates);
+        }
+
+        if ($this->filters) {
+            $iterator = new ehough_finder_iterator_CustomFilterIterator($iterator, $this->filters);
+        }
+
+        if ($this->paths || $this->notPaths) {
+            $iterator = new ehough_finder_iterator_PathFilterIterator($iterator, $this->paths, $this->notPaths);
+        }
+
+        if ($this->sort) {
+            $iteratorAggregate = new ehough_finder_iterator_SortableIterator($iterator, $this->sort);
+            $iterator = $iteratorAggregate->getIterator();
+        }
+
+        return $iterator;
     }
 
     /**
@@ -785,5 +863,18 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
         $properties['selected'] = false;
 
         return $properties;
+    }
+
+    private function initDefaultAdapters()
+    {
+        if (null === $this->adapters) {
+            $this->adapters = array();
+            $this
+                ->addAdapter(new ehough_finder_adapter_GnuFindAdapter())
+                ->addAdapter(new ehough_finder_adapter_BsdFindAdapter())
+                ->addAdapter(new ehough_finder_adapter_PhpAdapter(), -50)
+                ->setAdapter('php')
+            ;
+        }
     }
 }

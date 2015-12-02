@@ -11,9 +11,12 @@
 
 require 'FinderTest.php';
 
+/**
+ * @group legacy
+ */
 class ehough_finder_BsdFinderTest extends ehough_finder_FinderTest
 {
-    protected function getAdapter()
+    protected function buildFinder()
     {
         $adapter = new ehough_finder_adapter_BsdFindAdapter();
 
@@ -21,6 +24,8 @@ class ehough_finder_BsdFinderTest extends ehough_finder_FinderTest
             $this->markTestSkipped(get_class($adapter).' is not supported.');
         }
 
-        return $adapter;
+        return ehough_finder_Finder::create()
+            ->removeAdapters()
+            ->addAdapter($adapter);
     }
 }

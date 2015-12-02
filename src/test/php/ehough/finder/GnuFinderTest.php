@@ -9,9 +9,12 @@
  * file that was distributed with this source code.
  */
 
-class ehough_finder_GnuFinderTest extends \ehough_finder_FinderTest
+/**
+ * @group legacy
+ */
+class ehough_finder_GnuFinderTest extends ehough_finder_FinderTest
 {
-    protected function getAdapter()
+    protected function buildFinder()
     {
         $adapter = new ehough_finder_adapter_GnuFindAdapter();
 
@@ -19,6 +22,8 @@ class ehough_finder_GnuFinderTest extends \ehough_finder_FinderTest
             $this->markTestSkipped(get_class($adapter).' is not supported.');
         }
 
-        return $adapter;
+        return ehough_finder_Finder::create()
+            ->removeAdapters()
+            ->addAdapter($adapter);
     }
 }
