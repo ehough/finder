@@ -43,7 +43,7 @@ class ehough_finder_shell_CommandTest extends PHPUnit_Framework_TestCase
         $cmd = ehough_finder_shell_Command::create()->add('--force');
         $cmd->addAtIndex(ehough_finder_shell_Command::create()->add('-F'), 0);
 
-        $cmd->addAtIndex(Command::create()->add('-X'), 1);
+        $cmd->addAtIndex(ehough_finder_shell_Command::create()->add('-X'), 1);
         $this->assertSame('-F -X --force', $cmd->join());
     }
 

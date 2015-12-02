@@ -2,52 +2,46 @@
 
 /*
  * This file is part of the Symfony package.
-*
-* (c) Fabien Potencier <fabien@symfony.com>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*/
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 class ehough_finder_iterator_RecursiveDirectoryIteratorTest extends ehough_finder_iterator_IteratorTestCase
 {
     /**
-     * @dataProvider getPaths
-     *
-     * @param string $path
-     * @param bool   $seekable
-     * @param array  $contains
-     * @param string $message
+     * @group network
      */
-    public function testRewind($path, $seekable, $contains, $message = null)
+    public function testRewindOnFtp()
     {
         try {
-            $i = new ehough_finder_iterator_RecursiveDirectoryIterator($path);
+            $i = new ehough_finder_iterator_RecursiveDirectoryIterator('ftp://speedtest.tele2.net/', RecursiveDirectoryIterator::SKIP_DOTS);
         } catch (UnexpectedValueException $e) {
-            $this->markTestSkipped(sprintf('Unsupported stream "%s".', $path));
+            $this->markTestSkipped('Unsupported stream "ftp".');
         }
 
         $i->rewind();
 
-        $this->assertTrue(true, $message);
+        $this->assertTrue(true);
     }
 
     /**
-     * @dataProvider getPaths
-     *
-     * @param string $path
-     * @param bool   $seekable
-     * @param array  $contains
-     * @param string $message
+     * @group network
      */
-    public function testSeek($path, $seekable, $contains, $message = null)
+    public function testSeekOnFtp()
     {
         try {
-            $i = new ehough_finder_iterator_RecursiveDirectoryIterator($path);
+            $i = new ehough_finder_iterator_RecursiveDirectoryIterator('ftp://speedtest.tele2.net/', RecursiveDirectoryIterator::SKIP_DOTS);
         } catch (UnexpectedValueException $e) {
-            $this->markTestSkipped(sprintf('Unsupported stream "%s".', $path));
+            $this->markTestSkipped('Unsupported stream "ftp".');
         }
 
+        $contains = array(
+            'ftp://speedtest.tele2.net'.DIRECTORY_SEPARATOR.'1000GB.zip',
+            'ftp://speedtest.tele2.net'.DIRECTORY_SEPARATOR.'100GB.zip',
+        );
         $actual = array();
 
         $i->seek(0);
@@ -57,19 +51,5 @@ class ehough_finder_iterator_RecursiveDirectoryIteratorTest extends ehough_finde
         $actual[] = $i->getPathname();
 
         $this->assertEquals($contains, $actual);
-    }
-
-    public function getPaths()
-    {
-        $data = array();
-
-        // ftp
-        $contains = array(
-            'ftp://ftp.mozilla.org'.DIRECTORY_SEPARATOR.'README',
-            'ftp://ftp.mozilla.org'.DIRECTORY_SEPARATOR.'pub',
-        );
-        $data[] = array('ftp://ftp.mozilla.org/', false, $contains);
-
-        return $data;
     }
 }
