@@ -21,8 +21,6 @@
  * $finder = ehough_finder_Finder::create()->files()->name('*.php')->in(__DIR__);
  *
  * @author Fabien Potencier <fabien@symfony.com>
- *
- * @api
  */
 class ehough_finder_Finder implements ehough_finder_FinderInterface
 {
@@ -69,9 +67,7 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
     /**
      * Creates a new ehough_finder_Finder.
      *
-     * @return ehough_finder_Finder A new ehough_finder_Finder instance
-     *
-     * @api
+     * @return ehough_finder_Finder A new Finder instance
      */
     public static function create()
     {
@@ -160,9 +156,7 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
     /**
      * Restricts the matching to directories only.
      *
-     * @return ehough_finder_Finder The current ehough_finder_Finder instance
-     *
-     * @api
+     * @return ehough_finder_Finder The current Finder instance
      */
     public function directories()
     {
@@ -174,9 +168,7 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
     /**
      * Restricts the matching to files only.
      *
-     * @return ehough_finder_Finder The current ehough_finder_Finder instance
-     *
-     * @api
+     * @return ehough_finder_Finder The current Finder instance
      */
     public function files()
     {
@@ -199,8 +191,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      *
      * @see ehough_finder_iterator_DepthRangeFilterIterator
      * @see ehough_finder_comparator_NumberComparator
-     *
-     * @api
      */
     public function depth($level)
     {
@@ -226,8 +216,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * @see strtotime
      * @see ehough_finder_iterator_DateRangeFilterIterator
      * @see ehough_finder_comparator_DateComparator
-     *
-     * @api
      */
     public function date($date)
     {
@@ -250,8 +238,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @see ehough_finder_iterator_FilenameFilterIterator
-     *
-     * @api
      */
     public function name($pattern)
     {
@@ -268,8 +254,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @see ehough_finder_iterator_FilenameFilterIterator
-     *
-     * @api
      */
     public function notName($pattern)
     {
@@ -379,8 +363,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      *
      * @see ehough_finder_iterator_SizeRangeFilterIterator
      * @see ehough_finder_comparator_NumberComparator
-     *
-     * @api
      */
     public function size($size)
     {
@@ -397,8 +379,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @see ehough_finder_iterator_ExcludeDirectoryFilterIterator
-     *
-     * @api
      */
     public function exclude($dirs)
     {
@@ -415,8 +395,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @see ehough_finder_iterator_ExcludeDirectoryFilterIterator
-     *
-     * @api
      */
     public function ignoreDotFiles($ignoreDotFiles)
     {
@@ -437,8 +415,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @see ehough_finder_iterator_ExcludeDirectoryFilterIterator
-     *
-     * @api
      */
     public function ignoreVCS($ignoreVCS)
     {
@@ -479,8 +455,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @see ehough_finder_iterator_SortableIterator
-     *
-     * @api
      */
     public function sort($closure)
     {
@@ -497,8 +471,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @see ehough_finder_iterator_SortableIterator
-     *
-     * @api
      */
     public function sortByName()
     {
@@ -515,8 +487,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @see ehough_finder_iterator_SortableIterator
-     *
-     * @api
      */
     public function sortByType()
     {
@@ -535,8 +505,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @see ehough_finder_iterator_SortableIterator
-     *
-     * @api
      */
     public function sortByAccessedTime()
     {
@@ -557,8 +525,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @see ehough_finder_iterator_SortableIterator
-     *
-     * @api
      */
     public function sortByChangedTime()
     {
@@ -577,8 +543,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @see ehough_finder_iterator_SortableIterator
-     *
-     * @api
      */
     public function sortByModifiedTime()
     {
@@ -598,8 +562,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @see ehough_finder_iterator_CustomFilterIterator
-     *
-     * @api
      */
     public function filter($closure)
     {
@@ -612,8 +574,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * Forces the following of symlinks.
      *
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
-     *
-     * @api
      */
     public function followLinks()
     {
@@ -646,8 +606,6 @@ class ehough_finder_Finder implements ehough_finder_FinderInterface
      * @return ehough_finder_Finder The current ehough_finder_Finder instance
      *
      * @throws InvalidArgumentException if one of the directories does not exist
-     *
-     * @api
      */
     public function in($dirs)
     {
