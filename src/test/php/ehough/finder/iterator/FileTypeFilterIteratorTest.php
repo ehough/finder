@@ -39,6 +39,7 @@ class ehough_finder_iterator_FileTypeFilterIteratorTest extends ehough_finder_it
             '.git',
             'foo',
             'toto',
+            'toto/.git',
             '.foo',
         );
 
