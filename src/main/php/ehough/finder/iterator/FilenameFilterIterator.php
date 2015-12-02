@@ -23,27 +23,7 @@ class ehough_finder_iterator_FilenameFilterIterator extends ehough_finder_iterat
      */
     public function accept()
     {
-        $filename = $this->current()->getFilename();
-
-        // should at least not match one rule to exclude
-        foreach ($this->noMatchRegexps as $regex) {
-            if (preg_match($regex, $filename)) {
-                return false;
-            }
-        }
-
-        // should at least match one rule
-        $match = true;
-        if ($this->matchRegexps) {
-            $match = false;
-            foreach ($this->matchRegexps as $regex) {
-                if (preg_match($regex, $filename)) {
-                    return true;
-                }
-            }
-        }
-
-        return $match;
+        return $this->isAccepted($this->current()->getFilename());
     }
 
     /**
@@ -58,6 +38,6 @@ class ehough_finder_iterator_FilenameFilterIterator extends ehough_finder_iterat
      */
     protected function toRegex($str)
     {
-        return ehough_finder_expression_Expression::create($str)->getRegex()->render();
+        return $this->isRegex($str) ? $str : ehough_finder_Glob::toRegex($str);
     }
 }

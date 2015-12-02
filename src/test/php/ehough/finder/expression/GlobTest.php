@@ -9,6 +9,9 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * @group legacy
+ */
 class ehough_finder_expression_GlobTest extends PHPUnit_Framework_TestCase
 {
     /**

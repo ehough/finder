@@ -257,6 +257,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
             dirname(__FILE__).DIRECTORY_SEPARATOR.'BsdFinderTest.php',
             dirname(__FILE__).DIRECTORY_SEPARATOR.'FinderTest.php',
             dirname(__FILE__).DIRECTORY_SEPARATOR.'GnuFinderTest.php',
+            dirname(__FILE__).DIRECTORY_SEPARATOR.'PhpFinderTest.php',
             dirname(__FILE__).DIRECTORY_SEPARATOR.'GlobTest.php',
         );
 
@@ -546,6 +547,9 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $this->assertIterator($this->toAbsoluteFixtures($expected), $finder);
     }
 
+    /**
+     * @group legacy
+     */
     public function testAdaptersOrdering()
     {
         $finder = ehough_finder_Finder::create()
@@ -567,6 +571,9 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         return $adapter->getName();
     }
 
+    /**
+     * @group legacy
+     */
     public function testAdaptersChaining()
     {
         $iterator = new ArrayIterator(array());
@@ -621,6 +628,9 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $this->assertIterator($this->toAbsoluteFixtures($expected), $finder);
     }
 
+    /**
+     * @group legacy
+     */
     public function testAdapterSelection()
     {
         // test that by default, ehough_finder_adapter_PhpAdapter is selected
@@ -751,18 +761,8 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         }
     }
 
-    /**
-     * @return ehough_finder_adapter_AdapterInterface
-     */
-    protected function getAdapter()
+    protected function buildFinder()
     {
-        return new ehough_finder_adapter_PhpAdapter();
-    }
-
-    private function buildFinder()
-    {
-        return ehough_finder_Finder::create()
-            ->removeAdapters()
-            ->addAdapter($this->getAdapter());
+        return ehough_finder_Finder::create();
     }
 }

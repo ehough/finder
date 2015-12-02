@@ -39,25 +39,7 @@ class ehough_finder_iterator_FilecontentFilterIterator extends ehough_finder_ite
             return false;
         }
 
-        // should at least not match one rule to exclude
-        foreach ($this->noMatchRegexps as $regex) {
-            if (preg_match($regex, $content)) {
-                return false;
-            }
-        }
-
-        // should at least match one rule
-        $match = true;
-        if ($this->matchRegexps) {
-            $match = false;
-            foreach ($this->matchRegexps as $regex) {
-                if (preg_match($regex, $content)) {
-                    return true;
-                }
-            }
-        }
-
-        return $match;
+        return $this->isAccepted($content);
     }
 
     /**
