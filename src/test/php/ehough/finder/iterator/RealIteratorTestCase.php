@@ -31,6 +31,7 @@ abstract class ehough_finder_iterator_RealIteratorTestCase extends ehough_finder
             'foo/bar.tmp',
             'test.php',
             'toto/',
+            'toto/.git/',
             'foo bar',
         );
 

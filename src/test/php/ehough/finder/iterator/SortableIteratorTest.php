@@ -81,6 +81,7 @@ class ehough_finder_iterator_SortableIteratorTest extends ehough_finder_iterator
             'test.php',
             'test.py',
             'toto',
+            'toto/.git',
         );
 
         $sortByType = array(
@@ -88,6 +89,7 @@ class ehough_finder_iterator_SortableIteratorTest extends ehough_finder_iterator
             '.git',
             'foo',
             'toto',
+            'toto/.git',
             '.bar',
             '.foo/.bar',
             '.foo/bar',
@@ -109,6 +111,7 @@ class ehough_finder_iterator_SortableIteratorTest extends ehough_finder_iterator
             'test.php',
             'test.py',
             'toto',
+            'toto/.git',
         );
 
         $sortByAccessedTime = array(
@@ -123,6 +126,7 @@ class ehough_finder_iterator_SortableIteratorTest extends ehough_finder_iterator
                 'test.py',
                 'foo',
                 'toto',
+                'toto/.git',
                 'foo bar',
             ),
             // This file was accessed after sleeping for 1 sec
@@ -139,6 +143,7 @@ class ehough_finder_iterator_SortableIteratorTest extends ehough_finder_iterator
                 'foo',
                 'foo/bar.tmp',
                 'toto',
+                'toto/.git',
                 'foo bar',
             ),
             array('test.php'),
@@ -155,6 +160,7 @@ class ehough_finder_iterator_SortableIteratorTest extends ehough_finder_iterator
                 'foo',
                 'foo/bar.tmp',
                 'toto',
+                'toto/.git',
                 'foo bar',
             ),
             array('test.php'),

@@ -55,6 +55,7 @@ class ehough_finder_iterator_DepthRangeFilterIteratorTest extends ehough_finder_
             'foo/bar.tmp',
             'test.php',
             'toto',
+            'toto/.git',
             '.foo',
             '.foo/.bar',
             '.bar',
@@ -63,12 +64,14 @@ class ehough_finder_iterator_DepthRangeFilterIteratorTest extends ehough_finder_
         );
 
         $graterThanOrEqualTo1 = array(
+            'toto/.git',
             'foo/bar.tmp',
             '.foo/.bar',
             '.foo/bar',
         );
 
         $equalTo1 = array(
+            'toto/.git',
             'foo/bar.tmp',
             '.foo/.bar',
             '.foo/bar',

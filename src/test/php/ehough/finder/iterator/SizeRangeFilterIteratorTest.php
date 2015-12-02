@@ -31,6 +31,7 @@ class ehough_finder_iterator_SizeRangeFilterIteratorTest extends ehough_finder_i
             'foo',
             'test.php',
             'toto',
+            'toto/.git',
         );
 
         return array(

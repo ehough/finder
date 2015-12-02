@@ -26,6 +26,11 @@ class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirecto
      */
     private $rewindable;
 
+    // these 3 properties take part of the performance optimization to avoid redoing the same work in all iterations
+    private $rootPath;
+    private $subPath;
+    private $directorySeparator = '/';
+
     /**
      * Constructor.
      *
@@ -43,6 +48,10 @@ class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirecto
 
         @parent::__construct($path, $flags);
         $this->ignoreUnreadableDirs = $ignoreUnreadableDirs;
+        $this->rootPath = (string) $path;
+        if ('/' !== DIRECTORY_SEPARATOR && !($flags & self::UNIX_PATHS)) {
+            $this->directorySeparator = DIRECTORY_SEPARATOR;
+        }
     }
 
     /**
@@ -52,7 +61,17 @@ class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirecto
      */
     public function current()
     {
-        return new ehough_finder_SplFileInfo(parent::current()->getPathname(), $this->getSubPath(), $this->getSubPathname());
+        // the logic here avoids redoing the same work in all iterations
+
+        if (null === $subPathname = $this->subPath) {
+            $subPathname = $this->subPath = (string) $this->getSubPath();
+        }
+        if ('' !== $subPathname) {
+            $subPathname .= $this->directorySeparator;
+        }
+        $subPathname .= $this->getFilename();
+
+        return new ehough_finder_SplFileInfo($this->rootPath.$this->directorySeparator.$subPathname, $this->subPath, $subPathname);
     }
 
     /**
@@ -68,6 +87,10 @@ class ehough_finder_iterator_RecursiveDirectoryIterator extends RecursiveDirecto
             if ($children instanceof self) {
                 // parent method will call the constructor with default arguments, so unreadable dirs won't be ignored anymore
                 $children->ignoreUnreadableDirs = $this->ignoreUnreadableDirs;
+
+                // performance optimization to avoid redoing the same work in all children
+                $children->rewindable = &$this->rewindable;
+                $children->rootPath = $this->rootPath;
             }
 
             return $children;

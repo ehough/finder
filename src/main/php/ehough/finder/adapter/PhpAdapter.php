@@ -34,10 +34,13 @@ class ehough_finder_adapter_PhpAdapter extends ehough_finder_adapter_AbstractAda
             }
         }
 
-        $iterator = new RecursiveIteratorIterator(
-            new ehough_finder_iterator_RecursiveDirectoryIterator($dir, $flags, $this->ignoreUnreadableDirs),
-            RecursiveIteratorIterator::SELF_FIRST
-        );
+        $iterator = new ehough_finder_iterator_RecursiveDirectoryIterator($dir, $flags, $this->ignoreUnreadableDirs);
+
+        if ($this->exclude) {
+            $iterator = new ehough_finder_iterator_ExcludeDirectoryFilterIterator($iterator, $this->exclude);
+        }
+
+        $iterator = new \RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
 
         if ($this->minDepth > 0 || $this->maxDepth < PHP_INT_MAX) {
             $iterator = new ehough_finder_iterator_DepthRangeFilterIterator($iterator, $this->minDepth, $this->maxDepth);
@@ -45,10 +48,6 @@ class ehough_finder_adapter_PhpAdapter extends ehough_finder_adapter_AbstractAda
 
         if ($this->mode) {
             $iterator = new ehough_finder_iterator_FileTypeFilterIterator($iterator, $this->mode);
-        }
-
-        if ($this->exclude) {
-            $iterator = new ehough_finder_iterator_ExcludeDirectoryFilterIterator($iterator, $this->exclude);
         }
 
         if ($this->names || $this->notNames) {
@@ -71,13 +70,13 @@ class ehough_finder_adapter_PhpAdapter extends ehough_finder_adapter_AbstractAda
             $iterator = new ehough_finder_iterator_CustomFilterIterator($iterator, $this->filters);
         }
 
+        if ($this->paths || $this->notPaths) {
+            $iterator = new ehough_finder_iterator_PathFilterIterator($iterator, $this->paths, $this->notPaths);
+        }
+
         if ($this->sort) {
             $iteratorAggregate = new ehough_finder_iterator_SortableIterator($iterator, $this->sort);
             $iterator = $iteratorAggregate->getIterator();
-        }
-
-        if ($this->paths || $this->notPaths) {
-            $iterator = new ehough_finder_iterator_PathFilterIterator($iterator, $this->paths, $this->notPaths);
         }
 
         return $iterator;

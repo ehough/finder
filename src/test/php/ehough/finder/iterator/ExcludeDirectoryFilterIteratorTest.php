@@ -43,6 +43,7 @@ class ehough_finder_iterator_ExcludeDirectoryFilterIteratorTest extends ehough_f
             'test.py',
             'test.php',
             'toto',
+            'toto/.git',
             'foo bar',
         );
 
@@ -57,6 +58,7 @@ class ehough_finder_iterator_ExcludeDirectoryFilterIteratorTest extends ehough_f
             'foo/bar.tmp',
             'test.php',
             'toto',
+            'toto/.git',
             'foo bar',
         );
 

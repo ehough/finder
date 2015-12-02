@@ -22,109 +22,94 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $this->assertInstanceOf('ehough_finder_Finder', ehough_finder_Finder::create());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testDirectories($adapter)
+    public function testDirectories()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->directories());
         $this->assertIterator($this->toAbsolute(array('foo', 'toto')), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->directories();
         $finder->files();
         $finder->directories();
         $this->assertIterator($this->toAbsolute(array('foo', 'toto')), $finder->in(self::$tmpDir)->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testFiles($adapter)
+    public function testFiles()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->files());
         $this->assertIterator($this->toAbsolute(array('foo/bar.tmp', 'test.php', 'test.py', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->files();
         $finder->directories();
         $finder->files();
         $this->assertIterator($this->toAbsolute(array('foo/bar.tmp', 'test.php', 'test.py', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testDepth($adapter)
+    public function testDepth()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->depth('< 1'));
         $this->assertIterator($this->toAbsolute(array('foo', 'test.php', 'test.py', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->depth('<= 0'));
         $this->assertIterator($this->toAbsolute(array('foo', 'test.php', 'test.py', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->depth('>= 1'));
         $this->assertIterator($this->toAbsolute(array('foo/bar.tmp')), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->depth('< 1')->depth('>= 1');
         $this->assertIterator(array(), $finder->in(self::$tmpDir)->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testName($adapter)
+    public function testName()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->name('*.php'));
         $this->assertIterator($this->toAbsolute(array('test.php')), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->name('test.ph*');
         $finder->name('test.py');
         $this->assertIterator($this->toAbsolute(array('test.php', 'test.py')), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->name('~^test~i');
         $this->assertIterator($this->toAbsolute(array('test.php', 'test.py')), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->name('~\\.php$~i');
         $this->assertIterator($this->toAbsolute(array('test.php')), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->name('test.p{hp,y}');
         $this->assertIterator($this->toAbsolute(array('test.php', 'test.py')), $finder->in(self::$tmpDir)->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testNotName($adapter)
+    public function testNotName()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->notName('*.php'));
         $this->assertIterator($this->toAbsolute(array('foo', 'foo/bar.tmp', 'test.py', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->notName('*.php');
         $finder->notName('*.py');
         $this->assertIterator($this->toAbsolute(array('foo', 'foo/bar.tmp', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->name('test.ph*');
         $finder->name('test.py');
         $finder->notName('*.php');
         $finder->notName('*.py');
         $this->assertIterator(array(), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->name('test.ph*');
         $finder->name('test.py');
         $finder->notName('*.p{hp,y}');
@@ -134,136 +119,102 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     /**
      * @dataProvider getRegexNameTestData
      */
-    public function testRegexName($adapter, $regex)
+    public function testRegexName($regex)
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->name($regex);
         $this->assertIterator($this->toAbsolute(array('test.py', 'test.php')), $finder->in(self::$tmpDir)->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testSize($adapter)
+    public function testSize()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->files()->size('< 1K')->size('> 500'));
         $this->assertIterator($this->toAbsolute(array('test.php')), $finder->in(self::$tmpDir)->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testDate($adapter)
+    public function testDate()
     {
-        date_default_timezone_set('America/New_York');
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->files()->date('until last month'));
         $this->assertIterator($this->toAbsolute(array('foo/bar.tmp', 'test.php')), $finder->in(self::$tmpDir)->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testExclude($adapter)
+    public function testExclude()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->exclude('foo'));
         $this->assertIterator($this->toAbsolute(array('test.php', 'test.py', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testIgnoreVCS($adapter)
+    public function testIgnoreVCS()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->ignoreVCS(false)->ignoreDotFiles(false));
-        $this->assertIterator($this->toAbsolute(array('.git', 'foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', '.bar', '.foo', '.foo/.bar', '.foo/bar', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
+        $this->assertIterator($this->toAbsolute(array('.git', 'foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', 'toto/.git', '.bar', '.foo', '.foo/.bar', '.foo/bar', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->ignoreVCS(false)->ignoreVCS(false)->ignoreDotFiles(false);
-        $this->assertIterator($this->toAbsolute(array('.git', 'foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', '.bar', '.foo', '.foo/.bar', '.foo/bar', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
+        $this->assertIterator($this->toAbsolute(array('.git', 'foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', 'toto/.git', '.bar', '.foo', '.foo/.bar', '.foo/bar', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->ignoreVCS(true)->ignoreDotFiles(false));
         $this->assertIterator($this->toAbsolute(array('foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', '.bar', '.foo', '.foo/.bar', '.foo/bar', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testIgnoreDotFiles($adapter)
+    public function testIgnoreDotFiles()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->ignoreDotFiles(false)->ignoreVCS(false));
-        $this->assertIterator($this->toAbsolute(array('.git', '.bar', '.foo', '.foo/.bar', '.foo/bar', 'foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
+        $this->assertIterator($this->toAbsolute(array('.git', '.bar', '.foo', '.foo/.bar', '.foo/bar', 'foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', 'toto/.git', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->ignoreDotFiles(false)->ignoreDotFiles(false)->ignoreVCS(false);
-        $this->assertIterator($this->toAbsolute(array('.git', '.bar', '.foo', '.foo/.bar', '.foo/bar', 'foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
+        $this->assertIterator($this->toAbsolute(array('.git', '.bar', '.foo', '.foo/.bar', '.foo/bar', 'foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', 'toto/.git', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->ignoreDotFiles(true)->ignoreVCS(false));
         $this->assertIterator($this->toAbsolute(array('foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testSortByName($adapter)
+    public function testSortByName()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->sortByName());
         $this->assertIterator($this->toAbsolute(array('foo', 'foo bar', 'foo/bar.tmp', 'test.php', 'test.py', 'toto')), $finder->in(self::$tmpDir)->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testSortByType($adapter)
+    public function testSortByType()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->sortByType());
         $this->assertIterator($this->toAbsolute(array('foo', 'foo bar', 'toto', 'foo/bar.tmp', 'test.php', 'test.py')), $finder->in(self::$tmpDir)->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testSortByAccessedTime($adapter)
+    public function testSortByAccessedTime()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->sortByAccessedTime());
         $this->assertIterator($this->toAbsolute(array('foo/bar.tmp', 'test.php', 'toto', 'test.py', 'foo', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testSortByChangedTime($adapter)
+    public function testSortByChangedTime()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->sortByChangedTime());
         $this->assertIterator($this->toAbsolute(array('toto', 'test.py', 'test.php', 'foo/bar.tmp', 'foo', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testSortByModifiedTime($adapter)
+    public function testSortByModifiedTime()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->sortByModifiedTime());
         $this->assertIterator($this->toAbsolute(array('foo/bar.tmp', 'test.php', 'toto', 'test.py', 'foo', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testSort($adapter)
+    public function testSort()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->sort(array($this, '_callbackTestSort')));
         $this->assertIterator($this->toAbsolute(array('foo', 'foo bar', 'foo/bar.tmp', 'test.php', 'test.py', 'toto')), $finder->in(self::$tmpDir)->getIterator());
     }
@@ -272,13 +223,10 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     {
         return strcmp($a->getRealpath(), $b->getRealpath());
     }
-
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testFilter($adapter)
+    
+    public function testFilter()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->filter(array($this, '_callbackTestFilter')));
         $this->assertIterator($this->toAbsolute(array('test.php', 'test.py')), $finder->in(self::$tmpDir)->getIterator());
     }
@@ -287,86 +235,80 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     {
         return false !== strpos($f, 'test');
     }
-
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testFollowLinks($adapter)
+    
+    public function testFollowLinks()
     {
         if ('\\' == DIRECTORY_SEPARATOR) {
-            return;
+            $this->markTestSkipped('symlinks are not supported on Windows');
         }
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertSame($finder, $finder->followLinks());
         $this->assertIterator($this->toAbsolute(array('foo', 'foo/bar.tmp', 'test.php', 'test.py', 'toto', 'foo bar')), $finder->in(self::$tmpDir)->getIterator());
     }
-
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testIn($adapter)
+    
+    public function testIn()
     {
-        $finder = $this->buildFinder($adapter);
-        try {
-            $finder->in('foobar');
-            $this->fail('->in() throws a InvalidArgumentException if the directory does not exist');
-        } catch (Exception $e) {
-            $this->assertInstanceOf('InvalidArgumentException', $e, '->in() throws a InvalidArgumentException if the directory does not exist');
-        }
-
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $iterator = $finder->files()->name('*.php')->depth('< 1')->in(array(self::$tmpDir, dirname(__FILE__)))->getIterator();
 
-        $this->assertIterator(array(self::$tmpDir.DIRECTORY_SEPARATOR.'test.php', dirname(__FILE__).DIRECTORY_SEPARATOR.'FinderTest.php', dirname(__FILE__).DIRECTORY_SEPARATOR.'GlobTest.php'), $iterator);
+        $expected = array(
+            self::$tmpDir.DIRECTORY_SEPARATOR.'test.php',
+            dirname(__FILE__).DIRECTORY_SEPARATOR.'BsdFinderTest.php',
+            dirname(__FILE__).DIRECTORY_SEPARATOR.'FinderTest.php',
+            dirname(__FILE__).DIRECTORY_SEPARATOR.'GnuFinderTest.php',
+            dirname(__FILE__).DIRECTORY_SEPARATOR.'GlobTest.php',
+        );
+
+        $this->assertIterator($expected, $iterator);
     }
 
     /**
-     * @dataProvider getAdaptersTestData
+     * @expectedException InvalidArgumentException
      */
-    public function testInWithGlob($adapter)
+    public function testInWithNonExistentDirectory()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = new ehough_finder_Finder();
+        $finder->in('foobar');
+    }
+
+    public function testInWithGlob()
+    {
+        $finder = $this->buildFinder();
         $finder->in(array(dirname(__FILE__).'/Fixtures/*/B/C', dirname(__FILE__).'/Fixtures/*/*/B/C'))->getIterator();
 
         $this->assertIterator($this->toAbsoluteFixtures(array('A/B/C/abc.dat', 'copy/A/B/C/abc.dat.copy')), $finder);
     }
 
     /**
-     * @dataProvider getAdaptersTestData
      * @expectedException InvalidArgumentException
      */
-    public function testInWithNonDirectoryGlob($adapter)
+    public function testInWithNonDirectoryGlob()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = new ehough_finder_Finder();
         $finder->in(dirname(__FILE__).'/Fixtures/A/a*');
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testInWithGlobBrace($adapter)
+    public function testInWithGlobBrace()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->in(array(dirname(__FILE__).'/Fixtures/{A,copy/A}/B/C'))->getIterator();
 
         $this->assertIterator($this->toAbsoluteFixtures(array('A/B/C/abc.dat', 'copy/A/B/C/abc.dat.copy')), $finder);
     }
 
     /**
-     * @dataProvider getAdaptersTestData
+     * @expectedException LogicException
      */
-    public function testGetIterator($adapter)
+    public function testGetIteratorWithoutIn()
     {
-        $finder = $this->buildFinder($adapter);
-        try {
-            $finder->getIterator();
-            $this->fail('->getIterator() throws a \LogicException if the in() method has not been called');
-        } catch (Exception $e) {
-            $this->assertInstanceOf('LogicException', $e, '->getIterator() throws a \LogicException if the in() method has not been called');
-        }
+        $finder = ehough_finder_Finder::create();
+        $finder->getIterator();
+    }
 
-        $finder = $this->buildFinder($adapter);
+    public function testGetIterator()
+    {
+        $finder = $this->buildFinder();
         $dirs = array();
         foreach ($finder->directories()->in(self::$tmpDir) as $dir) {
             $dirs[] = (string) $dir;
@@ -379,10 +321,10 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
 
         $this->assertEquals($expected, $dirs, 'implements the IteratorAggregate interface');
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $this->assertEquals(2, iterator_count($finder->directories()->in(self::$tmpDir)), 'implements the IteratorAggregate interface');
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $a = iterator_to_array($finder->directories()->in(self::$tmpDir));
         $a = array_values(array_map(array($this, '_callbackTestGetIterator'), $a));
         sort($a);
@@ -394,12 +336,9 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         return (string) $a;
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testRelativePath($adapter)
+    public function testRelativePath()
     {
-        $finder = $this->buildFinder($adapter)->in(self::$tmpDir);
+        $finder = $this->buildFinder()->in(self::$tmpDir);
 
         $paths = array();
 
@@ -415,12 +354,9 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $this->assertEquals($ref, $paths);
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testRelativePathname($adapter)
+    public function testRelativePathname()
     {
-        $finder = $this->buildFinder($adapter)->in(self::$tmpDir)->sortByName();
+        $finder = $this->buildFinder()->in(self::$tmpDir)->sortByName();
 
         $paths = array();
 
@@ -436,15 +372,12 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $this->assertEquals($ref, $paths);
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testAppendWithAFinder($adapter)
+    public function testAppendWithAFinder()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->files()->in(self::$tmpDir.DIRECTORY_SEPARATOR.'foo');
 
-        $finder1 = $this->buildFinder($adapter);
+        $finder1 = $this->buildFinder();
         $finder1->directories()->in(self::$tmpDir);
 
         $finder = $finder->append($finder1);
@@ -452,12 +385,9 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $this->assertIterator($this->toAbsolute(array('foo', 'foo/bar.tmp', 'toto')), $finder->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testAppendWithAnArray($adapter)
+    public function testAppendWithAnArray()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->files()->in(self::$tmpDir.DIRECTORY_SEPARATOR.'foo');
 
         $finder->append($this->toAbsolute(array('foo', 'toto')));
@@ -465,20 +395,14 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $this->assertIterator($this->toAbsolute(array('foo', 'foo/bar.tmp', 'toto')), $finder->getIterator());
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testAppendReturnsAFinder($adapter)
+    public function testAppendReturnsAFinder()
     {
-        $this->assertInstanceOf('ehough_finder_Finder', $this->buildFinder($adapter)->append(array()));
+        $this->assertInstanceOf('ehough_finder_Finder', ehough_finder_Finder::create()->append(array()));
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testAppendDoesNotRequireIn($adapter)
+    public function testAppendDoesNotRequireIn()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->in(self::$tmpDir.DIRECTORY_SEPARATOR.'foo');
 
         $finder1 = ehough_finder_Finder::create()->append($finder);
@@ -522,9 +446,9 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
     /**
      * @dataProvider getContainsTestData
      */
-    public function testContains($adapter, $matchPatterns, $noMatchPatterns, $expected)
+    public function testContains($matchPatterns, $noMatchPatterns, $expected)
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->in(dirname(__FILE__).DIRECTORY_SEPARATOR.'Fixtures')
             ->name('*.txt')->sortByName()
             ->contains($matchPatterns)
@@ -533,12 +457,9 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $this->assertIterator($this->toAbsoluteFixtures($expected), $finder);
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testContainsOnDirectory(ehough_finder_adapter_AdapterInterface $adapter)
+    public function testContainsOnDirectory()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->in(dirname(__FILE__))
             ->directories()
             ->name('Fixtures')
@@ -546,12 +467,9 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $this->assertIterator(array(), $finder);
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testNotContainsOnDirectory(ehough_finder_adapter_AdapterInterface $adapter)
+    public function testNotContainsOnDirectory()
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->in(dirname(__FILE__))
             ->directories()
             ->name('Fixtures')
@@ -565,10 +483,8 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
      * with inner FilesystemIterator in an invalid state.
      *
      * @see https://bugs.php.net/bug.php?id=49104
-     *
-     * @dataProvider getAdaptersTestData
      */
-    public function testMultipleLocations(ehough_finder_adapter_AdapterInterface $adapter)
+    public function testMultipleLocations()
     {
         $locations = array(
             self::$tmpDir.'/',
@@ -576,36 +492,57 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         );
 
         // it is expected that there are test.py test.php in the tmpDir
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->in($locations)->depth('< 1')->name('test.php');
 
         $this->assertCount(1, $finder);
     }
 
     /**
-     * Iterator keys must be the file pathname.
+     * Searching in multiple locations with sub directories involves
+     * AppendIterator which does an unnecessary rewind which leaves
+     * FilterIterator with inner FilesystemIterator in an invalid state.
      *
-     * @dataProvider getAdaptersTestData
+     * @see https://bugs.php.net/bug.php?id=49104
      */
-    public function testIteratorKeys(ehough_finder_adapter_AdapterInterface $adapter)
+    public function testMultipleLocationsWithSubDirectories()
     {
-        $finder = $this->buildFinder($adapter)->in(self::$tmpDir);
+        $locations = array(
+            dirname(__FILE__).'/Fixtures/one',
+            self::$tmpDir.DIRECTORY_SEPARATOR.'toto',
+        );
+
+        $finder = $this->buildFinder();
+        $finder->in($locations)->depth('< 10')->name('*.neon');
+
+        $expected = array(
+            dirname(__FILE__).'/Fixtures/one'.DIRECTORY_SEPARATOR.'b'.DIRECTORY_SEPARATOR.'c.neon',
+            dirname(__FILE__).'/Fixtures/one'.DIRECTORY_SEPARATOR.'b'.DIRECTORY_SEPARATOR.'d.neon',
+        );
+
+        $this->assertIterator($expected, $finder);
+        $this->assertIteratorInForeach($expected, $finder);
+    }
+
+    /**
+     * Iterator keys must be the file pathname.
+     */
+    public function testIteratorKeys()
+    {
+        $finder = $this->buildFinder()->in(self::$tmpDir);
         foreach ($finder as $key => $file) {
             $this->assertEquals($file->getPathname(), $key);
         }
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testRegexSpecialCharsLocationWithPathRestrictionContainingStartFlag(ehough_finder_adapter_AdapterInterface $adapter)
+    public function testRegexSpecialCharsLocationWithPathRestrictionContainingStartFlag()
     {
-        $finder = $this->buildFinder($adapter);
-        $finder->in(__DIR__.DIRECTORY_SEPARATOR.'Fixtures'.DIRECTORY_SEPARATOR.'r+e.gex[c]a(r)s')
+        $finder = $this->buildFinder();
+        $finder->in(dirname(__FILE__).DIRECTORY_SEPARATOR.'Fixtures'.DIRECTORY_SEPARATOR.'r+e.gex[c]a(r)s')
             ->path('/^dir/');
 
         $expected = array('r+e.gex[c]a(r)s'.DIRECTORY_SEPARATOR.'dir',
-                          'r+e.gex[c]a(r)s'.DIRECTORY_SEPARATOR.'dir'.DIRECTORY_SEPARATOR.'bar.dat',);
+            'r+e.gex[c]a(r)s'.DIRECTORY_SEPARATOR.'dir'.DIRECTORY_SEPARATOR.'bar.dat',);
         $this->assertIterator($this->toAbsoluteFixtures($expected), $finder);
     }
 
@@ -647,22 +584,9 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         $this->assertIterator($filenames, $finder->in(sys_get_temp_dir())->getIterator());
     }
 
-    public function getAdaptersTestData()
-    {
-        return array_map(
-            array($this, '_callbackGetAdaptersTestData'),
-            $this->getValidAdapters()
-        );
-    }
-
-    public function _callbackGetAdaptersTestData($adapter)
-    {
-        return array($adapter);
-    }
-
     public function getContainsTestData()
     {
-        $tests = array(
+        return array(
             array('', '', array()),
             array('foo', 'bar', array()),
             array('', 'foobar', array('dolor.txt', 'ipsum.txt', 'lorem.txt')),
@@ -674,26 +598,22 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
             array('', 'lorem', array('dolor.txt', 'ipsum.txt')),
             array('ipsum dolor sit amet', '/^IPSUM/m', array('lorem.txt')),
         );
-
-        return $this->buildTestData($tests);
     }
 
     public function getRegexNameTestData()
     {
-        $tests = array(
+        return array(
             array('~.+\\.p.+~i'),
             array('~t.*s~i'),
         );
-
-        return $this->buildTestData($tests);
     }
 
     /**
      * @dataProvider getTestPathData
      */
-    public function testPath(ehough_finder_adapter_AdapterInterface $adapter, $matchPatterns, $noMatchPatterns, array $expected)
+    public function testPath($matchPatterns, $noMatchPatterns, array $expected)
     {
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->in(dirname(__FILE__).DIRECTORY_SEPARATOR.'Fixtures')
             ->path($matchPatterns)
             ->notPath($noMatchPatterns);
@@ -718,7 +638,7 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
 
     public function getTestPathData()
     {
-        $tests = array(
+        return array(
             array('', '', array()),
             array('/^A\/B\/C/', '/C$/',
                 array('A'.DIRECTORY_SEPARATOR.'B'.DIRECTORY_SEPARATOR.'C'.DIRECTORY_SEPARATOR.'abc.dat'),
@@ -759,20 +679,15 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
                 ),
             ),
         );
-
-        return $this->buildTestData($tests);
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testAccessDeniedException(ehough_finder_adapter_AdapterInterface $adapter)
+    public function testAccessDeniedException()
     {
         if ('\\' === DIRECTORY_SEPARATOR) {
             $this->markTestSkipped('chmod is not supported on Windows');
         }
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->files()->in(self::$tmpDir);
 
         // make 'foo' directory non-readable
@@ -806,16 +721,13 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         }
     }
 
-    /**
-     * @dataProvider getAdaptersTestData
-     */
-    public function testIgnoredAccessDeniedException(ehough_finder_adapter_AdapterInterface $adapter)
+    public function testIgnoredAccessDeniedException()
     {
         if ('\\' === DIRECTORY_SEPARATOR) {
             $this->markTestSkipped('chmod is not supported on Windows');
         }
 
-        $finder = $this->buildFinder($adapter);
+        $finder = $this->buildFinder();
         $finder->files()->ignoreUnreadableDirs()->in(self::$tmpDir);
 
         // make 'foo' directory non-readable
@@ -839,65 +751,18 @@ class ehough_finder_FinderTest extends ehough_finder_iterator_RealIteratorTestCa
         }
     }
 
-    private function buildTestData(array $tests)
+    /**
+     * @return ehough_finder_adapter_AdapterInterface
+     */
+    protected function getAdapter()
     {
-        $data = array();
-        foreach ($this->getValidAdapters() as $adapter) {
-            foreach ($tests as $test) {
-                $data[] = array_merge(array($adapter), $test);
-            }
-        }
-
-        return $data;
+        return new ehough_finder_adapter_PhpAdapter();
     }
 
-    private function buildFinder(ehough_finder_adapter_AdapterInterface $adapter)
+    private function buildFinder()
     {
         return ehough_finder_Finder::create()
             ->removeAdapters()
-            ->addAdapter($adapter);
-    }
-
-    private function getValidAdapters()
-    {
-        return array_filter(
-            array(
-                new ehough_finder_adapter_BsdFindAdapter(),
-                new ehough_finder_adapter_GnuFindAdapter(),
-                new ehough_finder_adapter_PhpAdapter(),
-            ),
-            array($this, '_callbackGetValidAdapters')
-        );
-    }
-
-    public function _callbackGetValidAdapters(ehough_finder_adapter_AdapterInterface $adapter)
-    {
-        return $adapter->isSupported();
-    }
-
-   /**
-     * Searching in multiple locations with sub directories involves
-     * AppendIterator which does an unnecessary rewind which leaves
-     * FilterIterator with inner FilesystemIterator in an invalid state.
-     *
-     * @see https://bugs.php.net/bug.php?id=49104
-     */
-    public function testMultipleLocationsWithSubDirectories()
-    {
-        $locations = array(
-            dirname(__FILE__).'/Fixtures/one',
-            self::$tmpDir.DIRECTORY_SEPARATOR.'toto',
-        );
-
-        $finder = new ehough_finder_Finder();
-        $finder->in($locations)->depth('< 10')->name('*.neon');
-
-        $expected = array(
-            dirname(__FILE__).'/Fixtures/one'.DIRECTORY_SEPARATOR.'b'.DIRECTORY_SEPARATOR.'c.neon',
-            dirname(__FILE__).'/Fixtures/one'.DIRECTORY_SEPARATOR.'b'.DIRECTORY_SEPARATOR.'d.neon',
-        );
-
-        $this->assertIterator($expected, $finder);
-        $this->assertIteratorInForeach($expected, $finder);
+            ->addAdapter($this->getAdapter());
     }
 }
